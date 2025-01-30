@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'JetBrains-Regular';
+    src: url('/fonts/JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JetBrains-Light';
+    src: url('/fonts/JetBrainsMono-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AbhayaLibre-ExtraBold';
+    src: url('/fonts/AbhayaLibre-ExtraBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: 'JetBrains-Regular', sans-serif;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}

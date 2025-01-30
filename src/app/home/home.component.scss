@@ -1,0 +1,47 @@
+.canvas {
+    height: 400vh;
+}
+
+.presented {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+.planets {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.planet-a {
+    width: 1000px;
+    height: 1000px;
+    border-radius: 100%;
+    z-index: -2;
+    filter: blur(20.6px);
+    background: linear-gradient(126deg, rgba(114,77,218,1) 0%, rgba(57, 186, 203, 0.1) 40%, rgba(0, 0, 0, 0) 50%);
+}
+
+#planet-b {
+    position: absolute;
+    z-index: -1;
+}
+
+.page-0 {
+    z-index: 1;
+    .title {
+        font-family: 'AbhayaLibre-ExtraBold', sans-serif;
+        font-size: 10vw;
+    }
+
+    span {
+        font-family: 'JetBrains-Light', sans-serif;
+        color: #4F44D6;
+        font-size: 4vw;
+    }
+}
