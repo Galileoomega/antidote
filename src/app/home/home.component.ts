@@ -8,6 +8,11 @@ import { Component, HostListener } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  public currentPageIndex: number = 1;
+
+  private mouseX: number = 0;
+  private mouseY: number = 0;
+
   private scrollPosition: number = 0;
   public screenWidth: number;
   public screenHeight: number;
@@ -35,12 +40,19 @@ export class HomeComponent {
     {x: 90, y: 10},
     {x: 60, y: 95},
     {x: 90, y: 70},
+    {x: 90, y: 40},
+    {x: 40, y: 54},
+    {x: 63, y: 50},
+    {x: 100, y: 100},
+    {x: 100, y: 120},
+    {x: 5, y: 100},
+    {x: 55, y: 100},
+    {x: 55, y: 10},
   ]
 
   private constructor() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
-
     this.generateStarsStyle();
   }
 
@@ -49,12 +61,31 @@ export class HomeComponent {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {
     this.scrollPosition = window.scrollY;
+    this.currentPageIndex = this.getPageIndexFromScroll();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(): void {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
+  }
+
+  // Listen for mousemove events on the window
+  @HostListener('mousemove', ['$event'])
+  onMouseMove(event: MouseEvent): void {
+    this.mouseX = event.clientX;
+    this.mouseY = event.clientY;
+
+    // Get the center of the screen
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+
+    // Calculate the mouse offset from the center
+    const offsetX = this.mouseX - centerX;
+    const offsetY = this.mouseY - centerY;
+
+    // Calculate the percentage of the offset relative to the screen dimensions
+    // console.log((offsetX / centerX) * 100, (offsetY / centerY) * 100)
   }
 
   // PLANET ANIMATIONS //
@@ -79,7 +110,7 @@ export class HomeComponent {
 
   private generateStarsStyle(): void {
     this.STARS_POSITIONS_RATIO.forEach(positionsRatio => {
-      const randomOriginPosition: number = this.getRandomNumber(50, 600);
+      const randomOriginPosition: number = this.getRandomNumber(50, 700);
 
       const x: number = this.calculatePercentageValue(positionsRatio.x, this.screenWidth);
       const y: number = this.calculatePercentageValue(positionsRatio.y, this.screenHeight);
@@ -97,7 +128,7 @@ export class HomeComponent {
   }
 
   public updateStarsPositions() {
-    const percentage = this.calculPercentage(3);
+    let percentage = this.calculPercentage(3);
     
     if (percentage == 0) {
       return;
@@ -106,7 +137,13 @@ export class HomeComponent {
     this.stars.forEach(star => {
       star.left = `${this.getPositionOnPercentage(star.xStart, star.xEnd, percentage)}px`;
       star.top = `${this.getPositionOnPercentage(star.yStart, star.yEnd, percentage)}px`;
-      star.opacity = this.getPositionOnPercentage(0, 1, percentage);
+      
+      if (percentage > 100) {
+        star.opacity = this.getPositionOnPercentage(1, 0, this.calculPercentage(4));
+      }
+      else {
+        star.opacity = this.getPositionOnPercentage(0, 1, percentage);
+      }
     });
 
     return this.stars;
@@ -120,6 +157,20 @@ export class HomeComponent {
 
   private calculatePercentageValue(percentage: number, number: number): number {
     return (number * percentage) / 100;
+  }
+
+  private getPageIndexFromScroll(): number {
+    const percentage: number = ((this.scrollPosition - this.screenHeight * Math.floor(this.scrollPosition / this.screenHeight)) / this.screenHeight) * 100;
+
+    // Calculate the pageIndex by dividing scrollPosition by screenHeight and rounding down
+    let pageIndex = Math.floor(this.scrollPosition / this.screenHeight);
+
+    // If the percentage is greater than 0, we consider being on the next page, so increment the pageIndex
+    if (percentage > 0) {
+      pageIndex += 1;
+    }
+
+    return pageIndex;
   }
 
   private calculPercentage(pageIndex: number) {
@@ -136,7 +187,13 @@ export class HomeComponent {
   }
 
   public getPositionForPage(start: number, end: number, pageIndex: number) {
-    return start + (this.calculPercentage(pageIndex) / 100 * (end - start));
+    const result = start + (this.calculPercentage(pageIndex) / 100 * (end - start));
+
+    if (result < 0) {
+      return 0;
+    }
+    
+    return result
   }
 
   public getPositionOnPercentage(start: number, end: number, percentage: number) {

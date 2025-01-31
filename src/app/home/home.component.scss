@@ -15,24 +15,48 @@
     position: absolute;
     width: 80px;
     height: 4px;
-    top: 10vh;
-    left: 10vw;
     background: rgb(114,77,218);
     background: linear-gradient(126deg, rgba(114,77,218,1) 0%, rgba(114,77,218,0) 100%);
     border-radius: 100px;
     transform: rotate(45deg);
 }
 
-.page-0 {
-    z-index: 1;
-    .title {
-        font-family: 'AbhayaLibre-ExtraBold', sans-serif;
-        font-size: 10vw;
+.band-title {
+    position: fixed;
+    bottom: 20px;
+    overflow: auto;
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 1.9vw;
+    color: #3F3F3F;
+    font-family: 'JetBrains-ExtraLight', sans-serif;
+    transition: all 0.15s ease-in-out;
+}
+
+.band-title-hide {
+    bottom: -40px;
+    opacity: 0;
+}
+
+.landing-title {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    font-family: 'JetBrains-ExtraLight', sans-serif;
+    
+    div {
+        display: flex;
+        align-items: baseline;
+    }
+
+    p {
+        font-size: 90px;
+        overflow: hidden;
     }
 
     span {
-        font-family: 'JetBrains-Light', sans-serif;
+        font-size: 40px;
+        margin-inline: 20px;
         color: #4F44D6;
-        font-size: 4vw;
     }
 }

@@ -144,10 +144,28 @@
             }
         </div>
 
-        <!-- <div class="page-0">
-            <p class="title">
-                CREATE <span>WITH</span> <br> <span>LOVE</span> ANYTHING
-            </p>
-        </div> -->
+        <div class="landing-title">
+            <div>
+                <p [ngStyle]="{
+                    'width': getPositionForPage(325, 0, 2) + 'px', 
+                    'opacity': getPositionForPage(1, 0, 2)
+                }">CREATE</p>
+
+                <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">WITH</span>
+            </div>
+
+            <div>
+                <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">LOVE</span>
+
+                <p [ngStyle]="{
+                    'width': getPositionForPage(430, 0, 2) + 'px', 
+                    'opacity': getPositionForPage(1, 0, 2)
+                }">ANYTHING</p>
+            </div>
+        </div>
+
+        <!-- <p style="position: absolute;">{{currentPageIndex}}</p> -->
+
+        <div [ngClass]="{'band-title-hide': currentPageIndex > 1}" class="band-title">EXPLORE THE LIMITS OF IMAGINATION • CREATE IMMERSIVE EXPERIENCES • ALWAYS WITH LOVE</div>
     </div>
 </div>
