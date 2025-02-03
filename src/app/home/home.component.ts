@@ -50,7 +50,7 @@ export class HomeComponent {
     {x: 55, y: 10},
   ]
 
-  private constructor() {
+  constructor() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
     this.generateStarsStyle();

@@ -1,4 +1,18 @@
 @font-face {
+    font-family: 'JetBrains-Bold';
+    src: url('/fonts/JetBrainsMono-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'JetBrains-Medium';
+    src: url('/fonts/JetBrainsMono-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'JetBrains-Regular';
     src: url('/fonts/JetBrainsMono-Regular.ttf') format('truetype');
     font-weight: normal;
@@ -28,7 +42,7 @@
 
 body {
     background-color: black;
-    color: white;
+    color: rgb(223, 223, 223);
     font-family: 'JetBrains-Regular', sans-serif;
 }
 
