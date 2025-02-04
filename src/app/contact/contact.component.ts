@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { finalize, interval, take } from 'rxjs';
+import { finalize, interval, take, timer } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -15,21 +15,17 @@ export class ContactComponent {
   private height!: number;
   private animationFrameId!: number;
   private devicePixelRatio = window.devicePixelRatio || 1;
-  public currentSpeed = 0.01;
+  private currentSpeed = 0;
   private displayText: boolean = false;
+  private ctxFill = 'rgba(0, 0, 0, 0)';
   
+  // CUSTOMIZATIONS
   private targetSpeed: number = 6;
   private starsCount: number = 400;
-  private textCount: number = 10;
-  private ctxFill = 'rgba(0, 0, 0, 0)';
+  private textCount: number = 15;
 
   ngOnInit(): void {
     this.initStars();
-    this.animateText(this.texts)
-    const interval = setInterval(() => {
-      this.animateText(['hello@dev.com'], 4);
-      clearInterval(interval)
-    }, 1000)
   }
 
   ngAfterViewInit(): void {
@@ -39,24 +35,26 @@ export class ContactComponent {
     this.smoothSpeedIncrease();
   }
 
-  texts: string[] = ["LET'S", "GET", "IN", "TOUCH"];
+  texts: string[] = ["LET'S", "GET", "IN", "TOUCH", "hello@dev.com"];
   displayTexts: string[] = []; // Holds animated text
-  characters = "abcdefghijklmnopqrstuvwxyz0123456789!?@#$%&*.><:;=";
+  characters = "wxyz0123456789!?@#$%&*><:;=";
 
-  animateText(texts: string[], index: number | null = null) {
-    this.displayTexts = texts.map(word => "#".repeat(word.length)); // Start with masked words
+  startAnimation() {
+    this.displayTexts = this.texts.map(word => "".repeat(word.length)); // Initialize display texts with "?"
 
-    texts.forEach((word, wordIndex) => {
-      let textArray = word.split("");
-      let randomTextArray = Array(word.length).fill("#");
+    this.texts.forEach((word, index) => {
+      this.animateWord(word, index);
+    });
+  }
 
-      interval(150) // Emits every 150ms
-        .pipe(
-          take(textArray.length + 5),
-          finalize(() => {
-            
-          })
-        ) // Stops after revealing the full word
+  animateWord(word: string, index: number) {
+    let textArray = word.split("");
+    let randomTextArray = Array(word.length).fill("");
+
+    // Delay each word animation dynamically (e.g., index * 1000ms means each word starts 1 sec apart)
+    timer(index * 500).subscribe(() => {
+      interval(150)
+        .pipe(take(textArray.length + 5)) // Stops after full reveal
         .subscribe((tick) => {
           if (tick < textArray.length) {
             randomTextArray[tick] = textArray[tick]; // Reveal correct character
@@ -67,9 +65,8 @@ export class ContactComponent {
             randomTextArray[i] = this.characters.charAt(Math.floor(Math.random() * this.characters.length));
           }
 
-          wordIndex = index==null ? wordIndex : index
-          this.displayTexts[wordIndex] = randomTextArray.join("");
-        })
+          this.displayTexts[index] = randomTextArray.join("");
+        });
     });
   }
 
@@ -89,6 +86,7 @@ export class ContactComponent {
         this.currentSpeed = this.targetSpeed;
         clearInterval(speedInterval);
         this.displayText = true;
+        this.startAnimation();
       }
     }, 5);
 

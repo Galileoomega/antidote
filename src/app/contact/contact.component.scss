@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 canvas {
     position: absolute;
     width: 100%;
@@ -23,4 +27,14 @@ canvas {
         text-decoration: none;
         color: #888888;
     }
+}
+
+.bottom-container {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    display: flex;
+    padding: 30px;
+    justify-content: space-between;
 }
