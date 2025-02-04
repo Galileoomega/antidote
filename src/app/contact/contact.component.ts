@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { finalize, interval, take } from 'rxjs';
 
 @Component({
   selector: 'app-contact',
@@ -13,19 +14,95 @@ export class ContactComponent {
   private width!: number;
   private height!: number;
   private animationFrameId!: number;
-  private speed = 10; // Speed of stars
   private devicePixelRatio = window.devicePixelRatio || 1;
+  public currentSpeed = 0.01;
+  private displayText: boolean = false;
+  
+  private targetSpeed: number = 6;
+  private starsCount: number = 400;
+  private textCount: number = 10;
+  private ctxFill = 'rgba(0, 0, 0, 0)';
 
   ngOnInit(): void {
     this.initStars();
+    this.animateText(this.texts)
+    const interval = setInterval(() => {
+      this.animateText(['hello@dev.com'], 4);
+      clearInterval(interval)
+    }, 1000)
   }
 
   ngAfterViewInit(): void {
     this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
     this.resizeCanvas();
     window.addEventListener('resize', () => this.resizeCanvas());
+    this.smoothSpeedIncrease();
+  }
+
+  texts: string[] = ["LET'S", "GET", "IN", "TOUCH"];
+  displayTexts: string[] = []; // Holds animated text
+  characters = "abcdefghijklmnopqrstuvwxyz0123456789!?@#$%&*.><:;=";
+
+  animateText(texts: string[], index: number | null = null) {
+    this.displayTexts = texts.map(word => "#".repeat(word.length)); // Start with masked words
+
+    texts.forEach((word, wordIndex) => {
+      let textArray = word.split("");
+      let randomTextArray = Array(word.length).fill("#");
+
+      interval(150) // Emits every 150ms
+        .pipe(
+          take(textArray.length + 5),
+          finalize(() => {
+            
+          })
+        ) // Stops after revealing the full word
+        .subscribe((tick) => {
+          if (tick < textArray.length) {
+            randomTextArray[tick] = textArray[tick]; // Reveal correct character
+          }
+
+          // Replace remaining characters with random ones
+          for (let i = tick + 1; i < textArray.length; i++) {
+            randomTextArray[i] = this.characters.charAt(Math.floor(Math.random() * this.characters.length));
+          }
+
+          wordIndex = index==null ? wordIndex : index
+          this.displayTexts[wordIndex] = randomTextArray.join("");
+        })
+    });
+  }
+
+  private smoothSpeedIncrease(): void {
+    let highestSpeed = this.targetSpeed * 10;
+    let step = 0.2;
+    let ascending = true;
+
+    const speedInterval = setInterval(() => {
+      if (this.currentSpeed < highestSpeed && ascending) {
+        this.currentSpeed += step;
+      } else if (this.currentSpeed > this.targetSpeed) {
+        this.ctxFill = 'rgba(0, 0, 0, 1)'
+        ascending = false
+        this.currentSpeed -= step;
+      } else {
+        this.currentSpeed = this.targetSpeed;
+        clearInterval(speedInterval);
+        this.displayText = true;
+      }
+    }, 5);
+
     this.animate();
   }
+
+  private *starSystemGenerator() {
+    const prefixes = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Theta", "Omicron", "Sigma", "Omega"];
+    const suffixes = ["Centauri", "Eridani", "Ceti", "Luyten", "Proxima", "Wolf", "Gliese", "Kepler", "TRAPPIST", "Andromeda"];
+    while (true) {
+      yield `${prefixes[Math.floor(Math.random() * prefixes.length)]} ${suffixes[Math.floor(Math.random() * suffixes.length)]}`;
+    }
+  }
+  private starSystemGen = this.starSystemGenerator();
 
   private resizeCanvas(): void {
     const canvas = this.canvasRef.nativeElement;
@@ -38,22 +115,27 @@ export class ContactComponent {
   }
 
   private initStars(): void {
-    this.stars = Array.from({ length: 300 }, (_, i) => ({
-      x: Math.random() * this.width - this.width / 2,
-      y: Math.random() * this.height - this.height / 2,
-      z: Math.random() * this.width,
-      prevZ: 0,
-      text: i < 10 ? `Star ${i + 1}` : null // Only assign text to 10 stars
-    }));
+    let textStarCount = 0;
+    this.stars = Array.from({ length: this.starsCount }, () => {
+      const x = Math.random() * this.width - this.width / 2;
+      const y = Math.random() * this.height - this.height / 2;
+      const z = Math.random() * this.width;
+
+      const text = textStarCount < this.textCount ? this.starSystemGen.next().value : null;
+
+      textStarCount++
+
+      return { x, y, z, prevZ: 0, text };
+    });
   }
 
   private animate(): void {
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = this.ctxFill;
     this.ctx.fillRect(0, 0, this.width, this.height);
 
     this.stars.forEach(star => {
       star.prevZ = star.z;
-      star.z -= this.speed;
+      star.z -= this.currentSpeed;
       if (star.z <= 0) {
         star.x = Math.random() * this.width - this.width / 2;
         star.y = Math.random() * this.height - this.height / 2;
@@ -65,7 +147,7 @@ export class ContactComponent {
       const sy = (star.y / star.z) * this.height + this.height / 2;
       const px = (star.x / star.prevZ) * this.width + this.width / 2;
       const py = (star.y / star.prevZ) * this.height + this.height / 2;
-      const lineLength = 2; // Increase length as they get closer
+      const lineLength = 2;
       
       // Compute direction vector
       const dx = sx - px;
@@ -76,9 +158,9 @@ export class ContactComponent {
       const ex = sx + ux * lineLength;
       const ey = sy + uy * lineLength;
       
-      // Interpolate color from blue (near) to red (far)
-      const colorValue = Math.floor(255 * (1 - star.z / this.width));
-      this.ctx.strokeStyle = `rgb(${colorValue}, 0, ${255 - colorValue})`;
+      const colorValue = Math.floor(255 * (1.1 - star.z / this.width));
+      const rgbMix = `rgb(${colorValue}, ${colorValue}, ${colorValue})`
+      this.ctx.strokeStyle = rgbMix;
       this.ctx.lineWidth = 1;
       this.ctx.beginPath();
       this.ctx.moveTo(px, py);
@@ -86,10 +168,15 @@ export class ContactComponent {
       this.ctx.stroke();
       
       // Draw text following only selected stars
-      if (star.text) {
-        this.ctx.fillStyle = 'white';
+      if (star.text && this.displayText) {
+        this.ctx.fillStyle = rgbMix;
         this.ctx.font = `${8 * this.devicePixelRatio}px JetBrains-ExtraLight`;
-        this.ctx.fillText(star.text, sx + 5, sy - 5);
+        this.ctx.fillText(star.text, sx + 15, sy + 4);
+        
+        // Draw square around star
+        this.ctx.strokeStyle = '#343434';
+        this.ctx.lineWidth = 1;
+        this.ctx.strokeRect(sx - 7, sy - 7, 14, 14);
       }
     });
 

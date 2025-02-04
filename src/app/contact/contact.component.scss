@@ -5,3 +5,22 @@ canvas {
     display: block;
     background: black;
 }
+
+.title-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 50px;
+    padding: 10px;
+
+    .title {
+        font-size: 70px;
+        margin-bottom: 30px;
+    }
+
+    .subtitle {
+        font-size: 30px;
+        text-decoration: none;
+        color: #888888;
+    }
+}
