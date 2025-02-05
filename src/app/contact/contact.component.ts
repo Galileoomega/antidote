@@ -21,8 +21,8 @@ export class ContactComponent {
   
   // CUSTOMIZATIONS
   private targetSpeed: number = 6;
-  private starsCount: number = 400;
-  private textCount: number = 15;
+  private starsCount: number = 600;
+  private textCount: number = 17;
 
   ngOnInit(): void {
     this.initStars();
@@ -35,7 +35,7 @@ export class ContactComponent {
     this.smoothSpeedIncrease();
   }
 
-  texts: string[] = ["LET'S", "GET", "IN", "TOUCH", "hello@dev.com"];
+  texts: string[] = ["LET'S GET", "IN TOUCH", "hello@dev.com", "github", "artstation", "antidote.gems"];
   displayTexts: string[] = []; // Holds animated text
   characters = "wxyz0123456789!?@#$%&*><:;=";
 
@@ -52,8 +52,8 @@ export class ContactComponent {
     let randomTextArray = Array(word.length).fill("");
 
     // Delay each word animation dynamically (e.g., index * 1000ms means each word starts 1 sec apart)
-    timer(index * 500).subscribe(() => {
-      interval(150)
+    timer(index * 400).subscribe(() => {
+      interval(100)
         .pipe(take(textArray.length + 5)) // Stops after full reveal
         .subscribe((tick) => {
           if (tick < textArray.length) {
@@ -156,7 +156,7 @@ export class ContactComponent {
       const ex = sx + ux * lineLength;
       const ey = sy + uy * lineLength;
       
-      const colorValue = Math.floor(255 * (1.1 - star.z / this.width));
+      const colorValue = Math.floor(255 * (1.2 - star.z / this.width));
       const rgbMix = `rgb(${colorValue}, ${colorValue}, ${colorValue})`
       this.ctx.strokeStyle = rgbMix;
       this.ctx.lineWidth = 1;

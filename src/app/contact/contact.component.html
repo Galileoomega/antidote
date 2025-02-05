@@ -1,20 +1,37 @@
 <canvas #warpCanvas></canvas>
 
+<div class="title">
+    {{displayTexts[0]}} <br>
+    {{displayTexts[1]}} <br>
+</div>
 
-<div class="title-container">
-    <div class="title">
-        {{displayTexts[0]}} <br>
-        {{displayTexts[1]}} <br>
-        {{displayTexts[2]}} <br>
+<div class="links">
+    <a href="mailto:{{displayTexts[2]}}">
+        {{displayTexts[2]}}
+        <img src="icons/arrow-up-right-mini.svg" alt="">
+    </a>
+
+    <a href="https://github.com">
         {{displayTexts[3]}}
-    </div>
+        <img src="icons/arrow-up-right-mini.svg" alt="">
+    </a>
 
-    <a href="mailto:hello@dev.com" class="subtitle">
+    <a href="">
         {{displayTexts[4]}}
+        <img src="icons/arrow-up-right-mini.svg" alt="">
+    </a>
+    
+    <a href="">
+        {{displayTexts[5]}}
+        <img src="icons/arrow-up-right-mini.svg" alt="">
     </a>
 </div>
 
-<div class="bottom-container">
-    <p>© 2024 Antidote Studio</p>
-    <p>Built by Antidote with </p>
+<div class="credits">
+    <p>© 2025 Antidote Studio</p>
+
+    <div>
+        <p>Built by Antidote with</p>
+        <img src="icons/heart.svg" alt="">
+    </div>
 </div>

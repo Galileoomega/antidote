@@ -10,31 +10,61 @@ canvas {
     background: black;
 }
 
-.title-container {
+.title {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: 50px;
-    padding: 10px;
+    font-size: 90px;
+    left: 30px;
+    bottom: 70px;
+}
 
-    .title {
-        font-size: 70px;
-        margin-bottom: 30px;
+.links {
+    position: absolute;
+    font-size: 28px;
+    text-align: right;
+    right: 30px;
+    bottom: 90px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    * {
+        transition: all 0.15s ease-in-out;
     }
 
-    .subtitle {
-        font-size: 30px;
+    a {
+        position: relative;
+        color: var(--white);
         text-decoration: none;
-        color: #888888;
+        overflow: hidden;
+    }
+
+    img {
+        position: absolute;
+        right: -30px;
+        top: 11px;
+    }
+
+    a:hover {
+        padding-right: 50px;
+
+        img {
+            right: 10px;
+        }
     }
 }
 
-.bottom-container {
+.credits {
     position: absolute;
-    width: 100%;
-    bottom: 0;
-
-    display: flex;
+    bottom: 0px;
+    left: 0;
     padding: 30px;
+    width: 100%;
+    display: flex;
     justify-content: space-between;
+
+    div {
+        display: flex;
+        gap: 8px;
+    }
 }

@@ -40,9 +40,13 @@
     font-style: normal;
 }
 
+:root {
+    --white: #dfdfdf;
+}
+
 body {
     background-color: black;
-    color: rgb(223, 223, 223);
+    color: var(--white);
     font-family: 'JetBrains-Regular', sans-serif;
 }
 
