@@ -35,7 +35,7 @@ export class ContactComponent {
     this.smoothSpeedIncrease();
   }
 
-  texts: string[] = ["LET'S GET", "IN TOUCH", "hello@dev.com", "github", "artstation", "antidote.gems"];
+  texts: string[] = ["LET'S GET", "IN TOUCH!", "hello@dev.com", "github", "artstation", "antidote.gems"];
   displayTexts: string[] = []; // Holds animated text
   characters = "wxyz0123456789!?@#$%&*><:;=";
 

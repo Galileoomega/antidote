@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { fromEvent, throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
   public currentPageIndex: number = 1;
@@ -54,6 +56,15 @@ export class HomeComponent {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
     this.generateStarsStyle();
+    
+    // Optimize mousemove and scroll events to improve performance
+    fromEvent<MouseEvent>(window, 'mousemove')
+      .pipe(throttleTime(16))
+      .subscribe(event => this.onMouseMove(event));
+
+    fromEvent<Event>(window, 'scroll')
+      .pipe(throttleTime(50))
+      .subscribe(() => this.onWindowScroll());
   }
 
   // HOST LISTENER //
@@ -70,8 +81,6 @@ export class HomeComponent {
     this.screenHeight = window.innerHeight;
   }
 
-  // Listen for mousemove events on the window
-  @HostListener('mousemove', ['$event'])
   onMouseMove(event: MouseEvent): void {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
@@ -95,13 +104,13 @@ export class HomeComponent {
 
     if (percentage > 100) {
       return {
-        'scale': 2,
+        'transform': `scale(2) translate3d(0, 0, 0)`,
         'opacity': 0
       }
     }
 
     return {
-      'scale': this.getPositionOnPercentage(1, 2, percentage),
+      'transform': `scale(${this.getPositionOnPercentage(1, 2, percentage)}) translate3d(0, 0, 0)`,
       'opacity': this.getPositionOnPercentage(1, 0, percentage)
     }
   }
