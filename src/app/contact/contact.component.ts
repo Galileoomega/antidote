@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { finalize, interval, take, timer } from 'rxjs';
 
 @Component({
@@ -8,6 +8,7 @@ import { finalize, interval, take, timer } from 'rxjs';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent {
+  // INTERNAL VARIABLES
   @ViewChild('warpCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
   private stars: any[] = [];
@@ -15,17 +16,26 @@ export class ContactComponent {
   private height!: number;
   private animationFrameId!: number;
   private devicePixelRatio = window.devicePixelRatio || 1;
-  private currentSpeed = 0;
+  private currentSpeed: number = 0;
   private displayText: boolean = false;
   private ctxFill = 'rgba(0, 0, 0, 0)';
+  private readonly characters = "wxyz0123456789!?@#$%&*><:;=";
+  private starSystemGen = this.starSystemGenerator();
+  public displayTexts: string[] = [];
   
   // CUSTOMIZATIONS
-  private targetSpeed: number = 6;
-  private starsCount: number = 600;
-  private textCount: number = 17;
+  private readonly TARGET_SPEED: number = 6;
+  private readonly STARS_COUNT: number = 600;
+  private readonly LINE_LENGTH: number = 2;
+  private readonly TEXT_COUNT: number = 17;
+  private readonly TEXTS: string[] = ["LET'S GET", "IN TOUCH!", "github", "hello@antidote.com", "artstation", "antidote.gems"];
 
   ngOnInit(): void {
     this.initStars();
+  }
+
+  ngOnDestroy(): void {
+    cancelAnimationFrame(this.animationFrameId);
   }
 
   ngAfterViewInit(): void {
@@ -35,19 +45,32 @@ export class ContactComponent {
     this.smoothSpeedIncrease();
   }
 
-  texts: string[] = ["LET'S GET", "IN TOUCH!", "hello@dev.com", "github", "artstation", "antidote.gems"];
-  displayTexts: string[] = []; // Holds animated text
-  characters = "wxyz0123456789!?@#$%&*><:;=";
+  // SCROLL ANIMATION: Speed up briefly the stars. 
+  @HostListener('window:wheel', ['$event'])
+  onWheel(): void {
+    if (this.displayText === true) {
+      this.currentSpeed += 1;
 
-  startAnimation() {
-    this.displayTexts = this.texts.map(word => "".repeat(word.length)); // Initialize display texts with "?"
+      const interval = setInterval(() => {
+        if(this.currentSpeed > this.TARGET_SPEED) {
+          this.currentSpeed -= 1;
+        }
+        else {
+          clearInterval(interval)
+        }
+      }, 500);
+    }
+  }
 
-    this.texts.forEach((word, index) => {
+  private startAnimation() {
+    this.displayTexts = this.TEXTS.map(word => "".repeat(word.length));
+
+    this.TEXTS.forEach((word, index) => {
       this.animateWord(word, index);
     });
   }
 
-  animateWord(word: string, index: number) {
+  private animateWord(word: string, index: number) {
     let textArray = word.split("");
     let randomTextArray = Array(word.length).fill("");
 
@@ -71,19 +94,19 @@ export class ContactComponent {
   }
 
   private smoothSpeedIncrease(): void {
-    let highestSpeed = this.targetSpeed * 10;
+    let highestSpeed = this.TARGET_SPEED * 10;
     let step = 0.2;
     let ascending = true;
 
     const speedInterval = setInterval(() => {
       if (this.currentSpeed < highestSpeed && ascending) {
         this.currentSpeed += step;
-      } else if (this.currentSpeed > this.targetSpeed) {
+      } else if (this.currentSpeed > this.TARGET_SPEED) {
         this.ctxFill = 'rgba(0, 0, 0, 1)'
         ascending = false
         this.currentSpeed -= step;
       } else {
-        this.currentSpeed = this.targetSpeed;
+        this.currentSpeed = this.TARGET_SPEED;
         clearInterval(speedInterval);
         this.displayText = true;
         this.startAnimation();
@@ -96,34 +119,39 @@ export class ContactComponent {
   private *starSystemGenerator() {
     const prefixes = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Theta", "Omicron", "Sigma", "Omega"];
     const suffixes = ["Centauri", "Eridani", "Ceti", "Luyten", "Proxima", "Wolf", "Gliese", "Kepler", "TRAPPIST", "Andromeda"];
+
     while (true) {
       yield `${prefixes[Math.floor(Math.random() * prefixes.length)]} ${suffixes[Math.floor(Math.random() * suffixes.length)]}`;
     }
   }
-  private starSystemGen = this.starSystemGenerator();
 
   private resizeCanvas(): void {
     const canvas = this.canvasRef.nativeElement;
+
     this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.height = window.innerHeight
+
     canvas.width = this.width * this.devicePixelRatio;
     canvas.height = this.height * this.devicePixelRatio;
+
     this.ctx.scale(this.devicePixelRatio, this.devicePixelRatio);
+
     this.initStars();
   }
 
   private initStars(): void {
     let textStarCount = 0;
-    this.stars = Array.from({ length: this.starsCount }, () => {
-      const x = Math.random() * this.width - this.width / 2;
-      const y = Math.random() * this.height - this.height / 2;
-      const z = Math.random() * this.width;
-
-      const text = textStarCount < this.textCount ? this.starSystemGen.next().value : null;
+    this.stars = Array.from({ length: this.STARS_COUNT }, () => {
 
       textStarCount++
 
-      return { x, y, z, prevZ: 0, text };
+      return { 
+        x: Math.random() * this.width - this.width / 2, 
+        y: Math.random() * this.height - this.height / 2, 
+        z: Math.random() * this.width, 
+        prevZ: 0, 
+        text: textStarCount < this.TEXT_COUNT ? this.starSystemGen.next().value : null
+      };
     });
   }
 
@@ -134,6 +162,7 @@ export class ContactComponent {
     this.stars.forEach(star => {
       star.prevZ = star.z;
       star.z -= this.currentSpeed;
+
       if (star.z <= 0) {
         star.x = Math.random() * this.width - this.width / 2;
         star.y = Math.random() * this.height - this.height / 2;
@@ -145,7 +174,6 @@ export class ContactComponent {
       const sy = (star.y / star.z) * this.height + this.height / 2;
       const px = (star.x / star.prevZ) * this.width + this.width / 2;
       const py = (star.y / star.prevZ) * this.height + this.height / 2;
-      const lineLength = 2;
       
       // Compute direction vector
       const dx = sx - px;
@@ -153,8 +181,8 @@ export class ContactComponent {
       const distance = Math.sqrt(dx * dx + dy * dy);
       const ux = dx / distance;
       const uy = dy / distance;
-      const ex = sx + ux * lineLength;
-      const ey = sy + uy * lineLength;
+      const ex = sx + ux * this.LINE_LENGTH;
+      const ey = sy + uy * this.LINE_LENGTH;
       
       const colorValue = Math.floor(255 * (1.2 - star.z / this.width));
       const rgbMix = `rgb(${colorValue}, ${colorValue}, ${colorValue})`
@@ -179,9 +207,5 @@ export class ContactComponent {
     });
 
     this.animationFrameId = requestAnimationFrame(() => this.animate());
-  }
-
-  ngOnDestroy(): void {
-    cancelAnimationFrame(this.animationFrameId);
   }
 }

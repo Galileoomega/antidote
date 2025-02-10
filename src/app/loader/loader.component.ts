@@ -19,8 +19,8 @@ export class LoaderComponent {
   particles: Particle[] = [];
   arcRadius = 200; // Radius of the spherical arc
   numParticles = 500; // Number of particles on the arc
-  centerX = 400; // Center of the canvas
-  centerY = 400;
+  centerX = window.innerWidth / 2; // Center of the canvas
+  centerY = window.innerHeight / 2;
   cameraZ = 100; // Camera "depth" for perspective
   targetCameraZ = 100; // Target camera depth for transition
   transitionDuration = 10000; // Transition duration in milliseconds
@@ -30,6 +30,8 @@ export class LoaderComponent {
 
   ngAfterViewInit(): void {
     const canvas = this.canvasRef.nativeElement;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     this.ctx = canvas.getContext('2d')!;
     this.generateParticlesOnArc();
     this.animateParticles();

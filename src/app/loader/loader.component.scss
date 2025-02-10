@@ -1,8 +1,10 @@
 canvas {
-    display: block;
-    margin: 0 auto;
     background: #000;
-  }
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
 
 .wrapper {
     position: absolute;
