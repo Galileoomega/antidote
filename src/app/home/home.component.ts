@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
-import { fromEvent, throttleTime } from 'rxjs';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { fromEvent, interval, take, throttleTime, timer } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
   public currentPageIndex: number = 1;
 
   private mouseX: number = 0;
@@ -50,21 +50,107 @@ export class HomeComponent {
     {x: 5, y: 100},
     {x: 55, y: 100},
     {x: 55, y: 10},
-  ]
+  ];
+
+  public readonly PROJECTS: any[] = [
+    {
+      image: "images/jade.jpg",
+      tags: "WEB • DESIGN",
+      name: "Antidote Gems"
+    },
+    {
+      image: "",
+      tags: "THEATRAL • DESIGN • BROCHURE",
+      name: "HALTE Geneva"
+    },
+    {
+      image: "images/jade.jpg",
+      tags: "WEB • DESIGN",
+      name: "Antidote Gems"
+    },
+    {
+      image: "",
+      tags: "WEB • DESIGN",
+      name: "Antidote Gems"
+    }
+  ];
 
   constructor() {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
+
     this.generateStarsStyle();
+
+    this.transformStyles = new Array(this.PROJECTS.length).fill('');
+    this.targetRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
+    this.currentRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
     
-    // Optimize mousemove and scroll events to improve performance
-    fromEvent<MouseEvent>(window, 'mousemove')
-      .pipe(throttleTime(16))
-      .subscribe(event => this.onMouseMove(event));
+    // Smoothly update rotation at a fixed interval
+    setInterval(() => this.smoothUpdate(), 17); // Approx. 60FPS
 
     fromEvent<Event>(window, 'scroll')
       .pipe(throttleTime(50))
       .subscribe(() => this.onWindowScroll());
+  }
+
+
+
+  transformStyles: string[] = [];
+  targetRotations: { rotateX: number; rotateY: number }[] = [];
+  currentRotations: { rotateX: number; rotateY: number }[] = [];
+  smoothingFactor = 0.02; // Adjust for smoother or faster transition
+
+  onMouseMove(event: MouseEvent, index: number) {
+    const box = (event.target as HTMLElement).closest('.item')!.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width - 0.5; // Normalize (-0.5 to 0.5)
+    const y = (event.clientY - box.top) / box.height - 0.5;
+
+    this.targetRotations[index] = { rotateX: y * 30, rotateY: -x * 30 };
+  }
+
+  resetTransform(index: number) {
+    this.targetRotations[index] = { rotateX: 0, rotateY: 0 };
+  }
+
+  smoothUpdate() {
+    this.currentRotations.forEach((rotation, index) => {
+      // Apply smoothing per image
+      rotation.rotateX += (this.targetRotations[index].rotateX - rotation.rotateX) * this.smoothingFactor;
+      rotation.rotateY += (this.targetRotations[index].rotateY - rotation.rotateY) * this.smoothingFactor;
+
+      // Update only the hovered image
+      this.transformStyles[index] = `perspective(800px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg)`;
+    });
+  }
+
+
+
+
+
+  @ViewChildren('tracking') targets!: QueryList<ElementRef>;
+  
+  ngAfterViewInit() {
+    const options = { 
+      root: null,
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target.classList.length <= 1) {
+            entry.target.classList.add(entry.target.className+'-active');
+          }
+        });
+      },
+      options
+    );
+
+    if (this.targets) {
+      this.targets.forEach((target) => {
+        observer.observe(target.nativeElement);
+      });
+    }
   }
 
   // HOST LISTENER //
@@ -81,7 +167,7 @@ export class HomeComponent {
     this.screenHeight = window.innerHeight;
   }
 
-  onMouseMove(event: MouseEvent): void {
+  onMouseMove2(event: MouseEvent): void {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
 
@@ -95,6 +181,14 @@ export class HomeComponent {
 
     // Calculate the percentage of the offset relative to the screen dimensions
     // console.log((offsetX / centerX) * 100, (offsetY / centerY) * 100)
+  }
+
+  fixToPage(pageNumber: number) {
+    const position = (this.scrollPosition * -1) + this.screenHeight * pageNumber;
+    
+    return {
+      'top': `${position}px`
+    };
   }
 
   // PLANET ANIMATIONS //

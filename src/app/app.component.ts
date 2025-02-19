@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './widgets/navbar/navbar.component';
 import { LoaderComponent } from './loader/loader.component';
@@ -12,4 +12,10 @@ import { LoaderComponent } from './loader/loader.component';
 })
 export class AppComponent {
   title = 'antidote';
+
+  @HostListener('document:contextmenu', ['$event'])
+  onRightClick(event: MouseEvent) {
+    event.preventDefault();
+    return false;
+  }
 }

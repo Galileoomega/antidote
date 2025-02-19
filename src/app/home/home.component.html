@@ -248,7 +248,7 @@
 
         <div [ngStyle]="fixToPage(4)" class="projects">
             <div class="heading">
-                <p class="title">{{displayTexts[0]}}</p>
+                <p class="title">OUR PROJECTS</p>
 
                 <div>
                     <p class="description">A SELECTION OF</p>
@@ -259,14 +259,30 @@
 
             <div class="items-grid">
                 @for (project of PROJECTS; track $index) {
-                    <div class="item">
-                        <div class="illustration"></div>
-                        
-                        <p class="tags">{{project.tags}}</p>
-                        <p class="title">{{project.name}}</p>
+                  <div #tracking (mousemove)="onMouseMove($event, $index)" 
+                       (mouseleave)="resetTransform($index)" 
+                       class="item">
+                    
+                    <div class="illustration">
+                      <img [ngStyle]="{'transform': transformStyles[$index]}" 
+                           [src]="project.image" alt="">
+              
+                      <div class="select-hover-container">
+                        <div class="select-hover"></div>
+                        <img class="arrow-icon" src="icons/arrow.svg" alt="">                                 
+                      </div>
                     </div>
+              
+                    <p class="tags">{{ project.tags }}</p>
+                    <p class="title">{{ project.name }}</p>
+                  </div>
                 }
             </div>
+              
+            <div class="button">
+                <span>SEE ALL PROJECTS</span>
+            </div>
+
         </div>
 
         <!-- <p style="position: absolute;">{{getPositionForPage(100, 0, 3)}}</p> -->
