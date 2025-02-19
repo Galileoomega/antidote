@@ -60,3 +60,54 @@
         color: #4F44D6;
     }
 }
+
+.projects {
+    position: absolute;
+    width: 100vw;
+    padding-inline: 60px;
+
+    .heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .title {
+            font-size: 5.5vw;
+        }
+
+        .description {
+            font-size: 1.2vw;
+            margin-right: 40px;
+        }
+    }
+
+    .items-grid {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 60px;
+
+        .item {
+            width: calc(50% - 30px);
+
+            .illustration {
+                width: 100%;
+                aspect-ratio: 16/9;
+                background-color: blueviolet;
+                border-radius: 25px;
+                margin-bottom: 20px;
+                cursor: pointer;
+            }
+
+            .tags {
+                font-size: 0.9vw;
+                cursor: pointer;
+            }
+
+            .title {
+                font-size: 2vw;
+                cursor: pointer;
+            }
+        }
+    }
+}
