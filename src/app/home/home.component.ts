@@ -1,26 +1,31 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { fromEvent, interval, take, throttleTime, timer } from 'rxjs';
+import { ScrollbarComponent } from '../widgets/scrollbar/scrollbar.component';
+
+interface StarPosition {
+  x: number;
+  y: number;
+}
+
+interface Project {
+  image: string;
+  tags: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, ScrollbarComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   
 })
 export class HomeComponent implements AfterViewInit {
-  public currentPageIndex: number = 1;
+  @ViewChildren('tracking') targets!: QueryList<ElementRef>;
 
-  private mouseX: number = 0;
-  private mouseY: number = 0;
-
-  private scrollPosition: number = 0;
-  public screenWidth: number;
-  public screenHeight: number;
-
-  public stars: Array<any> = []
-  private readonly STARS_POSITIONS_RATIO: Array<any> = [
+  // Stars positions array.
+  private readonly STARS_POSITIONS_RATIO: StarPosition[] = [
     {x: 5, y: 15},
     {x: 20, y: 20},
     {x: 20, y: 40},
@@ -52,7 +57,8 @@ export class HomeComponent implements AfterViewInit {
     {x: 55, y: 10},
   ];
 
-  public readonly PROJECTS: any[] = [
+  // Selected project list.
+  public readonly PROJECTS: Project[] = [
     {
       image: "images/jade.jpg",
       tags: "WEB • DESIGN",
@@ -75,85 +81,40 @@ export class HomeComponent implements AfterViewInit {
     }
   ];
 
-  constructor() {
-    this.screenWidth = window.innerWidth;
-    this.screenHeight = window.innerHeight;
+  // Store the current coordinates of the mouse.
+  private mouseX: number = 0;
+  private mouseY: number = 0;
 
+  // Store the current scroll position.
+  public scrollPosition: number = 0;
+
+  // Screen dimmensions.
+  public screenWidth: number = window.innerWidth;
+  public screenHeight: number = window.innerHeight;
+
+  // Contains css style of the stars.
+  public stars: any[] = [];
+
+  // The offset amount from the center of the screen (in pixel).
+  private mouseOffsetX!: number;
+  private mouseOffsetY!: number;
+
+  public currentPageIndex: number = 0;
+
+  public transformStyles: string[] = [];
+  private targetRotations: { rotateX: number; rotateY: number }[] = [];
+  private currentRotations: { rotateX: number; rotateY: number }[] = [];
+  private readonly SMOOTHING_FACTOR: number = 0.02;
+
+  constructor() {
     this.generateStarsStyle();
 
     this.transformStyles = new Array(this.PROJECTS.length).fill('');
     this.targetRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
     this.currentRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
     
-    // Smoothly update rotation at a fixed interval
-    setInterval(() => this.smoothUpdate(), 17); // Approx. 60FPS
-
-    fromEvent<Event>(window, 'scroll')
-      .pipe(throttleTime(50))
-      .subscribe(() => this.onWindowScroll());
+    setInterval(() => this.applyImagePerspective(), 17);
   }
-
-
-
-  transformStyles: string[] = [];
-  targetRotations: { rotateX: number; rotateY: number }[] = [];
-  currentRotations: { rotateX: number; rotateY: number }[] = [];
-  smoothingFactor = 0.02; // Adjust for smoother or faster transition
-
-  onMouseMove(event: MouseEvent, index: number) {
-    const box = (event.target as HTMLElement).closest('.item')!.getBoundingClientRect();
-    const x = (event.clientX - box.left) / box.width - 0.5; // Normalize (-0.5 to 0.5)
-    const y = (event.clientY - box.top) / box.height - 0.5;
-
-    this.targetRotations[index] = { rotateX: y * 30, rotateY: -x * 30 };
-  }
-
-  resetTransform(index: number) {
-    this.targetRotations[index] = { rotateX: 0, rotateY: 0 };
-  }
-
-  smoothUpdate() {
-    this.currentRotations.forEach((rotation, index) => {
-      // Apply smoothing per image
-      rotation.rotateX += (this.targetRotations[index].rotateX - rotation.rotateX) * this.smoothingFactor;
-      rotation.rotateY += (this.targetRotations[index].rotateY - rotation.rotateY) * this.smoothingFactor;
-
-      // Update only the hovered image
-      this.transformStyles[index] = `perspective(800px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg)`;
-    });
-  }
-
-
-
-
-
-  @ViewChildren('tracking') targets!: QueryList<ElementRef>;
-  
-  ngAfterViewInit() {
-    const options = { 
-      root: null,
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.classList.length <= 1) {
-            entry.target.classList.add(entry.target.className+'-active');
-          }
-        });
-      },
-      options
-    );
-
-    if (this.targets) {
-      this.targets.forEach((target) => {
-        observer.observe(target.nativeElement);
-      });
-    }
-  }
-
-  // HOST LISTENER //
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {
@@ -167,23 +128,120 @@ export class HomeComponent implements AfterViewInit {
     this.screenHeight = window.innerHeight;
   }
 
-  onMouseMove2(event: MouseEvent): void {
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMoveEvent(event: MouseEvent) {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
 
+    this.calculateMouseOffsetFromCenter();
+  }
+
+  ngAfterViewInit() {
+    this.initIntersectionObserver(this.targets);
+  }
+
+  private initIntersectionObserver(targets: QueryList<ElementRef>): void {
+    const options = { 
+      root: null,
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target.classList.length <= 1) {
+            entry.target.classList.add(entry.target.className+'-active');
+          }
+          else {
+            entry.target.classList.remove(entry.target.className+'-active');
+          }
+        });
+      },
+      options
+    );
+
+    if (targets) {
+      targets.forEach((target) => {
+        observer.observe(target.nativeElement);
+      });
+    }
+  }
+
+  private getPageIndexFromScroll(): number {
+    const percentage: number = ((this.scrollPosition - this.screenHeight * Math.floor(this.scrollPosition / this.screenHeight)) / this.screenHeight) * 100;
+
+    // Calculate the pageIndex by dividing scrollPosition by screenHeight and rounding down
+    let pageIndex = Math.floor(this.scrollPosition / this.screenHeight);
+
+    // If the percentage is greater than 0, we consider being on the next page, so increment the pageIndex
+    if (percentage > 0) {
+      pageIndex += 1;
+    }
+
+    return pageIndex;
+  }
+
+  public updateImagePerspective(event: MouseEvent, index: number): void {
+    const box = (event.target as HTMLElement).closest('.item')!.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width - 0.5;
+    const y = (event.clientY - box.top) / box.height - 0.5;
+
+    this.targetRotations[index] = { rotateX: y * 30, rotateY: -x * 30 };
+  }
+
+  public resetImagePerspective(index: number) {
+    this.targetRotations[index] = { rotateX: 0, rotateY: 0 };
+  }
+
+  private applyImagePerspective(): void {
+    this.currentRotations.forEach((rotation, index) => {
+      rotation.rotateX += (this.targetRotations[index].rotateX - rotation.rotateX) * this.SMOOTHING_FACTOR;
+      rotation.rotateY += (this.targetRotations[index].rotateY - rotation.rotateY) * this.SMOOTHING_FACTOR;
+
+      this.transformStyles[index] = `perspective(800px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg)`;
+    });
+  }
+  
+  private calculateMouseOffsetFromCenter(): void {
     // Get the center of the screen
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
     // Calculate the mouse offset from the center
-    const offsetX = this.mouseX - centerX;
-    const offsetY = this.mouseY - centerY;
+    const mouseOffsetX = this.mouseX - centerX;
+    const mouseOffsetY = this.mouseY - centerY;
 
     // Calculate the percentage of the offset relative to the screen dimensions
-    // console.log((offsetX / centerX) * 100, (offsetY / centerY) * 100)
+    this.mouseOffsetX = (mouseOffsetX / centerX) * 100
+    this.mouseOffsetY = (mouseOffsetY / centerY) * 100
   }
 
-  fixToPage(pageNumber: number) {
+  public moveByMouseOffset(bodyId: string, speedFactor: number) {
+    switch(bodyId) {
+      case "planet-1": 
+        return {
+          'left': (this.mouseOffsetX / 2) * speedFactor + 'px',
+          'top': (this.mouseOffsetY / 2) * speedFactor + 'px',
+        }
+
+      case "sat-1": 
+        return {
+          'left': (this.mouseOffsetX / 2) * speedFactor + 'px',
+          'bottom': ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px',
+        }
+
+      case "sat-2": 
+        return {
+          'right': (this.mouseOffsetX / 2) * speedFactor + 'px',
+          'top': ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px',
+        }
+
+      default:
+        return {}
+    }
+  }
+
+  public fixToPage(pageNumber: number): any {
     const position = (this.scrollPosition * -1) + this.screenHeight * pageNumber;
     
     return {
@@ -191,7 +249,19 @@ export class HomeComponent implements AfterViewInit {
     };
   }
 
-  // PLANET ANIMATIONS //
+  public fixToPageThenScreen(pageNumber: number): any {
+    const position = (this.scrollPosition * -1) + this.screenHeight * pageNumber;
+    
+    if (position <= 0) {
+      return {
+        'top': `0px`
+      };
+    }
+    
+    return {
+      'top': `${position}px`
+    };
+  }
 
   public updatePlanet(): any {
     const percentage: number = this.calculPercentage(2);
@@ -209,7 +279,22 @@ export class HomeComponent implements AfterViewInit {
     }
   }
 
-  // STARS ANIMATIONS //
+  public updatePlanet2(): any {
+    const percentage: number = this.calculPercentage(8);
+
+    if (percentage > 200) {
+      return {
+        'transform': `scale(2) translate3d(0, 0, 0)`,
+        'opacity': 0,
+        'display': 'none'
+      }
+    }
+
+    return {
+      'opacity': this.getPositionOnPercentage(0, 1, percentage),
+      'display': 'block'
+    }
+  }
 
   private generateStarsStyle(): void {
     this.STARS_POSITIONS_RATIO.forEach(positionsRatio => {
@@ -230,7 +315,7 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  public updateStarsPositions() {
+  public updateStarsPositions(): Array<any> | undefined {
     let percentage = this.calculPercentage(3);
     
     if (percentage == 0) {
@@ -252,8 +337,6 @@ export class HomeComponent implements AfterViewInit {
     return this.stars;
   }
 
-  // OTHER FUNCTIONS //
-
   private getRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -262,21 +345,7 @@ export class HomeComponent implements AfterViewInit {
     return (number * percentage) / 100;
   }
 
-  private getPageIndexFromScroll(): number {
-    const percentage: number = ((this.scrollPosition - this.screenHeight * Math.floor(this.scrollPosition / this.screenHeight)) / this.screenHeight) * 100;
-
-    // Calculate the pageIndex by dividing scrollPosition by screenHeight and rounding down
-    let pageIndex = Math.floor(this.scrollPosition / this.screenHeight);
-
-    // If the percentage is greater than 0, we consider being on the next page, so increment the pageIndex
-    if (percentage > 0) {
-      pageIndex += 1;
-    }
-
-    return pageIndex;
-  }
-
-  private calculPercentage(pageIndex: number) {
+  private calculPercentage(pageIndex: number): number {
     const end: number = this.screenHeight * pageIndex
     const start: number = end - this.screenHeight
 
@@ -289,7 +358,7 @@ export class HomeComponent implements AfterViewInit {
     return percentage
   }
 
-  public getPositionForPage(start: number, end: number, pageIndex: number) {
+  public getPositionForPage(start: number, end: number, pageIndex: number): number {
     const result = start + (this.calculPercentage(pageIndex) / 100 * (end - start));
 
     if (result < 0) {
@@ -299,7 +368,7 @@ export class HomeComponent implements AfterViewInit {
     return result
   }
 
-  public getPositionOnPercentage(start: number, end: number, percentage: number) {
+  public getPositionOnPercentage(start: number, end: number, percentage: number): number {
     return start + (percentage / 100 * (end - start));
   }
 }
