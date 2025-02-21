@@ -254,7 +254,6 @@
     left: 10%;
     top: 30%;
     transition: opacity .3s cubic-bezier(.17,.67,.75,.99), letter-spacing .3s cubic-bezier(.17,.67,.75,.99);
-    letter-spacing: 10px;
     opacity: 0;
 }
 
@@ -262,4 +261,17 @@
     top: 30%;
     opacity: 1;
     letter-spacing: normal;
+}
+
+.paraph {
+    position: absolute;
+    font-size: 2vh;
+    left: 60%;
+    top: 30%;
+    transition: opacity .3s cubic-bezier(.17,.67,.75,.99), letter-spacing .3s cubic-bezier(.17,.67,.75,.99);
+
+    .one {
+        margin-left: 50px;
+        margin-bottom: 50px;
+    }
 }

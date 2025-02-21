@@ -38,10 +38,6 @@ export class ScrollbarComponent implements AfterViewInit {
     };
   }
 
-  aa() {
-    console.log(this.element)
-  }
-
   private manageVisibility() {
     // GOT AN UPDATE
     if(this.scrollPosition != this.oldPosition) {
@@ -49,7 +45,7 @@ export class ScrollbarComponent implements AfterViewInit {
       this.oldPosition = this.scrollPosition;
       this.element.classList.replace('hide', 'show');
       
-      return
+      return;
     }
 
     if(new Date().getTime() - this.lastUpdate > 1000) {
