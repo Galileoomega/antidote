@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { interval, take, timer } from 'rxjs';
 
 @Component({
@@ -6,10 +6,11 @@ import { interval, take, timer } from 'rxjs';
   imports: [],
   templateUrl: './scrambler-text.component.html'
 })
-export class ScramblerTextComponent implements AfterViewInit {
+export class ScramblerTextComponent implements AfterViewInit, OnChanges {
   @Input() text: string = "";
-  @Input() duration: number = 20;
+  @Input() duration: number = 40;
   @Input() delay: number = 10;
+  @Input() event: boolean = false;
 
   public finalText: string = "";
   private readonly characters = "wxyz0123456789!?@#$%&*><:;=";
@@ -17,7 +18,13 @@ export class ScramblerTextComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    this.animateWord(this.text);
+    // this.animateWord(this.text);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.event == true) {
+      this.animateWord(this.text);
+    }
   }
 
   private animateWord(word: string) {

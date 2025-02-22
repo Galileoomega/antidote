@@ -369,6 +369,25 @@ export class HomeComponent implements AfterViewInit {
     return result
   }
 
+  public appearDisappear(page: number) {
+    if (this.currentPageIndex == page) {
+      return {
+        'opacity': 1,
+        'margin-top': 0 + 'px'
+      }
+    } else if (this.currentPageIndex > page) {
+      return {
+        'opacity': 0,
+        'margin-top': -20 + 'px'
+      }
+    }
+
+    return {
+      'opacity': 0,
+      'margin-top': 20 + 'px'
+    } 
+  }
+
   public getPositionOnPercentage(start: number, end: number, percentage: number): number {
     return start + (percentage / 100 * (end - start));
   }
