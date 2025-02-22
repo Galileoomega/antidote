@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { fromEvent, interval, take, throttleTime, timer } from 'rxjs';
 import { ScrollbarComponent } from '../widgets/scrollbar/scrollbar.component';
+import { ScramblerTextComponent } from '../widgets/scrambler-text/scrambler-text.component';
 
 interface StarPosition {
   x: number;
@@ -16,7 +17,7 @@ interface Project {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ScrollbarComponent],
+  imports: [CommonModule, ScrollbarComponent, ScramblerTextComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   
