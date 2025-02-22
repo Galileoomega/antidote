@@ -388,22 +388,64 @@
             </svg>
         </div>
 
-        <p [ngStyle]="{
+        <!-- <p [ngStyle]="{
             'opacity': getPositionForPage(0,1,7),
             'letter-spacing': getPositionForPage(20,1,7) + 'px',
         }" class="title2">
             CRAFTING IDEAS <br> TO UNIQUE <br> EXPERIENCES
-        </p>
+        </p> -->
 
-        <div class="paraph">
-            <p class="one">
-                LOREM IPSUM BLA BLA. WE <br> CAN DO WHAT EVER YOU <br> WANTED TO DO
+        @if (currentPageIndex >= 7) {
+            <p class="title2">
+                CRAFTING IDEAS <br> TO UNIQUE <br> EXPERIENCES
             </p>
-            
-            <p>
-                <app-scrambler-text [text]="'YES IT IS POSSIBLE WITHOUT LIMITLESS'"></app-scrambler-text>
-            </p>
-        </div>
+        }
+
+        @if (currentPageIndex >= 7) {
+            <div class="paraph">
+                <p class="one">
+                    <app-scrambler-text 
+                        [text]="'AT ANTIDOTE, WE TURN BOLD'"
+                    ></app-scrambler-text>
+
+                    <br>
+
+                    <app-scrambler-text 
+                        [text]="'IDEAS INTO UNFORGETTABLE'"
+                    ></app-scrambler-text>
+
+                    <br>
+
+                    <app-scrambler-text 
+                        [text]="'DIGITAL EXPERIENCES.'"
+                    ></app-scrambler-text>
+                </p>
+                
+                <p>
+                    <app-scrambler-text 
+                        [text]="'BLENDING CREATIVITY, INNOVATION,'"
+                    ></app-scrambler-text>
+
+                    <br>
+
+                    <app-scrambler-text 
+                        [text]="'AND TECHNICAL EXPERTISE, WE CRAFT'"
+                    ></app-scrambler-text>
+
+                    <br>
+
+                    <app-scrambler-text 
+                        [text]="'IMMERSIVE DIGITAL SOLUTIONS THAT'"
+                    ></app-scrambler-text>
+
+                    <br>
+
+                    <app-scrambler-text 
+                        [text]="'THAT CAPTIVATE AND ENGAGE.'"
+                    ></app-scrambler-text>
+                </p>
+            </div>
+        }
 
         <div class="band-title">EXPLORE THE LIMITS OF IMAGINATION • CREATE IMMERSIVE EXPERIENCES • ALWAYS WITH LOVE
         </div>

@@ -254,7 +254,7 @@
     left: 10%;
     top: 30%;
     transition: opacity .3s cubic-bezier(.17,.67,.75,.99), letter-spacing .3s cubic-bezier(.17,.67,.75,.99);
-    opacity: 0;
+    opacity: 1;
 }
 
 .title2-active {
@@ -266,12 +266,12 @@
 .paraph {
     position: absolute;
     font-size: 2vh;
-    left: 60%;
+    left: 58%;
     top: 30%;
     transition: opacity .3s cubic-bezier(.17,.67,.75,.99), letter-spacing .3s cubic-bezier(.17,.67,.75,.99);
 
     .one {
-        margin-left: 50px;
+        // margin-left: 50px;
         margin-bottom: 50px;
     }
 }
