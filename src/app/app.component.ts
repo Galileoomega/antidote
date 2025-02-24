@@ -6,7 +6,7 @@ import { LoaderComponent } from './loader/loader.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule, CommonModule, NavbarComponent],
+  imports: [RouterOutlet, RouterModule, CommonModule, NavbarComponent, LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
