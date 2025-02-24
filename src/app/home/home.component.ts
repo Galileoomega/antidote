@@ -109,12 +109,7 @@ export class HomeComponent implements AfterViewInit {
 
   constructor() {
     this.generateStarsStyle();
-
-    this.transformStyles = new Array(this.PROJECTS.length).fill('');
-    this.targetRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
-    this.currentRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
-    
-    setInterval(() => this.applyImagePerspective(), 17);
+    this.initPerspective();
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -139,6 +134,14 @@ export class HomeComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.initIntersectionObserver(this.targets);
+  }
+
+  private initPerspective(): void {
+    this.transformStyles = new Array(this.PROJECTS.length).fill('');
+    this.targetRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
+    this.currentRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
+    
+    setInterval(() => this.applyImagePerspective(), 17);
   }
 
   private initIntersectionObserver(targets: QueryList<ElementRef>): void {
@@ -369,6 +372,31 @@ export class HomeComponent implements AfterViewInit {
     return result
   }
 
+  public getPositionForPage2(start: number, end: number, pageSet: number[]): number {
+    const result = start + (this.calculPercentage2(pageSet) / 100 * (end - start));
+
+    if (result < 0) {
+      return 0;
+    }
+    
+    return result
+  }
+
+  public calculPercentage2(pageSet: number[]): number {
+    const end: number = this.screenHeight * pageSet[1];
+    const start: number = end - this.screenHeight * (pageSet[1] - pageSet[0]);
+
+    const percentage: number = ((this.scrollPosition - start) / (end -  start)) * 100;
+
+    return percentage
+  }
+
+  public getPositionOnPercentage(start: number, end: number, percentage: number): number {
+    return start + (percentage / 100 * (end - start));
+  }
+
+  // ANIMATION FUNCTIONS
+
   public appearDisappear(page: number) {
     if (this.currentPageIndex == page) {
       return {
@@ -378,17 +406,13 @@ export class HomeComponent implements AfterViewInit {
     } else if (this.currentPageIndex > page) {
       return {
         'opacity': 0,
-        'margin-top': -20 + 'px'
+        'margin-top': -40 + 'px'
       }
     }
 
     return {
       'opacity': 0,
-      'margin-top': 20 + 'px'
+      'margin-top': 40 + 'px'
     } 
-  }
-
-  public getPositionOnPercentage(start: number, end: number, percentage: number): number {
-    return start + (percentage / 100 * (end - start));
   }
 }

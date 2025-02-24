@@ -299,7 +299,7 @@
             alt="">
 
         <!-- PLANETS-2 -->
-        <div [ngStyle]="{'opacity': getPositionForPage(0, 1, 5)}" class="planets-2">
+        <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 20, [5, 10]) * -1 + 'vh'}" class="planets-2">
             <!-- PLANET 2: SVG LIGHTNING -->
             <svg class="planet-2-lightning" viewBox="0 0 756 756" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_f_603_264)">
@@ -331,7 +331,7 @@
                     <linearGradient id="paint1_linear_603_264" x1="378.029" y1="47.8974" x2="378.029" y2="707.897"
                         gradientUnits="userSpaceOnUse">
                         <stop stop-opacity="0" />
-                        <stop [attr.offset]="getPositionForPage(0.01, 1, 6)" />
+                        <stop [attr.offset]="getPositionForPage2(0.01, 1, [5, 8])"/>
                     </linearGradient>
                 </defs>
             </svg>
@@ -364,7 +364,7 @@
                     </linearGradient>
                     <linearGradient id="F" x1="62.3" y1="14.2" x2="62.3" y2="110.4" gradientUnits="userSpaceOnUse">
                         <stop stop-opacity="0" />
-                        <stop [attr.offset]="getPositionForPage(0.01, 1, 6)" />
+                        <stop [attr.offset]="getPositionForPage2(0.01, 1, [5, 8])" />
                     </linearGradient>
                     <filter id="A" x="9.1" y="9.1" width="106.3" height="106.3" filterUnits="userSpaceOnUse"
                         color-interpolation-filters="sRGB">
@@ -388,79 +388,45 @@
             </svg>
         </div>
 
-        <p [ngStyle]="appearDisappear(7)" class="title2">
+        <div class="sliding-text">
             <app-scrambler-text 
-                [text]="'CRAFTING IDEAS'"
+                [text]="'CRAFTING IDEAS \n TO UNIQUE \n EXPERIENCES'"
                 [event]="currentPageIndex == 7"
+                [ngStyle]="appearDisappear(7)"
+                class="title"
             ></app-scrambler-text>
 
-            <br>
-
-            <app-scrambler-text 
-                [text]="'TO UNIQUE'"
-                [event]="currentPageIndex == 7"
-            ></app-scrambler-text>
-
-            <br>
-
-            <app-scrambler-text 
-                [text]="'EXPERIENCES'"
-                [event]="currentPageIndex == 7"
-            ></app-scrambler-text>
-        </p>
-
-        <div [ngStyle]="appearDisappear(7)" class="paraph">
-            <p class="one">
+            <div [ngStyle]="appearDisappear(7)" class="paragraph">
                 <app-scrambler-text 
-                    [text]="'AT ANTIDOTE, WE TURN BOLD'"
+                    [text]="'AT ANTIDOTE, WE TURN BOLD \n IDEAS INTO UNFORGETTABLE \n DIGITAL EXPERIENCES.'"
                     [event]="currentPageIndex == 7"
                 ></app-scrambler-text>
 
-                <br>
-
                 <app-scrambler-text 
-                    [text]="'IDEAS INTO UNFORGETTABLE'"
+                    [text]="'BLENDING CREATIVITY, INNOVATION, \n AND TECHNICAL EXPERTISE, WE CRAFT \n IMMERSIVE DIGITAL SOLUTIONS THAT \n THAT CAPTIVATE AND ENGAGE.'"
                     [event]="currentPageIndex == 7"
+                    [duration]="10"
                 ></app-scrambler-text>
-
-                <br>
-
-                <app-scrambler-text 
-                    [text]="'DIGITAL EXPERIENCES.'"
-                    [event]="currentPageIndex == 7"
-                ></app-scrambler-text>
-            </p>
-            
-            <p class="two">
-                <app-scrambler-text 
-                    [text]="'BLENDING CREATIVITY, INNOVATION,'"
-                    [event]="currentPageIndex == 7"
-                ></app-scrambler-text>
-
-                <br>
-
-                <app-scrambler-text 
-                    [text]="'AND TECHNICAL EXPERTISE, WE CRAFT'"
-                    [event]="currentPageIndex == 7"
-                ></app-scrambler-text>
-
-                <br>
-
-                <app-scrambler-text 
-                    [text]="'IMMERSIVE DIGITAL SOLUTIONS THAT'"
-                    [event]="currentPageIndex == 7"
-                ></app-scrambler-text>
-
-                <br>
-
-                <app-scrambler-text 
-                    [text]="'THAT CAPTIVATE AND ENGAGE.'"
-                    [event]="currentPageIndex == 7"
-                ></app-scrambler-text>
-            </p>
+            </div>
         </div>
 
-        <div class="band-title">EXPLORE THE LIMITS OF IMAGINATION • CREATE IMMERSIVE EXPERIENCES • ALWAYS WITH LOVE
+        <div class="sliding-text">
+            <app-scrambler-text 
+                [text]="'WELCOME \n TO OUR \n VISION'"
+                [event]="currentPageIndex == 8"
+                [ngStyle]="appearDisappear(8)"
+                class="title"
+            ></app-scrambler-text>
+
+            <div [ngStyle]="appearDisappear(8)" class="paragraph">
+                <app-scrambler-text 
+                    [text]="'BLENDING CREATIVITY, INNOVATION, \n AND TECHNICAL EXPERTISE, WE CRAFT \n IMMERSIVE DIGITAL SOLUTIONS THAT \n THAT CAPTIVATE AND ENGAGE.'"
+                    [event]="currentPageIndex == 8"
+                    [duration]="10"
+                ></app-scrambler-text>
+            </div>
         </div>
+
+        <p style="position: absolute; right: 0px;">{{currentPageIndex}}</p>
     </div>
 </div>

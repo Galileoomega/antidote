@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges } from '@angular/core';
 import { interval, take, timer } from 'rxjs';
 
 @Component({
@@ -8,40 +8,56 @@ import { interval, take, timer } from 'rxjs';
 })
 export class ScramblerTextComponent implements AfterViewInit, OnChanges {
   @Input() text: string = "";
-  @Input() duration: number = 40;
+  @Input() duration: number = 20;
   @Input() delay: number = 10;
   @Input() event: boolean = false;
+  @Input() singleExecution: boolean = true;
 
   public finalText: string = "";
   private readonly characters = "wxyz0123456789!?@#$%&*><:;=";
+  private hasAnimated: boolean = false;
 
   constructor() { }
 
   ngAfterViewInit(): void {
-    // this.animateWord(this.text);
+    if (this.event == true) {
+      this.animateWord(this.text);
+    }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.event == true) {
       this.animateWord(this.text);
     }
   }
 
   private animateWord(word: string) {
-    let textArray = word.split("");
-    let randomTextArray = Array(word.length).fill("");
+    if(this.singleExecution && this.hasAnimated) {
+      return;
+    }
+
+    const textArray: string[] = word.split("");
+    let randomTextArray: string[] = Array(word.length).fill("");
+    this.hasAnimated = true;
 
     timer(this.delay).subscribe(() => {
       interval(this.duration)
-        .pipe(take(textArray.length + 5)) // Stops after full reveal
+        .pipe(take(textArray.length))
         .subscribe((tick) => {
+          
+          // Reveal correct character
           if (tick < textArray.length) {
-            randomTextArray[tick] = textArray[tick]; // Reveal correct character
+            randomTextArray[tick] = textArray[tick];
           }
 
           // Replace remaining characters with random ones
           for (let i = tick + 1; i < textArray.length; i++) {
-            randomTextArray[i] = this.characters.charAt(Math.floor(Math.random() * this.characters.length));
+            if (textArray[i] == '\n') {
+              randomTextArray[i] = '\n';
+            }
+            else {
+              randomTextArray[i] = this.characters.charAt(Math.floor(Math.random() * this.characters.length));
+            }
           }
 
           this.finalText = randomTextArray.join("");
