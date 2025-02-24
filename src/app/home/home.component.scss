@@ -48,7 +48,7 @@
 
 .planets-2-hide {
     opacity: 0 !important;
-    top: -60vh !important;
+    top: -70vh !important;
 }
 
 .planets-2 {
@@ -58,7 +58,7 @@
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    transition: all .4s cubic-bezier(.17,.67,.54,.97);
+    transition: all .55s cubic-bezier(.17,.67,.54,.97);
 
     .planet-2-lightning {
         position: absolute;
@@ -278,4 +278,20 @@
         transition: all .3s cubic-bezier(.17,.67,.75,.99);
         transition-delay: .1s;
     }
+}
+
+.astronaut {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    bottom: -300px;
+    opacity: 0;
+
+    transition: all .45s ease-in-out;
+}
+
+.astronaut-show {
+    bottom: 0;
+    opacity: 1;
 }

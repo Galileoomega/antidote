@@ -406,13 +406,13 @@ export class HomeComponent implements AfterViewInit {
     } else if (this.currentPageIndex > page) {
       return {
         'opacity': 0,
-        'margin-top': -40 + 'px'
+        'margin-top': -100 + 'px'
       }
     }
 
     return {
       'opacity': 0,
-      'margin-top': 40 + 'px'
+      'margin-top': 100 + 'px'
     } 
   }
 }
