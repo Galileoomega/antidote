@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { fromEvent, interval, take, throttleTime, timer } from 'rxjs';
-import { ScrollbarComponent } from '../widgets/scrollbar/scrollbar.component';
-import { ScramblerTextComponent } from '../widgets/scrambler-text/scrambler-text.component';
-import { StarExposureComponent } from '../widgets/star-exposure/star-exposure.component';
+import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component';
+import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
 import { RouterLink } from '@angular/router';
+import { StarExposureComponent } from '../../widgets/star-exposure/star-exposure.component';
 
 interface StarPosition {
   x: number;

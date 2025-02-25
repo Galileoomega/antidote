@@ -1,0 +1,16 @@
+<div [ngClass]="{'full': hide}" class="container">
+  <div class="progress-container">
+    <svg class="progress-ring" width="120" height="120">
+      <circle class="progress-ring__circle" cx="60" cy="60" r="50" stroke-width="12"
+        [attr.stroke-dasharray]="generateSVGOnPercentage()[0]" [attr.stroke-dashoffset]="generateSVGOnPercentage()[1]">
+      </circle>
+    </svg>
+
+    <div class="eye"></div>
+    <div class="eye"></div>
+  </div>
+
+  <div class="text">
+    {{progress}} %
+  </div>
+</div>

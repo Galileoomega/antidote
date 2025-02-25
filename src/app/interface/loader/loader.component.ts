@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { LoaderService } from '../../common/services/loader.service';
 
 @Component({
   selector: 'app-loader',
@@ -11,11 +12,22 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 export class LoaderComponent implements OnInit {
   progress = 0;
   radius = 50;
+  hide = false
+
+  constructor(
+    private loaderService: LoaderService
+  ) {}
   
   ngOnInit() {
-    setInterval(() => {
-      this.progress += 10
-    }, 900);
+    this.loaderService.currentData$.subscribe((data) => {
+      this.progress = data;
+
+      if (this.progress >= 100) {
+        setInterval(() => {
+          this.hide = true
+        }, 1000)
+      }
+    });
   }
 
   generateSVGOnPercentage() {
