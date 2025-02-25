@@ -114,23 +114,48 @@ export class HomeComponent implements AfterViewInit {
     this.initPerspective();
   }
 
+  private oldScrollPosition: number = 0;
+  private scrollDirection: 'up' | 'down' | 'none' = 'none';
+
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {
     this.scrollPosition = window.scrollY;
-    this.currentPageIndex = this.getPageIndexFromScroll();
-
-    if (this.currentPageIndex >= 9) {
-      // this.activateAutoScroll();
+    
+    // DETECT SCROLL DOWN
+    if(this.oldScrollPosition < this.scrollPosition) {
+      this.scrollDirection = 'down';
     }
+    // DETECT SCROLL UP
+    else {
+      this.scrollDirection = 'up';
+    }
+
+    if (this.currentPageIndex >= 10) {
+      this.activateAutoScroll();
+    }
+    else {
+      this.stopAutoScroll();
+    }
+
+    this.oldScrollPosition = this.scrollPosition;
+
+    this.currentPageIndex = this.getPageIndexFromScroll();
   }
 
   private autoScrollInterval: any;
-  private autoScrollSpeed = 10; // Adjust the speed as needed
+  private autoScrollSpeed = 1; // Adjust the speed as needed
 
   activateAutoScroll(): void {
     if (!this.autoScrollInterval) {
       this.autoScrollInterval = setInterval(() => {
-        window.scrollBy(0, 2); // Scroll down by 2 pixels each interval
+        
+        if(this.scrollDirection == 'down') {
+          window.scrollBy(0, 5);
+        }
+        else {
+          window.scrollBy(0, -5);
+        }
+
         this.scrollPosition = window.scrollY;
 
         if (this.scrollPosition + window.innerHeight >= document.body.scrollHeight) {

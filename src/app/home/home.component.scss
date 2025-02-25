@@ -1,3 +1,8 @@
+app-star-exposure {
+    transition: all 0.3s ease-in-out;
+    z-index: -2;
+}
+
 .presented {
     display: flex;
     align-items: center;
@@ -285,7 +290,7 @@
     top: 30%;
     transform: translate(0, -50%);
     z-index: -1;
-    font-size: 6vh;
+    font-size: 8vh;
     transition: all .5s ease-in-out;
     color: #8F3D5A;
     line-height: 1cap;

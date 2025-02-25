@@ -36,6 +36,9 @@ export class StarExposureComponent implements OnChanges {
 
   private TRAIL_FADE = 1; // Efficient fade with composite operation
 
+  private startInterval: any;
+  private endInterval: any;
+
   // COLOR PALETTE (Fast lookup with bitwise operation)
   private readonly STAR_COLORS: string[] = [
     '#1E1C34', '#1C1D39', '#39395D', '#3F4775', '#A0B5F6',
@@ -73,9 +76,10 @@ export class StarExposureComponent implements OnChanges {
   }
 
   private easeEnd() {
+    clearInterval(this.startInterval)
     const step: number = 0.0001;
 
-    const interval = setInterval(() => {
+    this.endInterval = setInterval(() => {
       this.currentSpeed -= step;
       this.TRAIL_FADE -= 0.1;
 
@@ -83,22 +87,26 @@ export class StarExposureComponent implements OnChanges {
         this.TRAIL_FADE = 0;
         this.currentSpeed = 0;
         this.animating = false;
-        clearInterval(interval);
+        clearInterval(this.endInterval);
         return;
       }
     }, 50);
   }
 
   private easeStart() {
+    clearInterval(this.endInterval)
+
     this.animating = true;
     this.TRAIL_FADE = 1;
     const step: number = 0.0001;
 
-    const interval = setInterval(() => {
+    this.startInterval = setInterval(() => {
       this.currentSpeed += step;
 
       if(this.currentSpeed >= this.TARGET_SPEED) {
-        clearInterval(interval);
+        this.currentSpeed = this.TARGET_SPEED;
+        
+        clearInterval(this.startInterval);
         return;
       }
     }, 50);
@@ -126,7 +134,6 @@ export class StarExposureComponent implements OnChanges {
   }
 
   private draw(): void {
-    console.log(this.currentSpeed)
     this.ctx.globalCompositeOperation = 'destination-in';
     this.ctx.fillStyle = `rgba(0, 0, 0, ${this.TRAIL_FADE})`;
     this.ctx.fillRect(0, 0, this.width, this.height);

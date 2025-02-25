@@ -1,8 +1,14 @@
+<app-scrollbar [scrollPosition]="scrollPosition" [numberOfPage]="12"></app-scrollbar>
+
+<app-star-exposure 
+    [ngStyle]="{
+        'opacity': currentPageIndex >= 3 && currentPageIndex <= 4 ? 0 : 1
+    }" 
+    [move]="currentPageIndex >= 10 && currentPageIndex < 13" 
+></app-star-exposure>
+
 <div class="canvas">
     <div class="presented">
-        <app-scrollbar [scrollPosition]="scrollPosition" [numberOfPage]="9"></app-scrollbar>
-        <app-star-exposure [move]="currentPageIndex >= 10" ></app-star-exposure>
-
         <!-- PLANETS-1 -->
         <div [ngStyle]="updatePlanet()" class="planets-1">
             <svg [ngStyle]="moveByMouseOffset('planet-1', 0.07)" class="planet-1" width="1357" height="909" fill="none"
@@ -292,13 +298,6 @@
 
         </div>
 
-        <!-- STARS BACKGROUND -->
-        <!-- <img [ngStyle]="{'opacity': getPositionForPage(1, 0, 2)}" class="star-background-img"
-            src="images/stars.jpg" alt="">
-
-        <img [ngStyle]="{'opacity': getPositionForPage(0, 1, 5)}" class="star-background-img" src="images/stars.jpg"
-            alt=""> -->
-
         <!-- PLANETS-2 -->
         <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 20, [5, 10]) * -1 + 'vh'}" class="planets-2">
             <!-- PLANET 2: SVG LIGHTNING -->
@@ -401,6 +400,7 @@
                 <app-scrambler-text 
                     [text]="'AT ANTIDOTE, WE TURN BOLD \n IDEAS INTO UNFORGETTABLE \n DIGITAL EXPERIENCES.'"
                     [event]="currentPageIndex == 7"
+                    [duration]="10"
                 ></app-scrambler-text>
 
                 <app-scrambler-text 
@@ -437,7 +437,7 @@
         <div [ngClass]="{'fader-show': currentPageIndex >= 12}" class="fader"></div>
 
         <!-- CONTACT -->
-        <div [ngClass]="{'contact-show': currentPageIndex >= 13}" class="contact">
+        <div [ngClass]="{'contact-show': currentPageIndex >= 12}" class="contact">
             <p class="subtitle">Your idea is ready to go wild?</p>
             
             <div routerLink="contact" class="title-container">
@@ -464,7 +464,5 @@
                 <p>AIM FOR THE STARS TO <br> LAND ON THE MOON</p>
             </div>
         </div>
-
-        <p style="position: absolute; right: 0px;">{{currentPageIndex}}</p>
     </div>
 </div>
