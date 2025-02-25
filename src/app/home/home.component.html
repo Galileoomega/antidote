@@ -1,6 +1,7 @@
 <div class="canvas">
     <div class="presented">
         <app-scrollbar [scrollPosition]="scrollPosition" [numberOfPage]="9"></app-scrollbar>
+        <app-star-exposure [move]="currentPageIndex >= 10" ></app-star-exposure>
 
         <!-- PLANETS-1 -->
         <div [ngStyle]="updatePlanet()" class="planets-1">
@@ -292,11 +293,11 @@
         </div>
 
         <!-- STARS BACKGROUND -->
-        <img [ngStyle]="{'opacity': getPositionForPage(1, 0, 2)}" class="star-background-img"
+        <!-- <img [ngStyle]="{'opacity': getPositionForPage(1, 0, 2)}" class="star-background-img"
             src="images/stars.jpg" alt="">
 
         <img [ngStyle]="{'opacity': getPositionForPage(0, 1, 5)}" class="star-background-img" src="images/stars.jpg"
-            alt="">
+            alt=""> -->
 
         <!-- PLANETS-2 -->
         <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 20, [5, 10]) * -1 + 'vh'}" class="planets-2">
@@ -418,16 +419,51 @@
                 class="title"
             ></app-scrambler-text>
 
-            <div [ngStyle]="appearDisappear(8)" class="paragraph">
-                <app-scrambler-text 
-                    [text]="'BLENDING CREATIVITY, INNOVATION, \n AND TECHNICAL EXPERTISE, WE CRAFT \n IMMERSIVE DIGITAL SOLUTIONS THAT \n THAT CAPTIVATE AND ENGAGE.'"
-                    [event]="currentPageIndex == 8"
-                    [duration]="10"
-                ></app-scrambler-text>
-            </div>
+            <app-scrambler-text
+                [ngStyle]="appearDisappear(8)" class="paragraph" 
+                [text]="'BLENDING CREATIVITY, INNOVATION, \n AND TECHNICAL EXPERTISE, WE CRAFT \n IMMERSIVE DIGITAL SOLUTIONS THAT \n THAT CAPTIVATE AND ENGAGE.'"
+                [event]="currentPageIndex == 8"
+                [duration]="10"
+            ></app-scrambler-text>
+        </div>
+
+        <div [ngStyle]="stretch(9)" class="sliding-text-2">
+            <p>BEYOND</p>
+            <p>VISION</p>
         </div>
 
         <img [ngClass]="{'astronaut-show': currentPageIndex >= 9}" class="astronaut" src="images/astronaut.svg" alt="">
+
+        <div [ngClass]="{'fader-show': currentPageIndex >= 12}" class="fader"></div>
+
+        <!-- CONTACT -->
+        <div [ngClass]="{'contact-show': currentPageIndex >= 13}" class="contact">
+            <p class="subtitle">Your idea is ready to go wild?</p>
+            
+            <div routerLink="contact" class="title-container">
+                <div class="title">
+                    LET'S WORK
+                    <div class="line"></div>
+                </div>
+
+                <div class="title">
+                    <div class="flex h-align">
+                        TOGETHER
+                        <img class="arrow" src="icons/arrow-right.svg" alt="">
+                    </div>
+
+                    <div class="line"></div>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <p>AIM FOR THE STARS TO <br> LAND ON THE MOON</p>
+
+                <img class="animated-planet" src="images/planet.gif" alt="">
+
+                <p>AIM FOR THE STARS TO <br> LAND ON THE MOON</p>
+            </div>
+        </div>
 
         <p style="position: absolute; right: 0px;">{{currentPageIndex}}</p>
     </div>

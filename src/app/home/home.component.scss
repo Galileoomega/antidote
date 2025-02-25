@@ -8,7 +8,7 @@
 }
 
 .canvas {
-    height: 1000vh;
+    height: 1300vh;
 }
 
 .star-background-img {
@@ -266,7 +266,7 @@
 
     .title {
         font-size: 6vh;
-        transition: all .3s cubic-bezier(.17,.67,.75,.99);
+        transition: all .3s ease-in-out;
     }
 
     .paragraph {
@@ -275,14 +275,30 @@
         flex-direction: column;
         gap: 20px;
         margin-top: 100px;
-        transition: all .3s cubic-bezier(.17,.67,.75,.99);
+        transition: all .3s ease-in-out;
         transition-delay: .1s;
     }
 }
 
+.sliding-text-2 {
+    position: absolute;
+    top: 30%;
+    transform: translate(0, -50%);
+    z-index: -1;
+    font-size: 6vh;
+    transition: all .5s ease-in-out;
+    color: #8F3D5A;
+    line-height: 1cap;
+    opacity: 0;
+    transform: scale(0.8);
+    letter-spacing: normal;
+    margin-right: 0px;
+}
+
 .astronaut {
     position: absolute;
-    left: 50%;
+    height: 55vh;
+    left: 49%;
     transform: translate(-50%, 0);
 
     bottom: -300px;
@@ -294,4 +310,112 @@
 .astronaut-show {
     bottom: 0;
     opacity: 1;
+}
+
+.fader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, black 60%, #3D4B8F 60%);
+    border-radius: 100%;
+    background-size: 100%;
+    background-position: center;
+    transition: all .6s ease-in-out;
+    width: 0;
+    height: 0;
+}
+
+.fader-show {
+    opacity: 1;
+    width: 140vw;
+    height: 140vw;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: black;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.187) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.187) 1px, transparent 1px);
+    background-size: 170px 170px;
+    background-position: center;
+    transition: all .2s ease-in-out;
+    transition-delay: .4s;
+
+    opacity: 0;
+    pointer-events: none;
+
+    .subtitle {
+        font-size: 2.6vh;
+        margin-top: auto;
+    }
+
+    .title-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        text-align: center;
+        line-height: 0.9;
+
+        .line {
+            margin-left: 16px;
+            height: 6px;
+            width: 0px;
+            background-color: var(--white);
+            transition: all .2s ease-in-out;    
+        }
+
+        &:hover .line {
+            width: calc(100% - 16px);
+        }
+    }
+
+    .title {
+        font-size: 10vh;
+        width: fit-content;
+        margin-top: 15px;
+
+        .arrow {
+            height: 5vh;
+            margin-left: 20px;
+        }
+    }
+
+    .bottom {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: auto;
+        padding: 20px;  
+
+        .animated-planet {
+            width: 10%;
+            margin-inline: 20px;
+        }
+
+        p {
+            font-size: 2vh;
+            color: #3F3F3F;
+        }
+
+        p:first-child {
+            text-align: right;
+        }
+    }
+}
+
+.contact-show {
+    opacity: 1;
+    pointer-events: all;
 }

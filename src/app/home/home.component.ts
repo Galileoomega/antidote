@@ -3,6 +3,8 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { fromEvent, interval, take, throttleTime, timer } from 'rxjs';
 import { ScrollbarComponent } from '../widgets/scrollbar/scrollbar.component';
 import { ScramblerTextComponent } from '../widgets/scrambler-text/scrambler-text.component';
+import { StarExposureComponent } from '../widgets/star-exposure/star-exposure.component';
+import { RouterLink } from '@angular/router';
 
 interface StarPosition {
   x: number;
@@ -17,7 +19,7 @@ interface Project {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ScrollbarComponent, ScramblerTextComponent],
+  imports: [CommonModule, ScrollbarComponent, ScramblerTextComponent, StarExposureComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   
@@ -116,6 +118,33 @@ export class HomeComponent implements AfterViewInit {
   onWindowScroll(): void {
     this.scrollPosition = window.scrollY;
     this.currentPageIndex = this.getPageIndexFromScroll();
+
+    if (this.currentPageIndex >= 9) {
+      // this.activateAutoScroll();
+    }
+  }
+
+  private autoScrollInterval: any;
+  private autoScrollSpeed = 10; // Adjust the speed as needed
+
+  activateAutoScroll(): void {
+    if (!this.autoScrollInterval) {
+      this.autoScrollInterval = setInterval(() => {
+        window.scrollBy(0, 2); // Scroll down by 2 pixels each interval
+        this.scrollPosition = window.scrollY;
+
+        if (this.scrollPosition + window.innerHeight >= document.body.scrollHeight) {
+          this.stopAutoScroll();
+        }
+      }, this.autoScrollSpeed);
+    }
+  }
+
+  stopAutoScroll(): void {
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+      this.autoScrollInterval = null;
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -414,5 +443,23 @@ export class HomeComponent implements AfterViewInit {
       'opacity': 0,
       'margin-top': 100 + 'px'
     } 
+  }
+
+  public stretch(page: number) {
+    if (this.currentPageIndex == page) {
+      return {
+        'opacity': 1,
+        'transform': 'scale(1)'
+      };
+    } else if (this.currentPageIndex > page) {
+      return {
+        'opacity': 1,
+        'transform': 'scale(1)',
+        'letter-spacing': this.screenWidth / 10 + 'px',
+        'margin-right': (this.screenWidth / 10) * -1 + 'px'
+      };
+    }
+
+    return {};
   }
 }
