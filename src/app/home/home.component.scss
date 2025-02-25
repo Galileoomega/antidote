@@ -14,6 +14,7 @@ app-star-exposure {
 
 .canvas {
     height: 1300vh;
+    filter: pixelate(1px);
 }
 
 .star-background-img {
@@ -188,6 +189,7 @@ app-star-exposure {
                 border-radius: 25px;
                 margin-bottom: 20px;
                 overflow: hidden;
+                // image-rendering: pixelated;
 
                 img {   
                     width: 150%;

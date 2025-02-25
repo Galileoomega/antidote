@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-loader',
@@ -8,6 +8,20 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent {
+export class LoaderComponent implements OnInit {
+  progress = 0;
+  radius = 50;
   
+  ngOnInit() {
+    setInterval(() => {
+      this.progress += 10
+    }, 900);
+  }
+
+  generateSVGOnPercentage() {
+    const circumference = 2 * Math.PI * this.radius;
+    const offset = circumference - (this.progress / 100) * circumference;
+    
+    return [circumference, offset];
+  }
 }
