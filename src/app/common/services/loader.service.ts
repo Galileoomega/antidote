@@ -12,11 +12,7 @@ export class LoaderService {
   private timeoutId: any;
 
   constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        this.startRandomProgress();
-      }
-    });
+    this.startRandomProgress();
   }
 
   private startRandomProgress() {

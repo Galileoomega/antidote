@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { fromEvent, interval, take, throttleTime, timer } from 'rxjs';
 import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component';
@@ -24,7 +24,7 @@ interface Project {
   styleUrl: './home.component.scss',
   
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit, OnInit {
   @ViewChildren('tracking') targets!: QueryList<ElementRef>;
 
   // Stars positions array.
@@ -184,6 +184,9 @@ export class HomeComponent implements AfterViewInit {
     this.mouseY = event.clientY;
 
     this.calculateMouseOffsetFromCenter();
+  }
+
+  ngOnInit(): void {
   }
 
   ngAfterViewInit() {

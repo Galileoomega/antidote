@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoaderService } from '../../common/services/loader.service';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-loader',
@@ -14,18 +15,29 @@ export class LoaderComponent implements OnInit {
   radius = 50;
   hide = false
 
-  constructor(
-    private loaderService: LoaderService
-  ) {}
+  constructor(private router: Router, private loaderService: LoaderService) {
+    this.router.events.subscribe(event => {
+      console.log(event instanceof NavigationStart)
+      if (event instanceof NavigationStart && this.progress >= 100) {
+        this.hide = false
+        setTimeout(() => {
+          this.hide = true
+        }, 1100);
+      }
+    });
+  }
   
   ngOnInit() {
     this.loaderService.currentData$.subscribe((data) => {
       this.progress = data;
 
       if (this.progress >= 100) {
-        setInterval(() => {
+        setTimeout(() => {
           this.hide = true
-        }, 1000)
+        }, 1000);
+      }
+      else {
+        this.hide = false;
       }
     });
   }

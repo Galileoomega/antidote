@@ -1,19 +1,24 @@
 * {
-  transition: all .5s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
   background-color: black;
-  z-index: 3;
+  z-index: 8;
   overflow: hidden;
+}
+
+.eyes {
+  opacity: 0;
+  margin-bottom: 50px;
 }
 
 .eye {
@@ -22,11 +27,27 @@
   height: 35px;
   background-color: white;
   border-radius: 100px;
-  left: 35%;
-  top: 37%;
+
+  &:first-child {
+    left: 35%;
+    top: 32%;
+  }
 
   &:last-child {
     left: 55%;
+    top: 25%;
+  }
+}
+
+.show-eyes {
+  opacity: 1;
+  margin-bottom: 0;
+
+  .eye:first-child {
+    top: 37%;
+  }
+
+  .eye:last-child {
     top: 33%;
   }
 }
@@ -57,8 +78,10 @@
   font-size: 2vh;
 }
 
-.full {
+.hide {
   opacity: 0;
+  pointer-events: none;
+  
   .progress-container {
     scale: 100;
     transform: rotate(45deg);
