@@ -478,17 +478,21 @@ export class HomeComponent implements AfterViewInit, OnInit {
     if (this.currentPageIndex == page) {
       return {
         'opacity': 1,
-        'transform': 'scale(1)'
+        'margin-top': 0 + 'px'
       };
     } else if (this.currentPageIndex > page) {
       return {
         'opacity': 1,
-        'transform': 'scale(1)',
+        'margin-top': 0 + 'px',
         'letter-spacing': this.screenWidth / 10 + 'px',
         'margin-right': (this.screenWidth / 10) * -1 + 'px'
       };
     }
 
     return {};
+  }
+
+  moveStarExposure() {
+    return this.currentPageIndex >= 10 && this.currentPageIndex < 13
   }
 }

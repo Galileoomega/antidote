@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 
 interface Star {
@@ -10,13 +11,14 @@ interface Star {
 
 @Component({
   selector: 'app-star-exposure',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './star-exposure.component.html',
   styleUrl: './star-exposure.component.scss'
 })
 export class StarExposureComponent implements OnChanges {
   @ViewChild('warpCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
   @Input() move: boolean = false;
+  @Input() scale: number = 1;
 
   private ctx!: CanvasRenderingContext2D;
   private stars!: Star[];
@@ -31,14 +33,14 @@ export class StarExposureComponent implements OnChanges {
   private animating: boolean = false;
 
   // CONFIGURABLE VALUES
-  private TARGET_SPEED: number = 0.002;
+  private readonly TARGET_SPEED: number = 0.002;
   private readonly STARS_COUNT: number = window.innerWidth * 3;
-  private readonly STAR_SIZE: number = 1;
 
   private TRAIL_FADE = 1; // Efficient fade with composite operation
 
   private startInterval: any;
   private endInterval: any;
+  private isDrawing: boolean = false;
 
   // COLOR PALETTE (Fast lookup with bitwise operation)
   private readonly STAR_COLORS: string[] = [
@@ -64,7 +66,6 @@ export class StarExposureComponent implements OnChanges {
     this.initStars();
 
     window.addEventListener('resize', () => this.resizeCanvas());
-
     this.draw();
   }
 
@@ -76,11 +77,15 @@ export class StarExposureComponent implements OnChanges {
       this.easeStart();
     }
 
-    this.draw();
+    if (!this.isDrawing) {
+      this.draw();
+    }
   }
 
   private easeEnd() {
     clearInterval(this.startInterval)
+    clearInterval(this.endInterval)
+
     const step: number = 0.0001;
 
     this.endInterval = setInterval(() => {
@@ -99,6 +104,7 @@ export class StarExposureComponent implements OnChanges {
 
   private easeStart() {
     clearInterval(this.endInterval)
+    clearInterval(this.startInterval)
 
     this.animating = true;
     this.TRAIL_FADE = 1;
@@ -139,10 +145,12 @@ export class StarExposureComponent implements OnChanges {
   }
 
   private draw(): void {
+    this.isDrawing = true;
     this.ctx.globalCompositeOperation = 'destination-in';
     this.ctx.fillStyle = `rgba(0, 0, 0, ${this.TRAIL_FADE})`;
     this.ctx.fillRect(0, 0, this.width, this.height);
     this.ctx.globalCompositeOperation = 'source-over';
+    console.log(this.currentSpeed)
 
     for (const star of this.stars) {
       star.angle += this.currentSpeed;
@@ -161,10 +169,11 @@ export class StarExposureComponent implements OnChanges {
       this.ctx.fill();
     }
 
-    if(this.animating == false) {
-      return;
+    if (this.animating) {
+      this.animationFrameId = requestAnimationFrame(() => this.draw());
     }
-
-    this.animationFrameId = requestAnimationFrame(() => this.draw());
+    else {
+      this.isDrawing = false;
+    }
   }
 }

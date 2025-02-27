@@ -282,11 +282,12 @@ app-star-exposure {
     transform: translate(0, -50%);
     z-index: -1;
     font-size: 8vh;
-    transition: all .5s ease-in-out;
+    transition: all .4s ease-in-out;
+
     color: #344BBD;
     line-height: 1cap;
     opacity: 0;
-    transform: scale(0.8);
+    margin-top: 100px;
     letter-spacing: normal;
     margin-right: 0px;
 }
@@ -313,7 +314,8 @@ app-star-exposure {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, black 60%, #3D4B8F 60%);
+    // background: radial-gradient(circle, black 60%, #3D4B8F 60%);
+    background-color: black;
     border-radius: 100%;
     background-size: 100%;
     background-position: center;

@@ -114,8 +114,8 @@ export class PlanetGenComponent implements OnChanges {
       '--base-size': this.BASE_SIZE + 'px', 
       '--scale': this.scaleFactor, 
       '--wanted-size': this.planetSize + 'px', 
-      '--perspectiveY': this.interpolate(80, 83, this.mouseOffsetY * -1) + 'deg',
-      '--perspectiveX': this.interpolate(0, 2, this.mouseOffsetX) + 'deg',
+      '--perspectiveY': this.interpolate(80, 82, this.mouseOffsetY * -1) + 'deg',
+      '--perspectiveX': this.interpolate(0, 1, this.mouseOffsetX) + 'deg',
     }
   }
 }

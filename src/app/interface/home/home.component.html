@@ -4,7 +4,8 @@
     [ngStyle]="{
         'opacity': currentPageIndex >= 2 && currentPageIndex <= 4 ? 0 : 1,
     }" 
-    [move]="currentPageIndex >= 10 && currentPageIndex < 13"
+    [move]="moveStarExposure()"
+    [scale]="currentPageIndex >= 12 ? 3 : 1"
 ></app-star-exposure>
 
 <div class="canvas">
