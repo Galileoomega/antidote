@@ -71,9 +71,7 @@
         </div>
 
         <!-- Raining Stars -->
-        @for (star of updateStarsPositions(); track star) {
-        <div [ngStyle]="star" class="star"></div>
-        }
+        <app-star-rain [scrollPosition]="scrollPosition"></app-star-rain>
 
         <!-- Projects Highlight -->
         <div [ngStyle]="fixToPage(4)" class="projects">

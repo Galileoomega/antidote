@@ -83,16 +83,6 @@ app-star-exposure {
     }
 }
 
-.star {
-    position: absolute;
-    width: 80px;
-    height: 4px;
-    background: rgb(114,77,218);
-    background: linear-gradient(126deg, rgba(114,77,218,1) 0%, rgba(114,77,218,0) 100%);
-    border-radius: 100px;
-    transform: rotate(45deg);
-}
-
 .band-title {
     position: fixed;
     bottom: 20px;
