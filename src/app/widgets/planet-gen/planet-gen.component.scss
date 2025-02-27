@@ -1,0 +1,146 @@
+.planet-container {
+    position: relative;
+    width: var(--wanted-size);
+    height: var(--wanted-size);
+    transform: perspective(400px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper {
+    position: absolute;
+    display: block;
+    width: var(--base-size);
+    height: var(--base-size);
+    transform: scale(var(--scale));
+}
+
+.planet {
+    position: absolute;
+    width: var(--base-size);
+    height: var(--base-size);
+    border-radius: 100%;
+    filter: blur(10px);
+    z-index: 1;
+}
+
+.p-background {
+    @extend .planet;
+    scale: 0.95;
+}
+
+.p-color-1 {
+    @extend .planet;
+}
+
+.p-color-2 {
+    @extend .planet;
+    filter: blur(3px);
+}
+
+.p-mask {
+    @extend .planet;
+}
+
+.rings {
+    --offset: 0px;
+    --width: calc((var(--base-size) * 1.8) + var(--offset));
+    --height: calc(((var(--base-size) * 1.8 + var(--offset)) / 2));
+    --border-color: #1A1E24;
+    --border-width: 10px;
+    --blur: 15px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--width);
+    height: var(--height);
+
+    transform: translate(-50%, -50%) rotate(25deg) perspective(4000px) rotateX(var(--perspectiveY)) rotateY(var(--perspectiveX));
+    
+    .ring {
+        position: absolute;
+        left: 50%;
+        width: var(--width);
+        height: var(--height);
+    
+        transform: translate(-50%, -100%);
+        
+        border: var(--border-width) solid var(--border-color);
+        filter: blur(var(--blur));
+        
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .ring-left {
+        @extend .ring;
+    
+        top: 50%;
+        border-top-left-radius: var(--height);
+        border-top-right-radius: var(--height);
+        border-bottom: 0;
+    }
+    
+    .ring-right {
+        @extend .ring;
+        
+        top: calc(50% + var(--height)) !important;
+        border-bottom-left-radius: var(--height);
+        border-bottom-right-radius: var(--height);
+        border-top: 0;
+    }
+}
+
+.rings-1 {
+    @extend .rings;
+
+    --border-color: #070707;
+    --border-width: 16px;
+    --offset: -50px;
+}
+
+.rings-2 {
+    @extend .rings;
+
+    --border-color: #070707;
+    --border-width: 10px;
+    --offset: 50px;
+}
+
+.rings-3 {
+    @extend .rings;
+
+    --border-width: 10px;
+    --offset: 140px;
+    --blur: 10px;
+}
+
+.rings-4 {
+    @extend .rings;
+
+    --border-width: 2px;
+    --offset: -200px;
+    --blur: 10px;
+}
+
+.rings-5 {
+    @extend .rings;
+
+    --border-color: rgba(0, 0, 0, 0.5);
+    --border-width: 50px;
+    --offset: 400px;
+    --blur: 20px;
+}
+
+.rings-6 {
+    @extend .rings;
+
+    --border-color: rgba(0, 0, 0, 0.3);
+    --border-width: 30px;
+    --offset: 600px;
+    --blur: 15px;
+}

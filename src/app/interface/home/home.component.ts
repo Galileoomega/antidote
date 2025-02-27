@@ -5,6 +5,7 @@ import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component'
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
 import { RouterLink } from '@angular/router';
 import { StarExposureComponent } from '../../widgets/star-exposure/star-exposure.component';
+import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.component';
 
 interface StarPosition {
   x: number;
@@ -19,7 +20,7 @@ interface Project {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ScrollbarComponent, ScramblerTextComponent, StarExposureComponent, RouterLink],
+  imports: [CommonModule, ScrollbarComponent, ScramblerTextComponent, StarExposureComponent, RouterLink, PlanetGenComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   
@@ -281,20 +282,20 @@ export class HomeComponent implements AfterViewInit, OnInit {
     switch(bodyId) {
       case "planet-1": 
         return {
-          'left': (this.mouseOffsetX / 2) * speedFactor + 'px',
-          'top': (this.mouseOffsetY / 2) * speedFactor + 'px',
+          'left': 'calc(50% + ' + (this.mouseOffsetX / 2) * speedFactor + 'px)',
+          'top': 'calc(50% + ' + (this.mouseOffsetY / 2) * speedFactor + 'px)',
         }
 
       case "sat-1": 
         return {
-          'left': (this.mouseOffsetX / 2) * speedFactor + 'px',
-          'bottom': ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px',
+          'left': 'calc(10vw + ' + (this.mouseOffsetX / 2) * speedFactor + 'px)',
+          'bottom': 'calc(10vh + ' + ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px)',
         }
 
       case "sat-2": 
         return {
-          'right': (this.mouseOffsetX / 2) * speedFactor + 'px',
-          'top': ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px',
+          'right': 'calc(10vw + ' + (this.mouseOffsetX / 2) * speedFactor + 'px)',
+          'top': 'calc(10vh + ' + ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px)',
         }
 
       default:

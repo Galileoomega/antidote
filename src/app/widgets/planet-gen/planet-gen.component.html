@@ -1,0 +1,61 @@
+<div [ngStyle]="generateStyleVariables()" class="planet-container">
+    <div class="wrapper">
+        <div class="p-background"></div>
+
+        <div [ngStyle]="generatePrimaryGradient(animPercentage)" class="p-color-2"></div>
+        <div [ngStyle]="generateSecondaryGradient(animPercentage)" class="p-color-1"></div>
+
+        @if(hasRings) {
+        <div class="rings">
+            <div class="ring-left"></div>
+        </div>
+        <div class="rings" style="z-index: 1;">
+            <div class="ring-right"></div>
+        </div>
+
+        <div class="rings-1">
+            <div class="ring-left"></div>
+        </div>
+        <div class="rings-1" style="z-index: 1;">
+            <div class="ring-right"></div>
+        </div>
+
+        <div class="rings-2">
+            <div class="ring-left"></div>
+        </div>
+        <div class="rings-2" style="z-index: 1;">
+            <div class="ring-right"></div>
+        </div>
+
+        <div class="rings-3">
+            <div class="ring-left"></div>
+        </div>
+        <div class="rings-3" style="z-index: 1;">
+            <div class="ring-right"></div>
+        </div>
+
+        <div class="rings-4">
+            <div class="ring-left"></div>
+        </div>
+        <div class="rings-4" style="z-index: 1;">
+            <div class="ring-right"></div>
+        </div>
+
+        <div class="rings-5">
+            <div class="ring-left"></div>
+        </div>
+        <div class="rings-5" style="z-index: 1;">
+            <div class="ring-right"></div>
+        </div>
+
+        <div class="rings-6">
+            <div class="ring-left"></div>
+        </div>
+        <div class="rings-6" style="z-index: 1;">
+            <div class="ring-right"></div>
+        </div>
+        }
+
+        <div [ngStyle]="updateMask(animPercentage)" class="p-mask"></div>
+    </div>
+</div>

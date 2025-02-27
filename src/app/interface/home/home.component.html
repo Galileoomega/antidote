@@ -11,223 +11,41 @@
     <div class="presented">
         <!-- PLANETS-1 -->
         <div [ngStyle]="updatePlanet()" class="planets-1">
-            <svg [ngStyle]="moveByMouseOffset('planet-1', 0.07)" class="planet-1" width="1357" height="909" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="700.1" cy="454.5" transform="rotate(-59 700 455)" fill="#000" r="330" />
-                <g filter="url(#a)">
-                    <circle cx="700.1" cy="454.5" transform="rotate(-59 700 455)" fill="url(#b)" fill-opacity=".6"
-                        r="330" />
-                </g>
-                <g filter="url(#c)">
-                    <path d="M373 393c71 43 144 81 231 121 142 65 277 113 390 140M575 148a2415 2415 0 0 1 468 233"
-                        stroke="#000" stroke-width="29" />
-                </g>
-                <g filter="url(#d)">
-                    <path
-                        d="M385 351c73 43 130 69 219 110 154 71 282 117 400 143m0-299c-84-54-153-90-264-141-40-18-49-23-88-38"
-                        stroke="#000" stroke-width="11" />
-                </g>
-                <g filter="url(#e)">
-                    <path
-                        d="M1252 713c-8 16-30 27-67 30-36 3-85-1-143-13-115-22-267-73-426-146-160-73-297-154-390-227-47-36-82-70-103-100-22-29-29-53-21-70 8-16 30-27 66-30 37-3 85 1 143 13 116 23 267 73 427 146s297 154 390 227c46 36 82 70 103 100 22 29 28 53 21 70Z"
-                        stroke="#1A1E24" stroke-width="8.8" />
-                </g>
-                <g filter="url(#f)">
-                    <path
-                        d="M1282 726c-8 18-31 29-70 33-38 4-89-1-150-12-122-24-282-77-449-153-168-77-312-163-410-240-49-38-86-74-108-106-22-31-29-56-21-74s32-30 70-33c39-4 90 0 151 12 122 23 281 76 449 153s312 163 410 239c48 39 85 75 108 106 22 32 29 57 20 75Z"
-                        stroke="#1A1E24" stroke-width="10" />
-                </g>
-                <g filter="url(#g)">
-                    <path
-                        d="M1223 699c-3 7-9 12-20 16-10 5-23 7-40 8-34 1-80-4-135-17-110-24-254-73-406-143-153-70-285-146-375-213-45-34-79-65-100-91-10-14-18-26-21-36-4-10-4-19-1-26 3-6 10-12 20-16s24-6 41-7c34-2 80 4 134 16 110 24 254 74 407 144 152 69 284 146 374 213 45 33 79 64 100 91 11 13 18 25 22 36 3 10 3 18 0 25Z"
-                        stroke="#070707" stroke-width="9.9" />
-                </g>
-                <g filter="url(#h)">
-                    <path
-                        d="M1205 690c-3 6-9 10-19 14-10 3-23 5-39 5-32 1-76-5-129-18-105-25-244-74-392-141-148-68-276-141-363-204-44-32-78-61-99-86-10-12-17-23-21-33s-4-17-1-23c2-6 8-11 18-15 10-3 23-5 39-5 33-1 77 6 129 18 106 25 245 74 392 142 148 67 276 140 364 203 43 32 77 61 98 86 11 12 18 24 21 33 4 10 4 18 2 24Z"
-                        stroke="#070707" stroke-width="7.9" />
-                </g>
-                <g filter="url(#i)">
-                    <ellipse cx="734.6" cy="384.2" rx="238.6" ry="344" transform="rotate(-59 735 384)" fill="#000" />
-                </g>
-                <g filter="url(#j)">
-                    <circle cx="700.1" cy="454.5" transform="rotate(-59 700 455)" fill="url(#k)" fill-opacity=".5"
-                        r="330" />
-                </g>
-                <g filter="url(#l)">
-                    <circle cx="700.1" cy="454.5" transform="rotate(-59 700 455)" fill="url(#m)" r="330" />
-                </g>
-                <defs>
-                    <filter id="a" x="365.1" y="119.5" width="670.1" height="670.1" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="2.5" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="c" x="353.3" y="122.4" width="709.4" height="557.6" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="5.9" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="d" x="370.4" y="108.8" width="647.9" height="512.1" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="5.9" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="e" x="82.8" y="139.8" width="1188.1" height="620.5" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="5.9" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="f" x="44.3" y="112.9" width="1268" height="673.8" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="10.8" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="g" x="109.6" y="160.1" width="1129.3" height="576.4" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="4.3" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="h" x="123.8" y="167.8" width="1098.6" height="557.6" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="6" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="i" x="339.4" y="37.5" width="790.5" height="693.5" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="38" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="j" x="349.5" y="103.9" width="701.3" height="701.3" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="10.3" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <filter id="l" x="349.5" y="103.9" width="701.3" height="701.3" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="10.3" result="effect1_foregroundBlur_566_101918" />
-                    </filter>
-                    <linearGradient id="b" x1="700.1" y1="124.5" x2="700.1" y2="784.5" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#724DDA" />
-                        <stop offset="1" stop-color="#39B9CB" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="k" x1="700.1" y1="124.5" x2="700.1" y2="784.5" gradientUnits="userSpaceOnUse">
-                        <stop [attr.offset]="getPositionForPage(0, 0.2, 1)" stop-color="#7544FF" />
-                        <stop [attr.offset]="getPositionForPage(0.8, 1, 1)" stop-color="#00E0FF" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="m" x1="700.1" y1="124.5" x2="700.1" y2="784.5" gradientUnits="userSpaceOnUse">
-                        <stop [attr.offset]="getPositionForPage(0.5, 0, 1)" stop-opacity="0" />
-                        <stop [attr.offset]="getPositionForPage(1, 0, 1)" />
-                    </linearGradient>
-                </defs>
-            </svg>
 
-            <svg [ngStyle]="moveByMouseOffset('sat-1', 0.4)" class="planet-1-satellite-1" width="223" height="224" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="111.3" cy="112.1" r="80.8" transform="rotate(-59 111 112)" fill="#000" />
-                <g filter="url(#1)">
-                    <circle cx="111.3" cy="112.1" r="80.8" transform="rotate(-59 111 112)" fill="url(#2)"
-                        fill-opacity=".6" />
-                </g>
-                <g filter="url(#3)">
-                    <circle cx="111.3" cy="112.1" r="80.8" transform="rotate(-59 111 112)" fill="url(#4)"
-                        fill-opacity=".5" />
-                </g>
-                <g filter="url(#5)">
-                    <circle cx="111.3" cy="112.1" r="80.8" transform="rotate(-59 111 112)" fill="url(#6)" />
-                </g>
-                <defs>
-                    <linearGradient id="2" x1="111.3" y1="31.2" x2="111.3" y2="192.9" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#4D88DA" />
-                        <stop offset=".9" stop-color="#39CB82" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="4" x1="111.3" y1="31.2" x2="111.3" y2="192.9" gradientUnits="userSpaceOnUse">
-                        <stop [attr.offset]="getPositionForPage(0, 1, 1)" stop-color="#4D88DA" />
-                        <stop [attr.offset]="getPositionForPage(0.6, 1, 1)" stop-color="#39CB82" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="6" x1="111.3" y1="31.2" x2="111.3" y2="192.9" gradientUnits="userSpaceOnUse">
-                        <stop stop-opacity="0" />
-                        <stop [attr.offset]="getPositionForPage(1, 0, 1)" />
-                    </linearGradient>
-                    <filter id="1" x="25.5" y="26.2" width="171.7" height="171.7" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="2.5" result="effect1_foregroundBlur_566_101930" />
-                    </filter>
-                    <filter id="3" x="16.5" y="17.2" width="189.7" height="189.7" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="7" result="effect1_foregroundBlur_566_101930" />
-                    </filter>
-                    <filter id="5" x="16.5" y="17.2" width="189.7" height="189.7" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="7" result="effect1_foregroundBlur_566_101930" />
-                    </filter>
-                </defs>
-            </svg>
+            <app-planet-gen 
+                [ngStyle]="moveByMouseOffset('planet-1', 0.07)"
+                [animPercentage]="getPositionForPage(0, 100, 1)" 
+                [planetSize]="700" 
+                [gradient]="[
+                    [117, 68, 225],
+                    [0, 224, 225],
+                ]"
+                [hasRings]="true"
+                [hasPerspective]="true"
+                class="planet-1"
+            ></app-planet-gen>
 
-            <svg [ngStyle]="moveByMouseOffset('sat-2', 0.4)" class="planet-1-satellite-2" width="112" height="113" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <circle cx="55.7" cy="56.5" r="40.5" transform="rotate(-59 56 56)" fill="#000" />
-                <g filter="url(#a1)">
-                    <circle cx="55.7" cy="56.5" r="40.5" transform="rotate(-59 56 56)" fill="url(#b2)"
-                        fill-opacity=".6" />
-                </g>
-                <g filter="url(#c3)">
-                    <circle cx="55.7" cy="56.5" r="40.5" transform="rotate(-59 56 56)" fill="url(#d4)"
-                        fill-opacity=".5" />
-                </g>
-                <g filter="url(#e5)">
-                    <circle cx="55.7" cy="56.5" r="40.5" transform="rotate(-59 56 56)" fill="url(#f6)" />
-                </g>
-                <defs>
-                    <linearGradient id="b2" x1="55.7" y1="16" x2="55.7" y2="96.9" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#DA4DBE" />
-                        <stop offset=".9" stop-color="#396ACB" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="d4" x1="55.7" y1="16" x2="55.7" y2="96.9" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#4D88DA" />
-                        <stop offset=".6" stop-color="#39CB82" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="f6" x1="55.7" y1="16" x2="55.7" y2="96.9" gradientUnits="userSpaceOnUse">
-                        <stop stop-opacity="0" />
-                        <stop [attr.offset]="getPositionForPage(1, 0, 1)" />
-                    </linearGradient>
-                    <filter id="a1" x="10.3" y="11" width="91" height="91" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="2.5" result="effect1_foregroundBlur_566_101913" />
-                    </filter>
-                    <filter id="c3" x="1.3" y="2" width="109" height="109" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="7" result="effect1_foregroundBlur_566_101913" />
-                    </filter>
-                    <filter id="e5" x="1.3" y="2" width="109" height="109" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="7" result="effect1_foregroundBlur_566_101913" />
-                    </filter>
-                </defs>
-            </svg>
+            <app-planet-gen 
+                [ngStyle]="moveByMouseOffset('sat-1', 0.4)"
+                [animPercentage]="getPositionForPage(0, 100, 1)" 
+                [planetSize]="150" 
+                [gradient]="[
+                    [57, 203, 130],
+                    [77, 136, 218],
+                ]"
+                class="planet-1-satellite-1"
+            ></app-planet-gen>
+
+            <app-planet-gen 
+                [ngStyle]="moveByMouseOffset('sat-2', 0.4)"
+                [animPercentage]="getPositionForPage(0, 100, 1)" 
+                [planetSize]="100" 
+                [gradient]="[
+                    [218, 77, 190],
+                    [57, 106, 203],
+                ]"
+                class="planet-1-satellite-2"
+            ></app-planet-gen>
         </div>
 
         <!-- Landing Title -->

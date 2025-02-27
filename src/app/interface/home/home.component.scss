@@ -27,28 +27,28 @@ app-star-exposure {
 
 .planets-1 {
     position: relative;
-    width: fit-content;
-    height: fit-content;
 
-    width: 1357px;
-    height: 909px;
+    width: 90vw;
+    height: 90vh;
 
     .planet-1 {
         position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
     
     .planet-1-satellite-1 {
         position: absolute;
-        z-index: 10;
-        bottom: 0px;
-        left: 0;
+        left: 10vw;
+        bottom: 10vh;
     }
 
     .planet-1-satellite-2 {
         position: absolute;
         z-index: 10;
-        top: 0px;
-        right: 0;
+        top: 10vh;
+        right: 10vw;
     }
 }
 
