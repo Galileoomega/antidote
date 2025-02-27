@@ -1,6 +1,5 @@
-import { CommonModule, ViewportScroller } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { fromEvent, interval, take, throttleTime, timer } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component';
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
 import { RouterLink } from '@angular/router';
@@ -132,7 +131,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     }
 
     if (this.currentPageIndex >= 10) {
-      this.activateAutoScroll();
+      // this.activateAutoScroll();
     }
     else {
       this.stopAutoScroll();
@@ -493,6 +492,13 @@ export class HomeComponent implements AfterViewInit, OnInit {
   }
 
   moveStarExposure() {
-    return this.currentPageIndex >= 10 && this.currentPageIndex < 13
+    if (this.currentPageIndex >= 12) {
+      return 'pause';
+    }
+    if (this.currentPageIndex >= 10) {
+      return 'play';
+    }
+
+    return 'stop';
   }
 }

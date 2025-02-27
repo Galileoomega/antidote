@@ -17,7 +17,7 @@ interface Star {
 })
 export class StarExposureComponent implements OnChanges {
   @ViewChild('warpCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
-  @Input() move: boolean = false;
+  @Input() move: 'play' | 'stop' | 'pause' = 'stop';
   @Input() scale: number = 1;
 
   private ctx!: CanvasRenderingContext2D;
@@ -33,13 +33,14 @@ export class StarExposureComponent implements OnChanges {
   private animating: boolean = false;
 
   // CONFIGURABLE VALUES
-  private readonly TARGET_SPEED: number = 0.002;
+  private readonly TARGET_SPEED: number = 0.0018;
   private readonly STARS_COUNT: number = window.innerWidth * 3;
 
   private TRAIL_FADE = 1; // Efficient fade with composite operation
 
   private startInterval: any;
   private endInterval: any;
+  private pauseInterval: any;
   private isDrawing: boolean = false;
 
   // COLOR PALETTE (Fast lookup with bitwise operation)
@@ -70,11 +71,14 @@ export class StarExposureComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    if(this.move == false) {
-      this.easeEnd();
+    if(this.move == 'stop') {
+      this.easeStop();
+    }
+    else if (this.move == 'play') {
+      this.easeStart();
     }
     else {
-      this.easeStart();
+      this.easePause();
     }
 
     if (!this.isDrawing) {
@@ -82,9 +86,29 @@ export class StarExposureComponent implements OnChanges {
     }
   }
 
-  private easeEnd() {
+  private easePause() {
     clearInterval(this.startInterval)
     clearInterval(this.endInterval)
+    clearInterval(this.pauseInterval)
+
+    const step: number = 0.0001;
+
+    this.pauseInterval = setInterval(() => {
+      this.currentSpeed -= step;
+
+      if(this.currentSpeed <= 0) {
+        this.currentSpeed = 0;
+        this.animating = false;
+        clearInterval(this.pauseInterval);
+        return;
+      }
+    }, 50);
+  }
+
+  private easeStop() {
+    clearInterval(this.startInterval)
+    clearInterval(this.endInterval)
+    clearInterval(this.pauseInterval)
 
     const step: number = 0.0001;
 
@@ -105,6 +129,7 @@ export class StarExposureComponent implements OnChanges {
   private easeStart() {
     clearInterval(this.endInterval)
     clearInterval(this.startInterval)
+    clearInterval(this.pauseInterval)
 
     this.animating = true;
     this.TRAIL_FADE = 1;
