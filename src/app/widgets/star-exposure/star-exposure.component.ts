@@ -5,6 +5,7 @@ interface Star {
   radius: number;
 
   color: string;
+  size: number;
 }
 
 @Component({
@@ -31,7 +32,7 @@ export class StarExposureComponent implements OnChanges {
 
   // CONFIGURABLE VALUES
   private TARGET_SPEED: number = 0.002;
-  private readonly STARS_COUNT: number = window.innerWidth; // Reduced for performance
+  private readonly STARS_COUNT: number = window.innerWidth * 3;
   private readonly STAR_SIZE: number = 1;
 
   private TRAIL_FADE = 1; // Efficient fade with composite operation
@@ -41,8 +42,11 @@ export class StarExposureComponent implements OnChanges {
 
   // COLOR PALETTE (Fast lookup with bitwise operation)
   private readonly STAR_COLORS: string[] = [
-    '#1E1C34', '#1C1D39', '#39395D', '#3F4775', '#A0B5F6',
-    '#8096CF', '#453D30', '#837E6B', '#8096CF', '#4C240A', '#4D0A72'
+    "#7A60DC",
+    "#6757AA",
+    "#231E3B",
+    "#CAC8EF",
+    "#2F2C41"
   ];
 
   ngOnInit(): void {
@@ -129,7 +133,8 @@ export class StarExposureComponent implements OnChanges {
     this.stars = Array.from({ length: this.STARS_COUNT }, () => ({
       angle: Math.random() * Math.PI * 2,
       radius: Math.sqrt(Math.random()) * this.width,
-      color: this.STAR_COLORS[(Math.random() * this.STAR_COLORS.length) | 0]
+      color: this.STAR_COLORS[(Math.random() * this.STAR_COLORS.length) | 0],
+      size: Math.random() * (1.2 - 0.7) + 0.7
     }));
   }
 
@@ -148,7 +153,7 @@ export class StarExposureComponent implements OnChanges {
       this.ctx.arc(
         this.centerX + Math.cos(star.angle) * star.radius, 
         this.centerY + Math.sin(star.angle) * star.radius, 
-        this.STAR_SIZE, 
+        star.size, 
         0, 
         Math.PI * 2
       );

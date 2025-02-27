@@ -94,7 +94,7 @@ export class PlanetGenComponent implements OnChanges {
    */
   updateMask(percentage: number): { background: string } {
     return {
-      background: `linear-gradient(126deg, #00000000 0%, #000000 ${this.interpolate(70, 10, percentage)}%)`
+      background: `linear-gradient(126deg, #00000000 0%, #000000 ${this.interpolate(100, 0, percentage)}%)`
     };
   }
 
@@ -114,7 +114,7 @@ export class PlanetGenComponent implements OnChanges {
       '--base-size': this.BASE_SIZE + 'px', 
       '--scale': this.scaleFactor, 
       '--wanted-size': this.planetSize + 'px', 
-      '--perspectiveY': this.interpolate(80, 84, this.mouseOffsetY * -1) + 'deg',
+      '--perspectiveY': this.interpolate(80, 83, this.mouseOffsetY * -1) + 'deg',
       '--perspectiveX': this.interpolate(0, 2, this.mouseOffsetX) + 'deg',
     }
   }

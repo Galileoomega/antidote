@@ -48,7 +48,7 @@
     --offset: 0px;
     --width: calc((var(--base-size) * 1.8) + var(--offset));
     --height: calc(((var(--base-size) * 1.8 + var(--offset)) / 2));
-    --border-color: #1A1E24;
+    --border-color: #c7c9ffbf;
     --border-width: 10px;
     --blur: 15px;
 
@@ -98,15 +98,15 @@
 .rings-1 {
     @extend .rings;
 
-    --border-color: #070707;
-    --border-width: 16px;
+    --border-color: #1A1E24;
+    --border-width: 7px;
     --offset: -50px;
 }
 
 .rings-2 {
     @extend .rings;
 
-    --border-color: #070707;
+    --border-color: #c7c9ffbf;
     --border-width: 10px;
     --offset: 50px;
 }
@@ -122,9 +122,10 @@
 .rings-4 {
     @extend .rings;
 
+    --border-color: #c7c9ffbf;
     --border-width: 2px;
     --offset: -200px;
-    --blur: 10px;
+    --blur: 6px;
 }
 
 .rings-5 {
