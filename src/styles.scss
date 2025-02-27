@@ -45,6 +45,7 @@
     user-select: none;
     overflow: -moz-scrollbars-none; /* Firefox */
     scrollbar-width: none; /* Firefox */
+    will-change: transform, filter, opacity;
 
     &::-webkit-scrollbar {
         display: none;
