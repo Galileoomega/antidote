@@ -45,15 +45,12 @@
     user-select: none;
     overflow: -moz-scrollbars-none; /* Firefox */
     scrollbar-width: none; /* Firefox */
-    will-change: transform, filter, opacity;
+    will-change: all;
+    backface-visibility: hidden;
 
     &::-webkit-scrollbar {
         display: none;
     }
-}
-
-svg {
-    will-change: transform;
 }
 
 :root {
