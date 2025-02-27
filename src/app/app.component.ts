@@ -13,21 +13,21 @@ import { LoaderComponent } from './interface/loader/loader.component';
 export class AppComponent {
   title = 'antidote';
 
-  @HostListener('document:contextmenu', ['$event'])
-  onRightClick(event: MouseEvent) {
-    event.preventDefault();
-    return false;
-  }
+  // @HostListener('document:contextmenu', ['$event'])
+  // onRightClick(event: MouseEvent) {
+  //   event.preventDefault();
+  //   return false;
+  // }
 
-  constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
-      }
-    });
+  // constructor(private router: Router) {
+  //   this.router.events.subscribe(event => {
+  //     if (event instanceof NavigationEnd) {
+  //       window.scrollTo(0, 0);
+  //     }
+  //   });
 
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 200);
-  }
+  //   setTimeout(() => {
+  //     window.scrollTo(0, 0);
+  //   }, 200);
+  // }
 }

@@ -14,7 +14,7 @@ export class PlanetGenComponent implements OnChanges {
   @Input() animPercentage: number = 0;
   @Input() hasRings: boolean = false;
   @Input() planetSize: number = 900;
-  @Input() hasPerspective: boolean = true;
+  @Input() hasPerspective: boolean = false;
   
   public readonly BASE_SIZE: number = 600;
   

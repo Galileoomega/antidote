@@ -118,92 +118,26 @@
 
         <!-- PLANETS-2 -->
         <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 20, [5, 10]) * -1 + 'vh'}" class="planets-2">
-            <!-- PLANET 2: SVG LIGHTNING -->
-            <svg class="planet-2-lightning" viewBox="0 0 756 756" xmlns="http://www.w3.org/2000/svg">
-                <g filter="url(#filter0_f_603_264)">
-                    <circle cx="378.029" cy="377.897" r="330" transform="rotate(99.0704 378.029 377.897)"
-                        fill="url(#paint0_linear_603_264)" fill-opacity="0.44" />
-                </g>
-                <g filter="url(#filter1_f_603_264)">
-                    <circle cx="378.029" cy="377.897" r="330" transform="rotate(99.0704 378.029 377.897)"
-                        fill="url(#paint1_linear_603_264)" />
-                </g>
-                <defs>
-                    <filter id="filter0_f_603_264" x="27.38" y="27.2486" width="701.297" height="701.297"
-                        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="10.3" result="effect1_foregroundBlur_603_264" />
-                    </filter>
-                    <filter id="filter1_f_603_264" x="27.38" y="27.2486" width="701.297" height="701.297"
-                        filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="10.3" result="effect1_foregroundBlur_603_264" />
-                    </filter>
-                    <linearGradient id="paint0_linear_603_264" x1="378.029" y1="47.8974" x2="378.029" y2="707.897"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#AAB8FF" />
-                        <stop offset="0.746666" stop-color="#FF0004" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="paint1_linear_603_264" x1="378.029" y1="47.8974" x2="378.029" y2="707.897"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-opacity="0" />
-                        <stop [attr.offset]="getPositionForPage2(0.01, 1, [5, 8])"/>
-                    </linearGradient>
-                </defs>
-            </svg>
+            <app-planet-gen 
+                [animPercentage]="getPositionForPage(100, 0, 6)"  
+                [planetSize]="1300" 
+                [gradient]="[
+                    [170, 184, 255],
+                    [110, 114, 255],
+                ]"
+                [hasRings]="true"
+                class="planet-2"
+            ></app-planet-gen>
 
-            <!-- PLANET 2: BASE COLOR -->
-            <img class="planet-2-base-color" src="images/planet2-basecolor.png">
-
-            <!-- SATELLITE: SVG -->
-            <svg class="planet-2-satellite" viewBox="0 0 125 125" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="62.3" cy="62.3" r="48.1" transform="rotate(99 62 62)" />
-                <g filter="url(#A)">
-                    <circle cx="62.3" cy="62.3" r="48.1" transform="rotate(99 62 62)" fill="url(#B)"
-                        fill-opacity=".4" />
-                </g>
-                <g filter="url(#C)">
-                    <circle cx="62.3" cy="62.3" r="48.1" transform="rotate(99 62 62)" fill="url(#D)"
-                        fill-opacity=".4" />
-                </g>
-                <g filter="url(#E)">
-                    <circle cx="62.3" cy="62.3" r="48.1" transform="rotate(99 62 62)" fill="url(#F)" />
-                </g>
-                <defs>
-                    <linearGradient id="B" x1="62.3" y1="14.2" x2="62.3" y2="110.4" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#4D88DA" />
-                        <stop offset=".7" stop-color="#CB8539" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="D" x1="62.3" y1="14.2" x2="62.3" y2="110.4" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#EB6A15" />
-                        <stop offset=".7" stop-color="#CB393C" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="F" x1="62.3" y1="14.2" x2="62.3" y2="110.4" gradientUnits="userSpaceOnUse">
-                        <stop stop-opacity="0" />
-                        <stop [attr.offset]="getPositionForPage2(0.01, 1, [5, 8])" />
-                    </linearGradient>
-                    <filter id="A" x="9.1" y="9.1" width="106.3" height="106.3" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="2.5" result="effect1_foregroundBlur_612_267" />
-                    </filter>
-                    <filter id="C" x=".1" y=".1" width="124.3" height="124.3" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="7" result="effect1_foregroundBlur_612_267" />
-                    </filter>
-                    <filter id="E" x=".1" y=".1" width="124.3" height="124.3" filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                        <feGaussianBlur stdDeviation="7" result="effect1_foregroundBlur_612_267" />
-                    </filter>
-                </defs>
-            </svg>
+            <app-planet-gen 
+                [animPercentage]="getPositionForPage(100, 0, 6)"  
+                [planetSize]="200" 
+                [gradient]="[
+                    [170, 184, 255],
+                    [110, 114, 255],
+                ]"
+                class="planet-2-satellite"
+            ></app-planet-gen>
         </div>
 
         <div class="sliding-text">
