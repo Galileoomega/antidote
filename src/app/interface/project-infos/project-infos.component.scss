@@ -1,7 +1,30 @@
-* {
-  will-change: all;
+// Variables
+$primary-color: #6E00C3;
+$border-radius-large: 50px;
+$transition-duration: 0.3s;
+$spacing-base: 10px;
+$spacing-large: 25px;
+$spacing-xl: 50px;
+$spacing-xxl: 100px;
+
+// Animations
+@keyframes slideInFromRight {
+  0% {
+    transform: translate3d(100px, 0, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
 
+// Base styles
+* {
+  will-change: transform, opacity;
+}
+
+// Carousel Layout
 .carousel-container {
   width: 100vw;
   height: 100vh;
@@ -14,59 +37,72 @@
   align-items: center;
   width: fit-content;
   height: 100%;
-  gap: 10px;
-  padding: 10px;
+  gap: $spacing-base;
+  padding: $spacing-base;
   transform: translate3d(0, 0, 0);
-  transition: transform 0.3s ease-out;
+  transition: transform $transition-duration ease-out;
+  animation: slideInFromRight $transition-duration ease-out;
+
+  &-first-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40vw;
+    height: 80%;
+    padding: $spacing-xl;
+  }
+
+  &-item {
+    flex: 0 0 auto;
+    height: 80%;
+    aspect-ratio: 1.5/1;
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $border-radius-large;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
 
-.carousel-first-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 900px;
-  height: 80%;
-  padding: 50px;
-}
-
-.carousel-item {
-  flex: 0 0 auto;
-  height: 80%;
-  aspect-ratio: 1.5/1;
-  background-color: grey;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
-  overflow: hidden;
-}
-
-.carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.flex {
-  gap: 100px;
-}
-
+// Typography
 .title {
   font-size: 5vh;
-  margin-bottom: 25px;
+  margin-bottom: $spacing-large;
 }
 
-.section-title {
-  margin-bottom: 15px;
-  color: #6E00C3;
+.section {
+  font-size: 1.5vh;
+  
+  &-title {
+    margin-bottom: $spacing-base + 5px;
+    color: $primary-color;
+  }
 }
 
+// Layout utilities
+.flex {
+  gap: $spacing-xxl;
+}
+
+// Components
 .button {
-  margin-top: 100px;
+  margin-top: $spacing-xxl;
   width: fit-content;
-  padding: 10px;
-  padding-inline: 20px;
+  padding: $spacing-base;
+  padding-inline: $spacing-base * 2;
   border: 1.5px solid white;
   border-radius: 100px;
   cursor: pointer;
+  transition: all $transition-duration ease;
+
+  &:hover {
+    background-color: rgba(white, 0.1);
+  }
 }

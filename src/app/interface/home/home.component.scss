@@ -5,7 +5,7 @@ $font-family: 'JetBrains-ExtraLight', sans-serif;
 $primary-color: #4F44D6;
 $secondary-color: #344BBD;
 $text-color: #3F3F3F;
-$background-color: black;
+$background-color: var(--black);
 
 // Mixins
 @mixin flex-center {

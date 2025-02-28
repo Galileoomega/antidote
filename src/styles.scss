@@ -40,6 +40,11 @@
     font-style: normal;
 }
 
+:root {
+    --white: #dfdfdf;
+    --black: #000000;
+}
+
 * {
     box-sizing: border-box;
     user-select: none;
@@ -52,12 +57,8 @@
     }
 }
 
-:root {
-    --white: #dfdfdf;
-}
-
 body {
-    background-color: black;
+    background-color: var(--black);
     color: var(--white);
     font-family: 'JetBrains-Regular', sans-serif;
 }
