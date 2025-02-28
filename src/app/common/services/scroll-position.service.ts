@@ -6,73 +6,27 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ScrollPositionService {
-  public scrollPositions = new Map<string, number>();
-  private preserveScrollPosition = false;
+  private scrollPositions = new Map<string, number>();
 
-  constructor(
-    private router: Router
-  ) {
-    // Disable automatic scroll restoration
+  constructor(private router: Router) {
     window.history.scrollRestoration = 'manual';
 
-    // Listen to navigation events
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      if (this.preserveScrollPosition) {
-        const currentRoute = this.router.url;
-        const savedPosition = this.scrollPositions.get(currentRoute);
-        
-        if (savedPosition) {
-          // Restore the saved scroll position
-          setTimeout(() => {
-            window.scrollTo(0, savedPosition);
-          });
-        }
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      if(this.scrollPositions.has(this.router.url)) {
+        window.scrollTo(0, this.scrollPositions.get(this.router.url) || 0);
+      
+        this.clearScrollPosition();
       } else {
-        // Scroll to top on route change
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-        });
-      }
-    });
-
-    // Save scroll position before navigation
-    window.addEventListener('scroll', () => {
-      if (this.preserveScrollPosition) {
-        this.scrollPositions.set(this.router.url, window.scrollY);
+        window.scrollTo(0, 0);
       }
     });
   }
 
-  // Enable/disable scroll position preservation
-  setPreserveScroll(preserve: boolean) {
-    this.preserveScrollPosition = preserve;
-    if (!preserve) {
-      // Clear saved positions when disabling preservation
-      this.scrollPositions.clear();
-    }
-  }
-
-  // Method to manually save scroll position for current route
-  saveScrollPosition() {
+  public saveScrollPosition() {
     this.scrollPositions.set(this.router.url, window.scrollY);
   }
 
-  // Method to manually restore scroll position for current route
-  restoreScrollPosition() {
-    if (this.preserveScrollPosition) {
-      const currentRoute = this.router.url;
-      const savedPosition = this.scrollPositions.get(currentRoute);
-      
-      if (savedPosition) {
-        window.scrollTo(0, savedPosition);
-      }
-    } else {
-      window.scrollTo(0, 0);
-    }
-
+  public clearScrollPosition() {
     this.scrollPositions.clear();
-    this.setPreserveScroll(false);
-  }
+  } 
 } 

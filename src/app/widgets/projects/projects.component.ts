@@ -48,6 +48,7 @@ export class ProjectsComponent implements AfterViewInit {
    */
   public openProject(index: number): void {
     this.scrollPositionService.saveScrollPosition();
+    
     this.animateSliding = true;
     const projectId = this.PROJECTS[index].id;
     setTimeout(() => this.router.navigateByUrl(`projects/${projectId}`), this.TRANSITION_TIME_MILLISECOND + 100);

@@ -8,7 +8,7 @@ import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.componen
 import { AutoScrollService } from '../../common/services/auto-scroll.service';
 import { StarRainComponent } from '../../widgets/star-rain/star-rain.component';
 import { ProjectsComponent } from '../../widgets/projects/projects.component';
-import { ScrollPositionService } from '../../common/services/scroll-position.service';
+
 @Component({
   selector: 'app-home',
   imports: [
@@ -24,7 +24,7 @@ import { ScrollPositionService } from '../../common/services/scroll-position.ser
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   // Store the current coordinates of the mouse.
   private mouseX: number = 0;
   private mouseY: number = 0;
@@ -43,15 +43,8 @@ export class HomeComponent implements OnInit {
   public currentPageIndex: number = 0;
 
   constructor(
-    private autoScroll: AutoScrollService,
-    private scrollPositionService: ScrollPositionService
+    private autoScroll: AutoScrollService
   ) {}
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.scrollPositionService.restoreScrollPosition();
-    }, 100);
-  }
 
   private getPageIndexFromScroll(): number {
     const percentage: number = ((this.scrollPosition - this.screenHeight * Math.floor(this.scrollPosition / this.screenHeight)) / this.screenHeight) * 100;
