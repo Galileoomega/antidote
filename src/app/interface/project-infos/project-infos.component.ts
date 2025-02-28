@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, NgZone, ViewChild, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 
@@ -16,12 +16,14 @@ export class ProjectInfosComponent implements OnInit {
   targetPosition = 0;  // The target scroll position
   currentPosition = 0; // The current scroll position
   smoothingFactor = 0.2; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
+  isExiting = false;
 
   projectId: string | null = null;
   project: Project | null = null;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private projectsService: ProjectsService
   ) {}
 
@@ -63,5 +65,12 @@ export class ProjectInfosComponent implements OnInit {
     if (this.project?.websiteUrl) {
       window.open(this.project.websiteUrl, '_blank');
     }
+  }
+
+  goBack() {
+    this.isExiting = true;
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 300); // Match the animation duration
   }
 }

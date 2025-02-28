@@ -1,5 +1,11 @@
+<div class="back-button" (click)="goBack()">
+    <img src="icons/arrow-left.svg">
+
+    GO BACK
+</div>
+
 <div class="carousel-container" (wheel)="onScroll($event)">
-    <div #carousel class="carousel">
+    <div #carousel class="carousel" [class.exiting]="isExiting">
         <div class="carousel-first-item">
             <div class="title">{{ project?.title }}</div>
 
@@ -43,4 +49,3 @@
         }
     </div>
 </div>
-  
