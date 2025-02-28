@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 
@@ -28,6 +28,14 @@ export class ProjectsComponent implements AfterViewInit {
   constructor(private router: Router, private projectsService: ProjectsService) {
     this.PROJECTS = this.projectsService.getAllProjects();
     this.initializePerspectiveData();
+
+    // Listen for navigation events to handle return animation
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url === '/') {
+        // Reset animation state when returning to projects
+        this.animateSliding = false;
+      }
+    });
   }
 
   ngAfterViewInit(): void {

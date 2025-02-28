@@ -2,13 +2,16 @@
     position: absolute;
     width: 100vw;
     padding-inline: 60px;
-    transition: opacity var(--transition-time) ease-in-out;
+    transition: all var(--transition-time) ease-in-out;
+    transform: translateX(0);
+    opacity: 1;
 
     .heading {
         display: flex;
         align-items: center;
         justify-content: space-between;
         transition: all var(--transition-time) ease-in-out;
+        transform: translateX(0);
 
         .title {
             font-size: 5.5vw;
@@ -26,6 +29,7 @@
         flex-wrap: wrap;
         gap: 60px;
         transition: all calc(var(--transition-time) * 2) ease-in-out;
+        transform: translateX(0);
 
         .item {
             width: calc(50% - 30px);
@@ -152,6 +156,21 @@
     .items-grid {
         transform: translateX(-400px);
     }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.projects:not(.anim) {
+    animation: slideInFromLeft var(--transition-time) ease-in-out;
 }
 
 .button {
