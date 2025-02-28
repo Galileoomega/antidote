@@ -1,10 +1,47 @@
-<div class="horizontal-scroll-wrapper squares">
-    <div>item 1</div>
-    <div>item 2</div>
-    <div>item 3</div>
-    <div>item 4</div>
-    <div>item 5</div>
-    <div>item 6</div>
-    <div>item 7</div>
-    <div>item 8</div>
-</div>
+<div class="carousel-container" (wheel)="onScroll($event)">
+    <div #carousel class="carousel">
+        <div class="carousel-first-item">
+            <div class="title">Antidote Gems</div>
+
+            <div class="flex">
+                <div class="section">
+                    <p class="section-title">DESCRIPTION</p>
+
+                    <p class="section-content">
+                        E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.
+                    </p>
+
+                    <div class="button">VISIT WEBSITE</div>
+                </div>
+
+                <div>
+                    <div style="margin-bottom: 25px;" class="section">
+                        <p class="section-title">SERVICES</p>
+
+                        <p class="section-content">
+                            UI/UX <br>
+                            Concept <br>
+                            Development <br>
+                            Branding <br>
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <p class="section-title">CLIENT</p>
+
+                        <p class="section-content">
+                            Apple Inc.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        @for (item of items; track $index) {
+            <div class="carousel-item">
+
+            </div>
+        }
+    </div>
+  </div>
+  
