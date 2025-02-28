@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { LoaderService } from '../../common/services/loader.service';
 import { NavigationStart, Router } from '@angular/router';
-
+import { ScrollPositionService } from '../../common/services/scroll-position.service';
 @Component({
   selector: 'app-loader',
   standalone: true,
@@ -15,9 +15,9 @@ export class LoaderComponent implements OnInit {
   radius = 50;
   hide = false
 
-  constructor(private router: Router, private loaderService: LoaderService) {
+  constructor(private router: Router, private loaderService: LoaderService, private scrollPositionService: ScrollPositionService) {
     this.router.events.subscribe(event => {
-      console.log(event instanceof NavigationStart)
+      console.log(this.scrollPositionService.scrollPositions.size)
       if (event instanceof NavigationStart && this.progress >= 100) {
         this.hide = false
         setTimeout(() => {

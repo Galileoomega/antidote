@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ScrollPositionService {
-  private scrollPositions = new Map<string, number>();
+  public scrollPositions = new Map<string, number>();
 
   constructor(private router: Router) {
     window.history.scrollRestoration = 'manual';
