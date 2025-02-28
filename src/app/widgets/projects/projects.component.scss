@@ -113,8 +113,8 @@
     width: 100vw;
     height: 100vh;
     background-color: black;
-    animation: lolo .7s ease-in-out forwards;
-    z-index: 10;
+    animation: lolo var(--transition-time) ease-in-out forwards;
+    z-index: 10000;
 }
 
 @keyframes lolo {
@@ -129,7 +129,6 @@
 }
 
 .anim-fader {
-    display: block;
     animation: lala var(--transition-time) ease-in-out forwards;
 }
 
