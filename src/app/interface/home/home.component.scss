@@ -1,3 +1,26 @@
+// Variables
+$transition-duration: 0.3s;
+$transition-ease: ease-in-out;
+$font-family: 'JetBrains-ExtraLight', sans-serif;
+$primary-color: #4F44D6;
+$secondary-color: #344BBD;
+$text-color: #3F3F3F;
+$background-color: black;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 app-star-exposure {
     transition: all 0.3s ease-in-out;
     z-index: -2;
@@ -95,9 +118,9 @@ app-projects {
     display: inline-block;
     white-space: nowrap;
     font-size: 1.9vw;
-    color: #3F3F3F;
-    font-family: 'JetBrains-ExtraLight', sans-serif;
-    transition: all 0.15s ease-in-out;
+    color: $text-color;
+    font-family: $font-family;
+    transition: all 0.15s $transition-ease;
 }
 
 .band-title-hide {
@@ -109,7 +132,7 @@ app-projects {
     position: absolute;
     display: flex;
     flex-direction: column;
-    font-family: 'JetBrains-ExtraLight', sans-serif;
+    font-family: $font-family;
     
     div {
         display: flex;
@@ -124,23 +147,25 @@ app-projects {
     span {
         font-size: 40px;
         margin-inline: 20px;
-        color: #4F44D6;
+        color: $primary-color;
     }
 }
 
 .sliding-text {
     position: absolute;
-    display: flex;
+    @include flex-center;
     justify-content: space-between;
-    align-items: center;
     width: 70%;
     top: 30%;
     opacity: 1;
     z-index: -1;
 
+    .title, .paragraph {
+        transition: all $transition-duration $transition-ease;
+    }
+
     .title {
         font-size: 6vh;
-        transition: all .3s ease-in-out;
     }
 
     .paragraph {
@@ -149,8 +174,7 @@ app-projects {
         flex-direction: column;
         gap: 20px;
         margin-top: 100px;
-        transition: all .3s ease-in-out;
-        transition-delay: .1s;
+        transition-delay: 0.1s;
     }
 }
 
@@ -160,14 +184,11 @@ app-projects {
     transform: translate(0, -50%);
     z-index: -1;
     font-size: 8vh;
-    transition: all .4s ease-in-out;
-
-    color: #344BBD;
+    transition: all 0.4s $transition-ease;
+    color: $secondary-color;
     line-height: 1cap;
     opacity: 0;
     margin-top: 100px;
-    letter-spacing: normal;
-    margin-right: 0px;
 }
 
 .astronaut {
@@ -210,12 +231,10 @@ app-projects {
 }
 
 .contact {
-    display: flex;
+    @include flex-center;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     position: absolute;
-    background-color: black;
+    background-color: $background-color;
     left: 0;
     top: 0;
     width: 100vw;
@@ -225,9 +244,8 @@ app-projects {
       linear-gradient(to bottom, rgba(255, 255, 255, 0.187) 1px, transparent 1px);
     background-size: 170px 170px;
     background-position: center;
-    transition: all .2s ease-in-out;
-    transition-delay: .4s;
-
+    transition: all 0.2s $transition-ease;
+    transition-delay: 0.4s;
     opacity: 0;
     pointer-events: none;
 
@@ -237,9 +255,8 @@ app-projects {
     }
 
     .title-container {
-        display: flex;
+        @include flex-center;
         flex-direction: column;
-        align-items: center;
         cursor: pointer;
         text-align: center;
         line-height: 0.9;
@@ -247,9 +264,9 @@ app-projects {
         .line {
             margin-left: 16px;
             height: 6px;
-            width: 0px;
+            width: 0;
             background-color: var(--white);
-            transition: all .2s ease-in-out;    
+            transition: all 0.2s $transition-ease;    
         }
 
         &:hover .line {
@@ -270,9 +287,7 @@ app-projects {
 
     .bottom {
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        @include flex-center;
         margin-top: auto;
         padding: 20px;  
 
@@ -283,7 +298,7 @@ app-projects {
 
         p {
             font-size: 2vh;
-            color: #3F3F3F;
+            color: $text-color;
         }
 
         p:first-child {
