@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { ViewportScroller } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScrollPositionService {
-  private scrollPositions = new Map<string, number>();
+  public scrollPositions = new Map<string, number>();
   private preserveScrollPosition = false;
 
   constructor(
-    private router: Router,
-    private viewportScroller: ViewportScroller
+    private router: Router
   ) {
     // Disable automatic scroll restoration
     window.history.scrollRestoration = 'manual';
@@ -58,9 +56,7 @@ export class ScrollPositionService {
 
   // Method to manually save scroll position for current route
   saveScrollPosition() {
-    if (this.preserveScrollPosition) {
-      this.scrollPositions.set(this.router.url, window.scrollY);
-    }
+    this.scrollPositions.set(this.router.url, window.scrollY);
   }
 
   // Method to manually restore scroll position for current route
@@ -75,5 +71,8 @@ export class ScrollPositionService {
     } else {
       window.scrollTo(0, 0);
     }
+
+    this.scrollPositions.clear();
+    this.setPreserveScroll(false);
   }
 } 

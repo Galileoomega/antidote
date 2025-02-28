@@ -3,6 +3,7 @@ import { Component, ElementRef, NgZone, ViewChild, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
+import { ScrollPositionService } from '../../common/services/scroll-position.service';
 
 @Component({
   selector: 'app-project-infos',
@@ -24,8 +25,11 @@ export class ProjectInfosComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private projectsService: ProjectsService
-  ) {}
+    private projectsService: ProjectsService,
+    private scrollPositionService: ScrollPositionService
+  ) {
+    this.scrollPositionService.setPreserveScroll(true);
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {

@@ -3,6 +3,7 @@ import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@
 import { Router, NavigationEnd } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
+import { ScrollPositionService } from '../../common/services/scroll-position.service';
 
 @Component({
   selector: 'app-projects',
@@ -25,7 +26,7 @@ export class ProjectsComponent implements AfterViewInit {
   private readonly SMOOTHING_FACTOR = 0.02;
   public readonly TRANSITION_TIME_MILLISECOND = 500;
 
-  constructor(private router: Router, private projectsService: ProjectsService) {
+  constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService) {
     this.PROJECTS = this.projectsService.getAllProjects();
     this.initializePerspectiveData();
 
@@ -46,6 +47,8 @@ export class ProjectsComponent implements AfterViewInit {
    * Navigates to the project details page with a sliding animation.
    */
   public openProject(index: number): void {
+    console.log(window.scrollY);
+    this.scrollPositionService.saveScrollPosition();
     this.animateSliding = true;
     const projectId = this.PROJECTS[index].id;
     setTimeout(() => this.router.navigateByUrl(`projects/${projectId}`), this.TRANSITION_TIME_MILLISECOND + 100);
