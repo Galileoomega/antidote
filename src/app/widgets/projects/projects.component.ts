@@ -1,114 +1,108 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Project {
   image: string;
   tags: string;
   name: string;
-};
+}
 
 @Component({
   selector: 'app-projects',
-  imports: [
-    CommonModule
-  ],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss'
+  styleUrl: './projects.component.scss',
 })
-export class ProjectsComponent {
+export class ProjectsComponent implements AfterViewInit {
   @ViewChildren('tracking') targets!: QueryList<ElementRef>;
 
-  // Selected project list.
+  // Projects data
   public readonly PROJECTS: Project[] = [
-    {
-      image: "images/jade.jpg",
-      tags: "WEB • DESIGN",
-      name: "Antidote Gems"
-    },
-    {
-      image: "",
-      tags: "THEATRAL • DESIGN • BROCHURE",
-      name: "HALTE Geneva"
-    },
-    {
-      image: "images/jade.jpg",
-      tags: "WEB • DESIGN",
-      name: "Antidote Gems"
-    },
-    {
-      image: "",
-      tags: "WEB • DESIGN",
-      name: "Antidote Gems"
-    }
+    { image: 'images/jade.jpg', tags: 'WEB • DESIGN', name: 'Antidote Gems' },
+    { image: '', tags: 'THEATRAL • DESIGN • BROCHURE', name: 'HALTE Geneva' },
+    { image: 'images/jade.jpg', tags: 'WEB • DESIGN', name: 'Antidote Gems' },
+    { image: '', tags: 'WEB • DESIGN', name: 'Antidote Gems' },
   ];
 
   public transformStyles: string[] = [];
   private targetRotations: { rotateX: number; rotateY: number }[] = [];
   private currentRotations: { rotateX: number; rotateY: number }[] = [];
+  public animateSliding = false;
+  
+  private readonly SMOOTHING_FACTOR = 0.02;
+  public readonly TRANSITION_TIME_MILLISECOND = 500;
 
-  private readonly SMOOTHING_FACTOR: number = 0.02;
-
-  constructor(
-  ) {
-    this.initPerspective();
+  constructor(private router: Router) {
+    this.initializePerspectiveData();
   }
 
-  private initIntersectionObserver(targets: QueryList<ElementRef>): void {
-    const options = { 
-      root: null,
-      threshold: 0.1,
-    };
+  ngAfterViewInit(): void {
+    this.setupIntersectionObserver();
+  }
 
+  /**
+   * Navigates to the project details page with a sliding animation.
+   */
+  public openProject(index: number): void {
+    this.animateSliding = true;
+    setTimeout(() => this.router.navigateByUrl('projects'), this.TRANSITION_TIME_MILLISECOND + 100);
+  }
+
+  /**
+   * Initializes the intersection observer for tracking elements.
+   */
+  private setupIntersectionObserver(): void {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.classList.length <= 1) {
-            entry.target.classList.add(entry.target.className+'-active');
-          }
-          else {
-            entry.target.classList.remove(entry.target.className+'-active');
-          }
+          entry.target.classList.toggle(
+            `${entry.target.className}-active`,
+            entry.isIntersecting
+          );
         });
       },
-      options
+      { threshold: 0.1 }
     );
 
-    if (targets) {
-      targets.forEach((target) => {
-        observer.observe(target.nativeElement);
-      });
-    }
+    this.targets.forEach((target) => observer.observe(target.nativeElement));
   }
 
-  ngAfterViewInit() {
-    this.initIntersectionObserver(this.targets);
-  }
-
-  private initPerspective(): void {
+  /**
+   * Initializes perspective data and starts the animation loop.
+   */
+  private initializePerspectiveData(): void {
     this.transformStyles = new Array(this.PROJECTS.length).fill('');
     this.targetRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
     this.currentRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
-    
-    setInterval(() => this.applyImagePerspective(), 17);
+    setInterval(() => this.applySmoothPerspectiveEffect(), 17);
   }
 
+  /**
+   * Updates the image perspective based on mouse movement.
+   */
   public updateImagePerspective(event: MouseEvent, index: number): void {
     const box = (event.target as HTMLElement).closest('.item')!.getBoundingClientRect();
     const x = (event.clientX - box.left) / box.width - 0.5;
     const y = (event.clientY - box.top) / box.height - 0.5;
-
     this.targetRotations[index] = { rotateX: y * 30, rotateY: -x * 30 };
   }
 
-  public resetImagePerspective(index: number) {
+  /**
+   * Resets the image perspective to its default state.
+   */
+  public resetImagePerspective(index: number): void {
     this.targetRotations[index] = { rotateX: 0, rotateY: 0 };
   }
 
-  private applyImagePerspective(): void {
+  /**
+   * Smoothly interpolates rotations for a natural effect.
+   */
+  private applySmoothPerspectiveEffect(): void {
     this.currentRotations.forEach((rotation, index) => {
       rotation.rotateX += (this.targetRotations[index].rotateX - rotation.rotateX) * this.SMOOTHING_FACTOR;
       rotation.rotateY += (this.targetRotations[index].rotateY - rotation.rotateY) * this.SMOOTHING_FACTOR;
-
       this.transformStyles[index] = `perspective(800px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg)`;
     });
   }
