@@ -6,6 +6,5 @@ export interface Project {
   client: string;
   websiteUrl?: string;
   images: { url: string; name: string }[];
-  previewImage: string;
   tags: string;
 } 

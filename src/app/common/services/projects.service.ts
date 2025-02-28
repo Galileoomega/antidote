@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../../common/models/project.interface';
+import { Project } from '../models/project.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,9 @@ export class ProjectsService {
       services: ['UI/UX', 'Concept', 'Development', 'Branding'],
       client: 'Apple Inc.',
       websiteUrl: 'https://example.com',
-      previewImage: 'images/jade.jpg',
       tags: 'WEB • DESIGN',
       images: [
-        { url: 'https://via.placeholder.com/250', name: 'Homepage' },
+        { url: 'images/jade.jpg', name: 'Homepage' },
         { url: 'https://via.placeholder.com/250', name: 'Products' },
         { url: 'https://via.placeholder.com/250', name: 'Product Detail' },
         { url: 'https://via.placeholder.com/250', name: 'Cart' },
@@ -29,7 +28,6 @@ export class ProjectsService {
       description: 'Theatrical design and brochure creation for HALTE Geneva, showcasing their artistic performances and cultural events.',
       services: ['Theatrical Design', 'Brochure Design', 'Print Media'],
       client: 'HALTE Geneva',
-      previewImage: '',
       tags: 'THEATRAL • DESIGN • BROCHURE',
       images: [
         { url: 'https://via.placeholder.com/250', name: 'Brochure Cover' },
