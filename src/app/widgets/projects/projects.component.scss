@@ -104,12 +104,23 @@
 
 .fader {
     position: fixed;
-    display: none;
     left: 0;
     top: 0;
     width: 100vw;
     height: 100vh;
     background-color: black;
+    animation: lolo .7s ease-in-out forwards;
+}
+
+@keyframes lolo {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        display: none;
+    }
 }
 
 .anim-fader {
