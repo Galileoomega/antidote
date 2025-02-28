@@ -47,7 +47,6 @@ export class ProjectsComponent implements AfterViewInit {
    * Navigates to the project details page with a sliding animation.
    */
   public openProject(index: number): void {
-    console.log(window.scrollY);
     this.scrollPositionService.saveScrollPosition();
     this.animateSliding = true;
     const projectId = this.PROJECTS[index].id;

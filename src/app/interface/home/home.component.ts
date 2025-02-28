@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component';
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
 import { RouterLink } from '@angular/router';
@@ -24,7 +24,7 @@ import { ScrollPositionService } from '../../common/services/scroll-position.ser
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   // Store the current coordinates of the mouse.
   private mouseX: number = 0;
   private mouseY: number = 0;
@@ -45,7 +45,9 @@ export class HomeComponent {
   constructor(
     private autoScroll: AutoScrollService,
     private scrollPositionService: ScrollPositionService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     setTimeout(() => {
       this.scrollPositionService.restoreScrollPosition();
     }, 100);

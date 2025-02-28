@@ -114,6 +114,7 @@
     height: 100vh;
     background-color: black;
     animation: lolo .7s ease-in-out forwards;
+    z-index: 10;
 }
 
 @keyframes lolo {
