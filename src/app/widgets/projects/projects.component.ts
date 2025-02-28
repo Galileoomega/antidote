@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-interface Project {
-  image: string;
-  tags: string;
-  name: string;
-}
+import { Project } from '../../common/models/project.interface';
+import { ProjectsService } from '../../common/services/projects.service';
 
 @Component({
   selector: 'app-projects',
@@ -19,12 +15,7 @@ export class ProjectsComponent implements AfterViewInit {
   @ViewChildren('tracking') targets!: QueryList<ElementRef>;
 
   // Projects data
-  public readonly PROJECTS: Project[] = [
-    { image: 'images/jade.jpg', tags: 'WEB • DESIGN', name: 'Antidote Gems' },
-    { image: '', tags: 'THEATRAL • DESIGN • BROCHURE', name: 'HALTE Geneva' },
-    { image: 'images/jade.jpg', tags: 'WEB • DESIGN', name: 'Antidote Gems' },
-    { image: '', tags: 'WEB • DESIGN', name: 'Antidote Gems' },
-  ];
+  public readonly PROJECTS: Project[];
 
   public transformStyles: string[] = [];
   private targetRotations: { rotateX: number; rotateY: number }[] = [];
@@ -34,7 +25,8 @@ export class ProjectsComponent implements AfterViewInit {
   private readonly SMOOTHING_FACTOR = 0.02;
   public readonly TRANSITION_TIME_MILLISECOND = 500;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private projectsService: ProjectsService) {
+    this.PROJECTS = this.projectsService.getAllProjects();
     this.initializePerspectiveData();
   }
 
@@ -47,7 +39,8 @@ export class ProjectsComponent implements AfterViewInit {
    */
   public openProject(index: number): void {
     this.animateSliding = true;
-    setTimeout(() => this.router.navigateByUrl('projects'), this.TRANSITION_TIME_MILLISECOND + 100);
+    const projectId = this.PROJECTS[index].id;
+    setTimeout(() => this.router.navigateByUrl(`projects/${projectId}`), this.TRANSITION_TIME_MILLISECOND + 100);
   }
 
   /**

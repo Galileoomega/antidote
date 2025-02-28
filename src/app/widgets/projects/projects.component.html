@@ -19,7 +19,7 @@
                 (mouseleave)="resetImagePerspective($index)" (click)="openProject($index)" class="item">
 
                 <div class="illustration">
-                    <img [ngStyle]="{'transform': transformStyles[$index]}" [src]="project.image" alt="">
+                    <img [ngStyle]="{'transform': transformStyles[$index]}" [src]="project.previewImage" alt="">
 
                     <div class="select-hover-container">
                         <div class="select-hover"></div>
@@ -28,7 +28,7 @@
                 </div>
 
                 <p class="tags">{{ project.tags }}</p>
-                <p class="title">{{ project.name }}</p>
+                <p class="title">{{ project.title }}</p>
             </div>
             }
         </div>

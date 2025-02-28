@@ -1,17 +1,17 @@
 <div class="carousel-container" (wheel)="onScroll($event)">
     <div #carousel class="carousel">
         <div class="carousel-first-item">
-            <div class="title">Antidote Gems</div>
+            <div class="title">{{ project?.title }}</div>
 
             <div class="flex">
                 <div class="section">
                     <p class="section-title">DESCRIPTION</p>
 
                     <p class="section-content">
-                        E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.
+                        {{ project?.description }}
                     </p>
 
-                    <div class="button">VISIT WEBSITE</div>
+                    <div class="button" (click)="visitWebsite()" *ngIf="project?.websiteUrl">VISIT WEBSITE</div>
                 </div>
 
                 <div>
@@ -19,10 +19,9 @@
                         <p class="section-title">SERVICES</p>
 
                         <p class="section-content">
-                            UI/UX <br>
-                            Concept <br>
-                            Development <br>
-                            Branding <br>
+                            <ng-container *ngFor="let service of project?.services">
+                                {{ service }}<br>
+                            </ng-container>
                         </p>
                     </div>
 
@@ -30,18 +29,18 @@
                         <p class="section-title">CLIENT</p>
 
                         <p class="section-content">
-                            Apple Inc.
+                            {{ project?.client }}
                         </p>
                     </div>
                 </div>
             </div>
         </div>
         
-        @for (item of items; track $index) {
+        @for (image of project?.images; track $index) {
             <div class="carousel-item">
-
+                <img [src]="image.url" [alt]="image.name">
             </div>
         }
     </div>
-  </div>
+</div>
   

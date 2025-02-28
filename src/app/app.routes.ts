@@ -6,5 +6,5 @@ import { ProjectInfosComponent } from './interface/project-infos/project-infos.c
 export const routes: Routes = [
     { path: "", component: HomeComponent },
     { path: "contact", component: ContactComponent },
-    { path: "projects", component: ProjectInfosComponent },
+    { path: "projects/:id", component: ProjectInfosComponent },
 ];
