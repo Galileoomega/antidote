@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { NavigationEnd, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './widgets/navbar/navbar.component';
 import { LoaderComponent } from './interface/loader/loader.component';
+import { ScrollPositionService } from './common/services/scroll-position.service';
 
 @Component({
   selector: 'app-root',
@@ -19,15 +20,8 @@ export class AppComponent {
     return false;
   }
 
-  constructor(private router: Router) {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
-      }
-    });
-
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 200);
-  }
+  constructor(
+    private router: Router,
+    private scrollPositionService: ScrollPositionService
+  ) {}
 }
