@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component';
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
 import { RouterLink } from '@angular/router';
@@ -7,46 +7,24 @@ import { StarExposureComponent } from '../../widgets/star-exposure/star-exposure
 import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.component';
 import { AutoScrollService } from '../../common/services/auto-scroll.service';
 import { StarRainComponent } from '../../widgets/star-rain/star-rain.component';
-
-interface Project {
-  image: string;
-  tags: string;
-  name: string;
-};
+import { ProjectsComponent } from '../../widgets/projects/projects.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, ScrollbarComponent, ScramblerTextComponent, StarExposureComponent, RouterLink, PlanetGenComponent, StarRainComponent],
+  imports: [
+    CommonModule, 
+    ScrollbarComponent, 
+    ScramblerTextComponent, 
+    StarExposureComponent, 
+    RouterLink, 
+    PlanetGenComponent, 
+    StarRainComponent,
+    ProjectsComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements AfterViewInit {
-  @ViewChildren('tracking') targets!: QueryList<ElementRef>;
-
-  // Selected project list.
-  public readonly PROJECTS: Project[] = [
-    {
-      image: "images/jade.jpg",
-      tags: "WEB • DESIGN",
-      name: "Antidote Gems"
-    },
-    {
-      image: "",
-      tags: "THEATRAL • DESIGN • BROCHURE",
-      name: "HALTE Geneva"
-    },
-    {
-      image: "images/jade.jpg",
-      tags: "WEB • DESIGN",
-      name: "Antidote Gems"
-    },
-    {
-      image: "",
-      tags: "WEB • DESIGN",
-      name: "Antidote Gems"
-    }
-  ];
-
+export class HomeComponent {
   // Store the current coordinates of the mouse.
   private mouseX: number = 0;
   private mouseY: number = 0;
@@ -58,64 +36,15 @@ export class HomeComponent implements AfterViewInit {
   public screenWidth: number = window.innerWidth;
   public screenHeight: number = window.innerHeight;
 
-  // Contains css style of the stars.
-  public stars: any[] = [];
-
   // The offset amount from the center of the screen (in pixel).
   private mouseOffsetX!: number;
   private mouseOffsetY!: number;
 
   public currentPageIndex: number = 0;
 
-  public transformStyles: string[] = [];
-  private targetRotations: { rotateX: number; rotateY: number }[] = [];
-  private currentRotations: { rotateX: number; rotateY: number }[] = [];
-  private readonly SMOOTHING_FACTOR: number = 0.02;
-
   constructor(
     private autoScroll: AutoScrollService
-  ) {
-    this.initPerspective();
-  }
-
-  ngAfterViewInit() {
-    this.initIntersectionObserver(this.targets);
-  }
-
-  private initPerspective(): void {
-    this.transformStyles = new Array(this.PROJECTS.length).fill('');
-    this.targetRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
-    this.currentRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
-    
-    setInterval(() => this.applyImagePerspective(), 17);
-  }
-
-  private initIntersectionObserver(targets: QueryList<ElementRef>): void {
-    const options = { 
-      root: null,
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target.classList.length <= 1) {
-            entry.target.classList.add(entry.target.className+'-active');
-          }
-          else {
-            entry.target.classList.remove(entry.target.className+'-active');
-          }
-        });
-      },
-      options
-    );
-
-    if (targets) {
-      targets.forEach((target) => {
-        observer.observe(target.nativeElement);
-      });
-    }
-  }
+  ) {}
 
   private getPageIndexFromScroll(): number {
     const percentage: number = ((this.scrollPosition - this.screenHeight * Math.floor(this.scrollPosition / this.screenHeight)) / this.screenHeight) * 100;
@@ -129,27 +58,6 @@ export class HomeComponent implements AfterViewInit {
     }
 
     return pageIndex;
-  }
-
-  public updateImagePerspective(event: MouseEvent, index: number): void {
-    const box = (event.target as HTMLElement).closest('.item')!.getBoundingClientRect();
-    const x = (event.clientX - box.left) / box.width - 0.5;
-    const y = (event.clientY - box.top) / box.height - 0.5;
-
-    this.targetRotations[index] = { rotateX: y * 30, rotateY: -x * 30 };
-  }
-
-  public resetImagePerspective(index: number) {
-    this.targetRotations[index] = { rotateX: 0, rotateY: 0 };
-  }
-
-  private applyImagePerspective(): void {
-    this.currentRotations.forEach((rotation, index) => {
-      rotation.rotateX += (this.targetRotations[index].rotateX - rotation.rotateX) * this.SMOOTHING_FACTOR;
-      rotation.rotateY += (this.targetRotations[index].rotateY - rotation.rotateY) * this.SMOOTHING_FACTOR;
-
-      this.transformStyles[index] = `perspective(800px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg)`;
-    });
   }
   
   private calculateMouseOffsetFromCenter(): void {
@@ -166,47 +74,42 @@ export class HomeComponent implements AfterViewInit {
     this.mouseOffsetY = (mouseOffsetY / centerY) * 100
   }
 
-  public moveByMouseOffset(bodyId: string, speedFactor: number) {
-    switch(bodyId) {
-      case "planet-1": 
-        return {
-          'left': 'calc(50% + ' + (this.mouseOffsetX / 2) * speedFactor + 'px)',
-          'top': 'calc(50% + ' + (this.mouseOffsetY / 2) * speedFactor + 'px)',
-        }
-
-      case "sat-1": 
-        return {
-          'left': 'calc(10vw + ' + (this.mouseOffsetX / 2) * speedFactor + 'px)',
-          'bottom': 'calc(10vh + ' + ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px)',
-        }
-
-      case "sat-2": 
-        return {
-          'right': 'calc(10vw + ' + (this.mouseOffsetX / 2) * speedFactor + 'px)',
-          'top': 'calc(10vh + ' + ((this.mouseOffsetY * -1) / 2) * speedFactor + 'px)',
-        }
-
+  public moveByMouseOffset(bodyId: string, speedFactor: number): { [key: string]: string } {
+    // Define base values for calculations
+    const offsetX = this.mouseOffsetX / 2 * speedFactor;
+    const offsetY = this.mouseOffsetY / 2 * speedFactor;
+  
+    // Create a default return object
+    const styles: { [key: string]: string } = {};
+  
+    // Handle different bodyId cases
+    switch (bodyId) {
+      case "planet-1":
+        styles['left'] = `calc(50% + ${offsetX}px)`;
+        styles['top'] = `calc(50% + ${offsetY}px)`;
+        break;
+  
+      case "sat-1":
+        styles['left'] = `calc(10vw + ${offsetX}px)`;
+        styles['bottom'] = `calc(10vh + ${-offsetY}px)`; // Notice the inverted offsetY
+        break;
+  
+      case "sat-2":
+        styles['right'] = `calc(10vw + ${offsetX}px)`;
+        styles['top'] = `calc(10vh + ${-offsetY}px)`; // Notice the inverted offsetY
+        break;
+  
       default:
-        return {}
+        // No change to styles, return empty object
+        return styles;
     }
-  }
+  
+    // Return the computed styles
+    return styles;
+  }  
 
   public fixToPage(pageNumber: number): any {
     const position = (this.scrollPosition * -1) + this.screenHeight * pageNumber;
-    
-    return {
-      'top': `${position}px`
-    };
-  }
-
-  public fixToPageThenScreen(pageNumber: number): any {
-    const position = (this.scrollPosition * -1) + this.screenHeight * pageNumber;
-    
-    if (position <= 0) {
-      return {
-        'top': `0px`
-      };
-    }
     
     return {
       'top': `${position}px`

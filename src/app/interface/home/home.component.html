@@ -12,7 +12,6 @@
     <div class="presented">
         <!-- PLANETS-1 -->
         <div [ngStyle]="updatePlanet()" class="planets-1">
-
             <app-planet-gen 
                 [ngStyle]="moveByMouseOffset('planet-1', 0.07)"
                 [animPercentage]="getPositionForPage(0, 100, 1)" 
@@ -74,46 +73,7 @@
         <app-star-rain [scrollPosition]="scrollPosition"></app-star-rain>
 
         <!-- Projects Highlight -->
-        <div [ngStyle]="fixToPage(4)" class="projects">
-            <div class="heading">
-                <p class="title">OUR PROJECTS</p>
-
-                <div>
-                    <p class="description">A SELECTION OF</p>
-                    <p class="description">OUR MOST LOVED</p>
-                    <p class="description">AND PASSIONATE WORK.</p>
-                </div>
-            </div>
-
-            <div class="items-grid">
-                @for (project of PROJECTS; track $index) {
-                <div 
-                    #tracking 
-                    (mousemove)="updateImagePerspective($event, $index)"
-                    (mouseleave)="resetImagePerspective($index)" 
-                    class="item"
-                >
-
-                    <div class="illustration">
-                        <img [ngStyle]="{'transform': transformStyles[$index]}" [src]="project.image" alt="">
-
-                        <div class="select-hover-container">
-                            <div class="select-hover"></div>
-                            <img class="arrow-icon" src="icons/arrow.svg" alt="">
-                        </div>
-                    </div>
-
-                    <p class="tags">{{ project.tags }}</p>
-                    <p class="title">{{ project.name }}</p>
-                </div>
-                }
-            </div>
-
-            <div class="button">
-                <span>SEE ALL PROJECTS</span>
-            </div>
-
-        </div>
+        <app-projects [ngStyle]="fixToPage(4)"></app-projects>
 
         <!-- PLANETS-2 -->
         <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 20, [5, 10]) * -1 + 'vh'}" class="planets-2">
