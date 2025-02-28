@@ -23,5 +23,17 @@ export class AppComponent {
   constructor(
     private router: Router,
     private scrollPositionService: ScrollPositionService
-  ) {}
+  ) {
+    // Set to false to enable scroll-to-top behavior
+    this.scrollPositionService.setPreserveScroll(true);
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     window.scrollTo(0, 0);
+    //   }
+    // });
+
+    // setTimeout(() => {
+    //   window.scrollTo(0, 0);
+    // }, 200);
+  }
 }
