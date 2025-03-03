@@ -99,7 +99,7 @@ export class PlanetGenComponent implements OnChanges {
    * @param percentage The percentage to adjust the gradient.
    * @returns The updated background style for the reversed gradient.
    */
-  generatePrimaryGradient(percentage: number): { background: string } {
+  generatePrimaryGradient(percentage: number = 0): { background: string } {
     return this.getGradientStyles(percentage, true);
   }
 
@@ -108,7 +108,7 @@ export class PlanetGenComponent implements OnChanges {
    * @param percentage The percentage to adjust the gradient.
    * @returns The updated background style for the first gradient.
    */
-  generateSecondaryGradient(percentage: number): { background: string } {
+  generateSecondaryGradient(percentage: number = 0): { background: string } {
     return this.getGradientStyles(percentage);
   }
 

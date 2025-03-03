@@ -2,8 +2,8 @@
     <div class="wrapper">
         <div class="p-background"></div>
 
-        <div [ngStyle]="generatePrimaryGradient(animPercentage)" class="p-color-2"></div>
-        <div [ngStyle]="generateSecondaryGradient(animPercentage)" class="p-color-1"></div>
+        <div [ngStyle]="generatePrimaryGradient()" class="p-color-2"></div>
+        <div [ngStyle]="generateSecondaryGradient()" class="p-color-1"></div>
 
         @if(hasRings) {
             @for(ring of RINGS_CONFIG; track ring; let i = $index) {
