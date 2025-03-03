@@ -15,8 +15,8 @@ export class AppComponent {
 
   @HostListener('document:contextmenu', ['$event'])
   onRightClick(event: MouseEvent) {
-    event.preventDefault();
-    return false;
+    // event.preventDefault();
+    // return false;
   }
 
   constructor() {}

@@ -116,20 +116,10 @@ export class HomeComponent {
     };
   }
 
-  public updatePlanet(): any {
-    const percentage: number = this.calculPercentage(2);
-
-    if (percentage > 100) {
-      return {
-        'transform': `scale(2) translate3d(0, 0, 0)`,
-        'opacity': 0
-      }
-    }
-
+  public updatePlanet(): {opacity: number} {
     return {
-      'transform': `scale(${this.getPositionOnPercentage(1, 2, percentage)}) translate3d(0, 0, 0)`,
-      'opacity': this.getPositionOnPercentage(1, 0, percentage)
-    }
+      opacity: this.getPositionOnPercentage(1, 0, this.calculPercentage(2))
+    };
   }
 
   public updatePlanet2(): any {

@@ -93,6 +93,7 @@ app-projects {
     height: 100vh;
     z-index: -1;
     transition: all .55s cubic-bezier(.17,.67,.54,.97);
+    opacity: 0;
 
     .planet-2 {
         position: absolute;

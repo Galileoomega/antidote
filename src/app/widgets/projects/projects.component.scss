@@ -115,6 +115,7 @@
     background-color: black;
     animation: lolo var(--transition-time) ease-in-out forwards;
     z-index: 10000;
+    pointer-events: none;
 }
 
 @keyframes lolo {

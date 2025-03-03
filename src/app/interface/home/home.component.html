@@ -11,42 +11,44 @@
 <div class="canvas">
     <div class="presented">
         <!-- PLANETS-1 -->
-        <div [ngStyle]="updatePlanet()" class="planets-1">
-            <app-planet-gen 
-                [ngStyle]="moveByMouseOffset('planet-1', 0.07)"
-                [animPercentage]="getPositionForPage(0, 100, 1)" 
-                [planetSize]="screenHeight * 0.8" 
-                [gradient]="[
-                    [117, 68, 225],
-                    [0, 224, 225],
-                ]"
-                [hasRings]="true"
-                [hasPerspective]="true"
-                class="planet-1"
-            ></app-planet-gen>
-
-            <app-planet-gen 
-                [ngStyle]="moveByMouseOffset('sat-1', 0.4)"
-                [animPercentage]="getPositionForPage(0, 100, 1)" 
-                [planetSize]="150" 
-                [gradient]="[
-                    [57, 203, 130],
-                    [77, 136, 218],
-                ]"
-                class="planet-1-satellite-1"
-            ></app-planet-gen>
-
-            <app-planet-gen 
-                [ngStyle]="moveByMouseOffset('sat-2', 0.4)"
-                [animPercentage]="getPositionForPage(0, 100, 1)" 
-                [planetSize]="100" 
-                [gradient]="[
-                    [218, 77, 190],
-                    [57, 106, 203],
-                ]"
-                class="planet-1-satellite-2"
-            ></app-planet-gen>
-        </div>
+        @if(currentPageIndex < 3) {
+            <div [ngStyle]="updatePlanet()" class="planets-1">
+                <app-planet-gen 
+                    [ngStyle]="moveByMouseOffset('planet-1', 0.07)"
+                    [animPercentage]="getPositionForPage(0, 100, 1)" 
+                    [planetSize]="screenHeight * 0.8" 
+                    [gradient]="[
+                        [117, 68, 225],
+                        [0, 224, 225],
+                    ]"
+                    [hasRings]="true"
+                    [hasPerspective]="true"
+                    class="planet-1"
+                ></app-planet-gen>
+    
+                <app-planet-gen 
+                    [ngStyle]="moveByMouseOffset('sat-1', 0.4)"
+                    [animPercentage]="getPositionForPage(0, 100, 1)" 
+                    [planetSize]="150" 
+                    [gradient]="[
+                        [57, 203, 130],
+                        [77, 136, 218],
+                    ]"
+                    class="planet-1-satellite-1"
+                ></app-planet-gen>
+    
+                <app-planet-gen 
+                    [ngStyle]="moveByMouseOffset('sat-2', 0.4)"
+                    [animPercentage]="getPositionForPage(0, 100, 1)" 
+                    [planetSize]="100" 
+                    [gradient]="[
+                        [218, 77, 190],
+                        [57, 106, 203],
+                    ]"
+                    class="planet-1-satellite-2"
+                ></app-planet-gen>
+            </div>
+        }
 
         <!-- Landing Title -->
         <div class="landing-title">

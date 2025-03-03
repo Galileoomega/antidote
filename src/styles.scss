@@ -79,3 +79,12 @@ p {
 .h-align {
     align-items: center;
 }
+
+[style*="display: none"],
+[hidden] {
+  pointer-events: none !important;
+  visibility: hidden !important;
+  contain: layout style paint;
+  will-change: opacity, transform;
+  animation: none !important;
+}
