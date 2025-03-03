@@ -1,147 +1,108 @@
-.planet-container {
-    position: relative;
-    width: var(--wanted-size);
-    height: var(--wanted-size);
-    transform: perspective(400px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.wrapper {
+// Mixins
+@mixin absolute-center {
     position: absolute;
-    display: block;
-    width: var(--base-size);
-    height: var(--base-size);
-    transform: scale(var(--scale));
-}
-
-.planet {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @mixin ring-base {
+    width: var(--width);
+    height: var(--height);
+    border: var(--border-width) solid var(--border-color);
+    filter: blur(var(--blur));
+    box-sizing: border-box;
+  }
+  
+  @mixin planet-base {
     position: absolute;
     width: var(--base-size);
     height: var(--base-size);
     border-radius: 100%;
     filter: blur(10px);
     z-index: 1;
-}
-
-.p-background {
-    @extend .planet;
-    scale: 0.95;
-}
-
-.p-color-1 {
-    @extend .planet;
-}
-
-.p-color-2 {
-    @extend .planet;
-    filter: blur(3px);
-}
-
-.p-mask {
-    @extend .planet;
-}
-
-.rings {
-    --offset: 0px;
+  }
+  
+  @mixin rings-base {
     --width: calc((var(--base-size) * 1.8) + var(--offset));
     --height: calc(((var(--base-size) * 1.8 + var(--offset)) / 2));
-    --border-color: #c7c9ffbf;
-    --border-width: 10px;
-    --blur: 15px;
-
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    @include absolute-center;
     width: var(--width);
     height: var(--height);
-
     transform: translate(-50%, -50%) rotate(25deg) perspective(4000px) rotateX(var(--perspectiveY)) rotateY(var(--perspectiveX));
-    
+  }
+  
+  // Component styles
+  .planet-container {
+    position: relative;
+    width: var(--wanted-size);
+    height: var(--wanted-size);
+    transform: perspective(400px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    contain: all;
+  }
+  
+  .wrapper {
+    position: absolute;
+    display: block;
+    width: var(--base-size);
+    height: var(--base-size);
+    transform: scale(var(--scale));
+  }
+  
+  .planet {
+    @include planet-base;
+  }
+  
+  .p-background {
+    @include planet-base;
+    scale: 0.95;
+  }
+  
+  .p-color-1 {
+    @include planet-base;
+  }
+  
+  .p-color-2 {
+    @include planet-base;
+    filter: blur(3px);
+  }
+  
+  .p-mask {
+    @include planet-base;
+  }
+  
+  .rings {
+    @include rings-base;
+  
     .ring {
-        position: absolute;
-        left: 50%;
-        width: var(--width);
-        height: var(--height);
-    
-        transform: translate(-50%, -100%);
-        
-        border: var(--border-width) solid var(--border-color);
-        filter: blur(var(--blur));
-        
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
+      position: absolute;
+      left: 50%;
+      @include ring-base;
+      transform: translate(-50%, -100%);
     }
-
+  
     .ring-left {
-        @extend .ring;
-    
-        top: 50%;
-        border-top-left-radius: var(--height);
-        border-top-right-radius: var(--height);
-        border-bottom: 0;
+      position: absolute;
+      left: 50%;
+      @include ring-base;
+      transform: translate(-50%, -100%);
+      top: 50%;
+      border-top-left-radius: var(--height);
+      border-top-right-radius: var(--height);
+      border-bottom: 0;
     }
-    
+  
     .ring-right {
-        @extend .ring;
-        
-        top: calc(50% + var(--height)) !important;
-        border-bottom-left-radius: var(--height);
-        border-bottom-right-radius: var(--height);
-        border-top: 0;
+      position: absolute;
+      left: 50%;
+      @include ring-base;
+      transform: translate(-50%, -100%);
+      top: calc(50% + var(--height)) !important;
+      border-bottom-left-radius: var(--height);
+      border-bottom-right-radius: var(--height);
+      border-top: 0;
     }
-}
-
-.rings-1 {
-    @extend .rings;
-
-    --border-color: #1A1E24;
-    --border-width: 7px;
-    --offset: -50px;
-}
-
-.rings-2 {
-    @extend .rings;
-
-    --border-color: #c7c9ffbf;
-    --border-width: 10px;
-    --offset: 50px;
-}
-
-.rings-3 {
-    @extend .rings;
-
-    --border-width: 10px;
-    --offset: 140px;
-    --blur: 10px;
-}
-
-.rings-4 {
-    @extend .rings;
-
-    --border-color: #c7c9ffbf;
-    --border-width: 2px;
-    --offset: -200px;
-    --blur: 6px;
-}
-
-.rings-5 {
-    @extend .rings;
-
-    --border-color: rgba(0, 0, 0, 0.5);
-    --border-width: 50px;
-    --offset: 400px;
-    --blur: 20px;
-}
-
-.rings-6 {
-    @extend .rings;
-
-    --border-color: rgba(0, 0, 0, 0.3);
-    --border-width: 30px;
-    --offset: 600px;
-    --blur: 15px;
-}
+  }

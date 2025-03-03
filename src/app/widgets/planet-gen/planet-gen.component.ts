@@ -3,6 +3,13 @@ import { Component, HostListener, Input, OnChanges } from '@angular/core';
 
 type RGB = [number, number, number];
 
+interface RingConfig {
+  borderColor: string;
+  borderWidth: number;
+  offset: number;
+  blur?: number;
+}
+
 @Component({
   selector: 'app-planet-gen',
   imports: [CommonModule],
@@ -17,10 +24,29 @@ export class PlanetGenComponent implements OnChanges {
   @Input() hasPerspective: boolean = false;
   
   public readonly BASE_SIZE: number = 600;
+  public readonly RINGS_CONFIG: RingConfig[] = [
+    { borderColor: '#c7c9ffbf', borderWidth: 10, offset: 0, blur: 15 },
+    { borderColor: '#1A1E24', borderWidth: 7, offset: -50 },
+    { borderColor: '#c7c9ffbf', borderWidth: 10, offset: 50 },
+    { borderColor: '#c7c9ffbf', borderWidth: 10, offset: 140, blur: 10 },
+    { borderColor: '#c7c9ffbf', borderWidth: 2, offset: -200, blur: 6 },
+    { borderColor: 'rgba(0, 0, 0, 0.5)', borderWidth: 50, offset: 400, blur: 20 },
+    { borderColor: 'rgba(0, 0, 0, 0.3)', borderWidth: 30, offset: 600, blur: 15 }
+  ];
   
   public scaleFactor: number = 1;
   public mouseOffsetY: number = 0;
   public mouseOffsetX: number = 0;
+
+  getRingStyles(config: RingConfig, hasZIndex: boolean = false): { [key: string]: string } {
+    return {
+      '--offset': `${config.offset}px`,
+      '--border-color': config.borderColor,
+      '--border-width': `${config.borderWidth}px`,
+      '--blur': `${config.blur || 15}px`,
+      'z-index': hasZIndex ? '1' : 'auto'
+    };
+  }
 
   constructor() {}
 
