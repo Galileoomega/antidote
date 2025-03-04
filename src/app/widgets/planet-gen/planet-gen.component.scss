@@ -62,13 +62,15 @@
   }
   
   .p-color-1 {
-    @include planet-base;
-  }
-  
-  .p-color-2 {
-    @include planet-base;
-    filter: blur(3px);
-  }
+  @include planet-base;
+  background: linear-gradient(126deg, var(--color-primary) 40%, black 100%);
+}
+
+.p-color-2 {
+  @include planet-base;
+  filter: blur(4px);
+  background: linear-gradient(126deg, var(--color-secondary) 50%, black 100%);
+}
   
   .p-mask {
     @include planet-base;
