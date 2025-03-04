@@ -40,8 +40,8 @@ export class PlanetGenComponent implements OnChanges {
 
     return {
       background: `linear-gradient(126deg, #00000000 ${this.interpolate(30, 0, percentage)}%, #000000 ${this.interpolate(100, 0, percentage)}%)`,
-      'margin-top': `${this.interpolate(5, 0, percentage)}%`,
-      'margin-left': `${this.interpolate(5, 0, percentage)}%`
+      'margin-top': `${this.interpolate(4, 0, percentage)}%`,
+      'margin-left': `${this.interpolate(4, 0, percentage)}%`
     };
   }
 
