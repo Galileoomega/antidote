@@ -5,15 +5,16 @@
         <div [ngStyle]="generatePrimaryGradient()" class="p-color-2"></div>
         <div [ngStyle]="generateSecondaryGradient()" class="p-color-1"></div>
 
-        @if(hasRings) {
-            @for(ring of RINGS_CONFIG; track ring; let i = $index) {
-                <div [ngStyle]="getRingStyles(ring)" class="rings">
-                    <div class="ring-left"></div>
-                </div>
-                <div [ngStyle]="getRingStyles(ring, true)" class="rings">
-                    <div class="ring-right"></div>
-                </div>
-            }
+        @if (hasRings) {
+            <!-- Left ring section -->
+            <div class="rings">
+                <div class="ring-left"></div>
+            </div>
+            
+            <!-- Right ring section -->
+            <div style="z-index: 1;" class="rings">
+                <div class="ring-right"></div>
+            </div>
         }
 
         <div [ngStyle]="updateMask(animPercentage)" class="p-mask"></div>

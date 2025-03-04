@@ -73,36 +73,77 @@
   .p-mask {
     @include planet-base;
   }
-  
-  .rings {
-    @include rings-base;
-  
-    .ring {
-      position: absolute;
-      left: 50%;
-      @include ring-base;
-      transform: translate(-50%, -100%);
-    }
-  
-    .ring-left {
-      position: absolute;
-      left: 50%;
-      @include ring-base;
-      transform: translate(-50%, -100%);
-      top: 50%;
-      border-top-left-radius: var(--height);
-      border-top-right-radius: var(--height);
-      border-bottom: 0;
-    }
-  
-    .ring-right {
-      position: absolute;
-      left: 50%;
-      @include ring-base;
-      transform: translate(-50%, -100%);
-      top: calc(50% + var(--height)) !important;
-      border-bottom-left-radius: var(--height);
-      border-bottom-right-radius: var(--height);
-      border-top: 0;
-    }
+
+
+
+  :host {
+    --ring-color: #a3a9d781;
+    --rings-distance: 500px;
   }
+
+
+
+  @mixin ring-base {
+    width: var(--width);
+    height: var(--height);
+    box-sizing: border-box;
+    background: radial-gradient(circle, 
+      transparent 39%, 
+      var(--ring-color) 40%, 
+      var(--ring-color) 40%, 
+      transparent 41%, 
+      transparent 46%, 
+      var(--ring-color) 51%, 
+      var(--ring-color) 54%, 
+      transparent 55%,
+      var(--ring-color) 58%,  
+      transparent 61%,
+      rgba(0, 0, 0, 0.3) 64%,
+      rgba(0, 0, 0, 0.3) 65%,
+      transparent 67%,
+      rgba(0, 0, 0, 0.2) 69%,
+      transparent 71%,
+    );
+    background-size: 100% 200%;
+  }
+  
+  @mixin rings-base {
+    --width: calc((var(--base-size) * 2) + var(--rings-distance));
+    --height: calc(((var(--base-size) * 2 + var(--rings-distance)) / 2));
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--width);
+    height: var(--height);
+    transform: translate(-50%, -50%) 
+               rotate(25deg) 
+               perspective(4000px) 
+               rotateX(var(--perspectiveY)) 
+               rotateY(var(--perspectiveX));
+  }
+  
+  // Ring styles
+.rings {
+  @include rings-base;
+
+  .ring-left {
+    position: absolute;
+    left: 50%;
+    @include ring-base;
+    transform: translate(-50%, -100%);
+    top: 50%;
+    border-top-left-radius: var(--height);
+    border-top-right-radius: var(--height);
+  }
+
+  .ring-right {
+    position: absolute;
+    left: 50%;
+    @include ring-base;
+    top: calc(50% + var(--height));
+    border-top-left-radius: var(--height);
+    border-top-right-radius: var(--height);
+    transform: translate(-50%, -100%) scaleY(-1);
+  }
+}

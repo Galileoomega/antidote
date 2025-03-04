@@ -25,13 +25,7 @@ export class PlanetGenComponent implements OnChanges {
   
   public readonly BASE_SIZE: number = 600;
   public readonly RINGS_CONFIG: RingConfig[] = [
-    { borderColor: '#c7c9ffbf', borderWidth: 10, offset: 0, blur: 15 },
-    { borderColor: '#1A1E24', borderWidth: 7, offset: -50 },
-    { borderColor: '#c7c9ffbf', borderWidth: 10, offset: 50 },
     { borderColor: '#c7c9ffbf', borderWidth: 10, offset: 140, blur: 10 },
-    { borderColor: '#c7c9ffbf', borderWidth: 2, offset: -200, blur: 6 },
-    { borderColor: 'rgba(0, 0, 0, 0.5)', borderWidth: 50, offset: 400, blur: 20 },
-    { borderColor: 'rgba(0, 0, 0, 0.3)', borderWidth: 30, offset: 600, blur: 15 }
   ];
   
   public scaleFactor: number = 1;
