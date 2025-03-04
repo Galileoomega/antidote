@@ -35,9 +35,13 @@ export class PlanetGenComponent implements OnChanges {
     }
   }
 
-  updateMask(percentage: number): { background: string } {
+  updateMask(percentage: number): any {
+    if (percentage > 100) { percentage = 100 }
+
     return {
-      background: `linear-gradient(126deg, #00000000 0%, #000000 ${this.interpolate(100, 0, percentage)}%)`
+      background: `linear-gradient(126deg, #00000000 ${this.interpolate(30, 0, percentage)}%, #000000 ${this.interpolate(100, 0, percentage)}%)`,
+      'margin-top': `${this.interpolate(5, 0, percentage)}%`,
+      'margin-left': `${this.interpolate(5, 0, percentage)}%`
     };
   }
 

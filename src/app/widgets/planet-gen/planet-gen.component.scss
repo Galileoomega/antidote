@@ -1,5 +1,5 @@
 :host {
-  --ring-color: #d0d6ff42;
+  --ring-color: #c6cdff61;
   --rings-distance: 500px;
 }
 
@@ -18,19 +18,21 @@
   height: var(--height);
   box-sizing: border-box;
   background: radial-gradient(circle, 
-    transparent 38%, 
+    transparent 39%, 
     var(--ring-color) 40%, 
     var(--ring-color) 40%, 
-    transparent 42%, 
+    transparent 41%, 
     transparent 46%, 
     var(--ring-color) 51%, 
     var(--ring-color) 54%, 
     transparent 55%,
     var(--ring-color) 58%,  
-    transparent 60%,
+    transparent 61%,
     rgba(0, 0, 0, 0.3) 64%,
     rgba(0, 0, 0, 0.3) 65%,
-    transparent 69%
+    transparent 69%,
+    rgba(0, 0, 0, 0.2) 70%,
+    transparent 71%,
   );
   background-size: 100% 200%;
 }
@@ -80,13 +82,13 @@
 
 .p-color-1 {
   @include planet-base;
-  background: linear-gradient(126deg, var(--color-primary) 50%, black 90%);
+  background: linear-gradient(126deg, var(--color-primary) 40%, black 100%);
 }
 
 .p-color-2 {
   @include planet-base;
-  filter: blur(3px);
-  background: linear-gradient(126deg, var(--color-secondary) 50%, black 80%);
+  filter: blur(4px);
+  background: linear-gradient(126deg, var(--color-secondary) 50%, black 100%);
 }
 
 .p-mask {
