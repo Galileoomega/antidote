@@ -1,108 +1,119 @@
+:host {
+  --ring-color: #d0d6ff42;
+  --rings-distance: 500px;
+}
+
 // Mixins
-@mixin absolute-center {
+@mixin planet-base {
+  position: absolute;
+  width: var(--base-size);
+  height: var(--base-size);
+  border-radius: 100%;
+  filter: blur(10px);
+  z-index: 1;
+}
+
+@mixin ring-base {
+  width: var(--width);
+  height: var(--height);
+  box-sizing: border-box;
+  background: radial-gradient(circle, 
+    transparent 38%, 
+    var(--ring-color) 40%, 
+    var(--ring-color) 40%, 
+    transparent 42%, 
+    transparent 46%, 
+    var(--ring-color) 51%, 
+    var(--ring-color) 54%, 
+    transparent 55%,
+    var(--ring-color) 58%,  
+    transparent 60%,
+    rgba(0, 0, 0, 0.3) 64%,
+    rgba(0, 0, 0, 0.3) 65%,
+    transparent 69%
+  );
+  background-size: 100% 200%;
+}
+
+@mixin rings-base {
+  --width: calc((var(--base-size) * 2) + var(--rings-distance));
+  --height: calc(((var(--base-size) * 2 + var(--rings-distance)) / 2));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--width);
+  height: var(--height);
+  transform: translate(-50%, -50%) 
+             rotate(25deg) 
+             perspective(4000px) 
+             rotateX(var(--perspectiveY)) 
+             rotateY(var(--perspectiveX));
+}
+
+// Container styles
+.planet-container {
+  position: relative;
+  width: var(--wanted-size);
+  height: var(--wanted-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  contain: all;
+}
+
+.wrapper {
+  position: absolute;
+  width: var(--base-size);
+  height: var(--base-size);
+  transform: scale(var(--scale));
+}
+
+// Planet layers
+.planet {
+  @include planet-base;
+}
+
+.p-background {
+  @include planet-base;
+}
+
+.p-color-1 {
+  @include planet-base;
+  background: linear-gradient(126deg, var(--color-primary) 50%, black 90%);
+}
+
+.p-color-2 {
+  @include planet-base;
+  filter: blur(3px);
+  background: linear-gradient(126deg, var(--color-secondary) 50%, black 80%);
+}
+
+.p-mask {
+  @include planet-base;
+}
+
+// Ring styles
+.rings {
+  @include rings-base;
+
+  .ring-left {
     position: absolute;
     left: 50%;
+    @include ring-base;
+    transform: translate(-50%, -100%);
     top: 50%;
-    transform: translate(-50%, -50%);
+    border-top-left-radius: var(--height);
+    border-top-right-radius: var(--height);
   }
-  
-  @mixin ring-base {
-    width: var(--width);
-    height: var(--height);
-    border: var(--border-width) solid var(--border-color);
-    filter: blur(var(--blur));
-    box-sizing: border-box;
-  }
-  
-  @mixin planet-base {
+
+  .ring-right {
     position: absolute;
-    width: var(--base-size);
-    height: var(--base-size);
-    border-radius: 100%;
-    filter: blur(10px);
-    z-index: 1;
+    left: 50%;
+    @include ring-base;
+    top: calc(50% + var(--height));
+    border-top-left-radius: var(--height);
+    border-top-right-radius: var(--height);
+    transform: translate(-50%, -100%) scaleY(-1);
   }
-  
-  @mixin rings-base {
-    --width: calc((var(--base-size) * 1.8) + var(--offset));
-    --height: calc(((var(--base-size) * 1.8 + var(--offset)) / 2));
-    @include absolute-center;
-    width: var(--width);
-    height: var(--height);
-    transform: translate(-50%, -50%) rotate(25deg) perspective(4000px) rotateX(var(--perspectiveY)) rotateY(var(--perspectiveX));
-  }
-  
-  // Component styles
-  .planet-container {
-    position: relative;
-    width: var(--wanted-size);
-    height: var(--wanted-size);
-    transform: perspective(400px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    contain: all;
-  }
-  
-  .wrapper {
-    position: absolute;
-    display: block;
-    width: var(--base-size);
-    height: var(--base-size);
-    transform: scale(var(--scale));
-  }
-  
-  .planet {
-    @include planet-base;
-  }
-  
-  .p-background {
-    @include planet-base;
-    scale: 0.95;
-  }
-  
-  .p-color-1 {
-    @include planet-base;
-  }
-  
-  .p-color-2 {
-    @include planet-base;
-    filter: blur(3px);
-  }
-  
-  .p-mask {
-    @include planet-base;
-  }
-  
-  .rings {
-    @include rings-base;
-  
-    .ring {
-      position: absolute;
-      left: 50%;
-      @include ring-base;
-      transform: translate(-50%, -100%);
-    }
-  
-    .ring-left {
-      position: absolute;
-      left: 50%;
-      @include ring-base;
-      transform: translate(-50%, -100%);
-      top: 50%;
-      border-top-left-radius: var(--height);
-      border-top-right-radius: var(--height);
-      border-bottom: 0;
-    }
-  
-    .ring-right {
-      position: absolute;
-      left: 50%;
-      @include ring-base;
-      transform: translate(-50%, -100%);
-      top: calc(50% + var(--height)) !important;
-      border-bottom-left-radius: var(--height);
-      border-bottom-right-radius: var(--height);
-      border-top: 0;
-    }
-  }
+}

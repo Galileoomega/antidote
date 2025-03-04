@@ -1,21 +1,26 @@
+<!-- Planet container with dynamic style variables -->
 <div [ngStyle]="generateStyleVariables()" class="planet-container">
     <div class="wrapper">
+        <!-- Base planet layers -->
         <div class="p-background"></div>
 
-        <div [ngStyle]="generatePrimaryGradient()" class="p-color-2"></div>
-        <div [ngStyle]="generateSecondaryGradient()" class="p-color-1"></div>
+        <div class="p-color-2"></div>
+        <div class="p-color-1"></div>
 
-        @if(hasRings) {
-            @for(ring of RINGS_CONFIG; track ring; let i = $index) {
-                <div [ngStyle]="getRingStyles(ring)" class="rings">
-                    <div class="ring-left"></div>
-                </div>
-                <div [ngStyle]="getRingStyles(ring, true)" class="rings">
-                    <div class="ring-right"></div>
-                </div>
-            }
+        <!-- Planet rings -->
+        @if (hasRings) {
+            <!-- Left ring section -->
+            <div class="rings">
+                <div class="ring-left"></div>
+            </div>
+            
+            <!-- Right ring section -->
+            <div style="z-index: 1;" class="rings">
+                <div class="ring-right"></div>
+            </div>
         }
 
+        <!-- Planet mask for animation -->
         <div [ngStyle]="updateMask(animPercentage)" class="p-mask"></div>
     </div>
 </div>
