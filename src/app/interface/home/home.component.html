@@ -24,7 +24,7 @@
                 ></app-planet-gen>
     
                 <app-planet-gen 
-                    [ngStyle]="moveByMouseOffset('sat-1', 0.4)"
+                    [ngStyle]="moveByMouseOffset('sat-1', 0.3)"
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
                     [planetSize]="150" 
                     [primaryColor]="'#4D88DA'"
@@ -33,7 +33,7 @@
                 ></app-planet-gen>
     
                 <app-planet-gen 
-                    [ngStyle]="moveByMouseOffset('sat-2', 0.4)"
+                    [ngStyle]="moveByMouseOffset('sat-2', 0.3)"
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
                     [planetSize]="100" 
                     [primaryColor]="'#396ACB'"
@@ -76,8 +76,8 @@
                 <app-planet-gen 
                 [animPercentage]="getPositionForPage(100, 0, 6)"  
                 [planetSize]="screenHeight * 1.3" 
-                [primaryColor]="'#7544FF'"
-                [secondaryColor]="'#00E0FF'"
+                [primaryColor]="'#636491'"
+                [secondaryColor]="'#4253a3'"
                 [hasRings]="true"
                 class="planet-2"
             ></app-planet-gen>
@@ -86,8 +86,8 @@
                 [ngStyle]="{'bottom': getPositionForPage(0, 40, 6) + 'px'}"
                 [animPercentage]="getPositionForPage(100, 0, 6)"  
                 [planetSize]="screenHeight * 0.2" 
-                [primaryColor]="'#7544FF'"
-                [secondaryColor]="'#00E0FF'"
+                [primaryColor]="'#636491'"
+                [secondaryColor]="'#4253a3'"
                 class="planet-2-satellite"
             ></app-planet-gen>
             </div>
