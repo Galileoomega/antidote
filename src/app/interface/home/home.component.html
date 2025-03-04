@@ -14,9 +14,8 @@
         @if(currentPageIndex < 3) {
             <div [ngStyle]="updatePlanet()" class="planets-1">
                 <app-planet-gen 
-                    [ngStyle]="moveByMouseOffset('planet-1', 0.07)"
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.8" 
+                    [planetSize]="screenHeight * 0.75" 
                     [gradient]="[
                         [117, 68, 225],
                         [0, 224, 225],
@@ -92,6 +91,7 @@
             ></app-planet-gen>
 
             <app-planet-gen 
+                [ngStyle]="{'bottom': getPositionForPage(0, 40, 6) + 'px'}"
                 [animPercentage]="getPositionForPage(100, 0, 6)"  
                 [planetSize]="screenHeight * 0.2" 
                 [gradient]="[
