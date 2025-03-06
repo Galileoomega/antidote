@@ -23,7 +23,7 @@ export class ProjectsComponent implements AfterViewInit {
   private currentRotations: { rotateX: number; rotateY: number }[] = [];
   public animateSliding = false;
   
-  private readonly SMOOTHING_FACTOR = 0.02;
+  private readonly SMOOTHING_FACTOR = 0.09;
   public readonly TRANSITION_TIME_MILLISECOND = 500;
 
   constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService) {
@@ -90,7 +90,7 @@ export class ProjectsComponent implements AfterViewInit {
     const box = (event.target as HTMLElement).closest('.item')!.getBoundingClientRect();
     const x = (event.clientX - box.left) / box.width - 0.5;
     const y = (event.clientY - box.top) / box.height - 0.5;
-    this.targetRotations[index] = { rotateX: y * 30, rotateY: -x * 30 };
+    this.targetRotations[index] = { rotateX: y * 15, rotateY: -x * 15 };
   }
 
   /**

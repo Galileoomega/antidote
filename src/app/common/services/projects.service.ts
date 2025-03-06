@@ -15,7 +15,7 @@ export class ProjectsService {
       websiteUrl: 'https://example.com',
       tags: 'WEB • DESIGN',
       images: [
-        { url: 'images/jade.jpg', name: 'Homepage' },
+        { url: 'projects/plana-1.jpg', name: 'Homepage' },
         { url: 'https://via.placeholder.com/250', name: 'Products' },
         { url: 'https://via.placeholder.com/250', name: 'Product Detail' },
         { url: 'https://via.placeholder.com/250', name: 'Cart' },
