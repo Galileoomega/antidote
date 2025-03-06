@@ -5,6 +5,7 @@ export interface Project {
   services: string[];
   client: string;
   websiteUrl?: string;
+  thumbnail?: string;
   images: { url: string; name: string }[];
   tags: string;
 } 

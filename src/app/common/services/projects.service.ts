@@ -7,19 +7,20 @@ import { Project } from '../models/project.interface';
 export class ProjectsService {
   private projects: Project[] = [
     {
-      id: 'antidote-gems',
-      title: 'Antidote Gems',
+      id: 'techno-posters',
+      title: 'Techo Posters',
       description: 'E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.',
       services: ['UI/UX', 'Concept', 'Development', 'Branding'],
-      client: 'Apple Inc.',
+      client: 'L\'usine',
       websiteUrl: 'https://example.com',
       tags: 'WEB • DESIGN',
+      thumbnail: 'projects/techno-posters/plana-1.jpg',
       images: [
-        { url: 'projects/plana-1.jpg', name: 'Homepage' },
-        { url: 'https://via.placeholder.com/250', name: 'Products' },
-        { url: 'https://via.placeholder.com/250', name: 'Product Detail' },
-        { url: 'https://via.placeholder.com/250', name: 'Cart' },
-        { url: 'https://via.placeholder.com/250', name: 'Checkout' }
+        { url: 'projects/techno-posters/plana-2.jpg', name: 'Products' },
+        { url: 'projects/techno-posters/plana-3.jpg', name: 'Product Detail' },
+        { url: 'projects/techno-posters/plana-4.jpg', name: 'Cart' },
+        { url: 'projects/techno-posters/plana-5.jpg', name: 'Checkout' },
+        { url: 'projects/techno-posters/plana-6.jpg', name: 'Checkout' },
       ]
     },
     {
@@ -27,12 +28,17 @@ export class ProjectsService {
       title: 'HALTE Geneva',
       description: 'Theatrical design and brochure creation for HALTE Geneva, showcasing their artistic performances and cultural events.',
       services: ['Theatrical Design', 'Brochure Design', 'Print Media'],
-      client: 'HALTE Geneva',
+      client: 'Comédie de Genève',
       tags: 'THEATRAL • DESIGN • BROCHURE',
+      thumbnail: 'projects/halte/cover.jpg',
       images: [
-        { url: 'https://via.placeholder.com/250', name: 'Brochure Cover' },
-        { url: 'https://via.placeholder.com/250', name: 'Interior Pages' },
-        { url: 'https://via.placeholder.com/250', name: 'Event Posters' }
+        { url: 'projects/halte/1.jpg', name: 'Products' },
+        { url: 'projects/halte/2.jpg', name: 'Products' },
+        { url: 'projects/halte/3.jpg', name: 'Products' },
+        { url: 'projects/halte/4.jpg', name: 'Products' },
+        { url: 'projects/halte/5.jpg', name: 'Products' },
+        { url: 'projects/halte/6.jpg', name: 'Products' },
+        { url: 'projects/halte/7.jpg', name: 'Products' }
       ]
     }
   ];
