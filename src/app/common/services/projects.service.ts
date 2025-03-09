@@ -8,7 +8,7 @@ export class ProjectsService {
   private projects: Project[] = [
     {
       id: 'techno-posters',
-      title: 'Techo Posters',
+      title: 'Techno Posters',
       description: 'E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.',
       services: ['UI/UX', 'Concept', 'Development', 'Branding'],
       client: 'L\'usine',
@@ -36,9 +36,7 @@ export class ProjectsService {
         { url: 'projects/halte/2.jpg', name: 'Products' },
         { url: 'projects/halte/3.jpg', name: 'Products' },
         { url: 'projects/halte/4.jpg', name: 'Products' },
-        { url: 'projects/halte/5.jpg', name: 'Products' },
-        { url: 'projects/halte/6.jpg', name: 'Products' },
-        { url: 'projects/halte/7.jpg', name: 'Products' }
+        { url: 'projects/halte/5.jpg', name: 'Products' }
       ]
     }
   ];
