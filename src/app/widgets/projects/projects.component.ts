@@ -23,7 +23,7 @@ export class ProjectsComponent implements AfterViewInit {
   private currentRotations: { rotateX: number; rotateY: number }[] = [];
   public animateSliding = false;
   
-  private readonly SMOOTHING_FACTOR = 0.09;
+  private readonly SMOOTHING_FACTOR = 0.1;
   public readonly TRANSITION_TIME_MILLISECOND = 500;
 
   constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService) {
