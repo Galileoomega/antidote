@@ -42,9 +42,18 @@
             </div>
         </div>
         
-        @for (image of project?.images; track $index) {
+        @for (media of project?.medias; track $index) {
             <div class="carousel-item">
-                <img [src]="image.url" [alt]="image.name">
+                @if(media.type == 'image') {
+                    <img [src]="media.url" [alt]="media.name">
+                }
+                
+                @if(media.type == 'video') {
+                    <video width="640" height="360" autoplay loop>
+                        <source [src]="media.url" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                }
             </div>
         }
     </div>

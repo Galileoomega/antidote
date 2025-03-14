@@ -15,12 +15,12 @@ export class ProjectsService {
       websiteUrl: 'https://example.com',
       tags: 'WEB • DESIGN',
       thumbnail: 'projects/techno-posters/plana-1.jpg',
-      images: [
-        { url: 'projects/techno-posters/plana-2.jpg', name: 'Products' },
-        { url: 'projects/techno-posters/plana-3.jpg', name: 'Product Detail' },
-        { url: 'projects/techno-posters/plana-4.jpg', name: 'Cart' },
-        { url: 'projects/techno-posters/plana-5.jpg', name: 'Checkout' },
-        { url: 'projects/techno-posters/plana-6.jpg', name: 'Checkout' },
+      medias: [
+        { type: 'image', url: 'projects/techno-posters/plana-2.jpg', name: 'Products' },
+        { type: 'image', url: 'projects/techno-posters/plana-3.jpg', name: 'Product Detail' },
+        { type: 'image', url: 'projects/techno-posters/plana-4.jpg', name: 'Cart' },
+        { type: 'image', url: 'projects/techno-posters/plana-5.jpg', name: 'Checkout' },
+        { type: 'image', url: 'projects/techno-posters/plana-6.jpg', name: 'Checkout' },
       ]
     },
     {
@@ -31,12 +31,12 @@ export class ProjectsService {
       client: 'Comédie de Genève',
       tags: 'THEATRAL • DESIGN • BROCHURE',
       thumbnail: 'projects/halte/cover.jpg',
-      images: [
-        { url: 'projects/halte/1.jpg', name: 'Products' },
-        { url: 'projects/halte/2.jpg', name: 'Products' },
-        { url: 'projects/halte/3.jpg', name: 'Products' },
-        { url: 'projects/halte/4.jpg', name: 'Products' },
-        { url: 'projects/halte/5.jpg', name: 'Products' }
+      medias: [
+        { type: 'image', url: 'projects/halte/1.jpg', name: 'Products' },
+        { type: 'image', url: 'projects/halte/2.jpg', name: 'Products' },
+        { type: 'image', url: 'projects/halte/3.jpg', name: 'Products' },
+        { type: 'image', url: 'projects/halte/4.jpg', name: 'Products' },
+        { type: 'image', url: 'projects/halte/5.jpg', name: 'Products' }
       ]
     },
     {
@@ -47,13 +47,13 @@ export class ProjectsService {
       client: 'L\'usine',
       websiteUrl: 'https://example.com',
       tags: '3D • WEB • DESIGN • ANIMATION • MOTION GRAPHICS',
-      thumbnail: 'projects/aeris/1.png',
-      images: [
-        { url: 'projects/aeris/1.jpg', name: 'Products' },
-        { url: 'projects/aeris/2.jpg', name: 'Product Detail' },
-        { url: 'projects/aeris/3.jpg', name: 'Cart' },
-        { url: 'projects/aeris/4.jpg', name: 'Checkout' },
-        { url: 'projects/aeris/5.jpg', name: 'Checkout' },
+      thumbnail: 'projects/aeris/1.jpg',
+      medias: [
+        { type: 'video', url: 'projects/aeris/2.mp4', name: 'Products' },
+        { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart' },
+        { type: 'image', url: 'projects/aeris/2.jpg', name: 'Product Detail' },
+        { type: 'image', url: 'projects/aeris/4.jpg', name: 'Checkout' },
+        { type: 'image', url: 'projects/aeris/5.jpg', name: 'Checkout' },
       ]
     },
   ];
