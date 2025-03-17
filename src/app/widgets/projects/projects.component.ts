@@ -61,10 +61,13 @@ export class ProjectsComponent implements AfterViewInit {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          entry.target.classList.toggle(
-            `${entry.target.className}-active`,
-            entry.isIntersecting
-          );
+          const activeClass = `${entry.target.className}-active`;
+          if (entry.isIntersecting) {
+            entry.target.classList.toggle(activeClass, true);
+          } else {
+            // Remove the active class when the element is out of view
+            entry.target.classList.remove('item-active');
+          }
         });
       },
       { threshold: 0.1 }

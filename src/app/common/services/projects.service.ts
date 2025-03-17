@@ -14,7 +14,7 @@ export class ProjectsService {
       client: 'L\'usine',
       websiteUrl: 'https://example.com',
       tags: 'WEB • DESIGN',
-      thumbnail: 'projects/techno-posters/plana-1.jpg',
+      thumbnail: 'projects/techno-posters/plana-1.webp',
       medias: [
         { type: 'image', url: 'projects/techno-posters/plana-2.jpg', name: 'Products' },
         { type: 'image', url: 'projects/techno-posters/plana-3.jpg', name: 'Product Detail' },
@@ -30,13 +30,13 @@ export class ProjectsService {
       services: ['Theatrical Design', 'Brochure Design', 'Print Media'],
       client: 'Comédie de Genève',
       tags: 'THEATRAL • DESIGN • BROCHURE',
-      thumbnail: 'projects/halte/cover.jpg',
+      thumbnail: 'projects/halte/cover.webp',
       medias: [
-        { type: 'image', url: 'projects/halte/1.jpg', name: 'Products' },
-        { type: 'image', url: 'projects/halte/2.jpg', name: 'Products' },
-        { type: 'image', url: 'projects/halte/3.jpg', name: 'Products' },
-        { type: 'image', url: 'projects/halte/4.jpg', name: 'Products' },
-        { type: 'image', url: 'projects/halte/5.jpg', name: 'Products' }
+        { type: 'image', url: 'projects/halte/1.webp', name: 'Products' },
+        { type: 'image', url: 'projects/halte/2.webp', name: 'Products' },
+        { type: 'image', url: 'projects/halte/3.webp', name: 'Products' },
+        { type: 'image', url: 'projects/halte/4.webp', name: 'Products' },
+        { type: 'image', url: 'projects/halte/5.webp', name: 'Products' }
       ]
     },
     {
