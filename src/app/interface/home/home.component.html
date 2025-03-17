@@ -16,7 +16,7 @@
                 <app-planet-gen 
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
                     [planetSize]="screenHeight * 0.75" 
-                    [primaryColor]="'#7544FF'"
+                    [primaryColor]="'#4239ac'"
                     [secondaryColor]="'#00E0FF'"
                     [hasRings]="true"
                     [hasPerspective]="true"
@@ -27,8 +27,8 @@
                     [ngStyle]="moveByMouseOffset('sat-1', 0.3)"
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
                     [planetSize]="150" 
-                    [primaryColor]="'#4D88DA'"
-                    [secondaryColor]="'#39CB82'"
+                    [primaryColor]="'#697c90'"
+                    [secondaryColor]="'#269ac0'"
                     class="planet-1-satellite-1"
                 ></app-planet-gen>
     
@@ -36,8 +36,8 @@
                     [ngStyle]="moveByMouseOffset('sat-2', 0.3)"
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
                     [planetSize]="100" 
-                    [primaryColor]="'#396ACB'"
-                    [secondaryColor]="'#00E0FF'"
+                    [primaryColor]="'#51598b'"
+                    [secondaryColor]="'#2f1a94'"
                     class="planet-1-satellite-2"
                 ></app-planet-gen>
             </div>
@@ -47,7 +47,7 @@
         <div class="landing-title">
             <div>
                 <p [ngStyle]="{
-                    'width': getPositionForPage(325, 0, 2) + 'px', 
+                    'width': getPositionForPage(32, 0, 2) + 'vh', 
                     'opacity': getPositionForPage(1, 0, 2)
                 }">CREATE</p>
 
@@ -58,7 +58,7 @@
                 <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">LOVE</span>
 
                 <p [ngStyle]="{
-                    'width': getPositionForPage(430, 0, 2) + 'px', 
+                    'width': getPositionForPage(43, 0, 2) + 'vh', 
                     'opacity': getPositionForPage(1, 0, 2)
                 }">ANYTHING</p>
             </div>

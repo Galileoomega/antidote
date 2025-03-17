@@ -56,7 +56,7 @@ app-projects {
 .planets-1 {
     position: relative;
 
-    width: 90vw;
+    width: 80vw;
     height: 90vh;
 
     .planet-1 {
@@ -141,12 +141,13 @@ app-projects {
     }
 
     p {
-        font-size: 90px;
+        font-size: 9vh;
         overflow: hidden;
+        // font-family: 'JetBrains-Medium', sans-serif;
     }
 
     span {
-        font-size: 40px;
+        font-size: 5vh;
         margin-inline: 20px;
         color: $primary-color;
     }

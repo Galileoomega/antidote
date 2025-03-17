@@ -12,84 +12,24 @@
   transform: translate(-50%, -50%);
 }
 
-@mixin ring-base {
-  width: var(--width);
-  height: var(--height);
-  border: var(--border-width) solid var(--border-color);
-  filter: blur(var(--blur));
-  box-sizing: border-box;
-}
-
-@mixin planet-base {
-  position: absolute;
-  width: var(--base-size);
-  height: var(--base-size);
-  border-radius: 100%;
-  filter: blur(10px);
-  z-index: 1;
-}
-
-@mixin rings-base {
-  --width: calc((var(--base-size) * 1.8) + var(--offset));
-  --height: calc(((var(--base-size) * 1.8 + var(--offset)) / 2));
-  @include absolute-center;
-  width: var(--width);
-  height: var(--height);
-  transform: translate(-50%, -50%) rotate(25deg) perspective(4000px) rotateX(var(--perspectiveY)) rotateY(var(--perspectiveX));
-}
-
-// Component styles
-.planet-container {
-  position: relative;
-  width: var(--wanted-size);
-  height: var(--wanted-size);
-  transform: perspective(400px);
+@mixin centered-flex {
   display: flex;
   align-items: center;
   justify-content: center;
-  contain: all;
 }
 
-.wrapper {
-  position: absolute;
-  display: block;
-  width: var(--base-size);
-  height: var(--base-size);
-  transform: scale(var(--scale));
+@mixin rounded-blur($blur: 10px) {
+  border-radius: 100%;
+  filter: blur($blur);
 }
-
-.planet {
-  @include planet-base;
-}
-
-.p-background {
-  @include planet-base;
-  scale: 0.95;
-}
-
-.p-color-1 {
-  @include planet-base;
-  background-color: var(--color-primary);
-}
-
-.p-color-2 {
-  @include planet-base;
-  filter: blur(2px);
-  background-color: var(--color-secondary);
-}
-
-.p-mask {
-  @include planet-base;
-}
-
-// Rings styles
 
 @mixin ring-base {
   position: absolute;
   left: 50%;
   width: var(--width);
   height: var(--height);
-  background: radial-gradient(circle,
+  background: radial-gradient(
+    circle,
     transparent 39%,
     var(--ring-color) 40%,
     var(--ring-color) 40%,
@@ -104,30 +44,72 @@
     rgba(0, 0, 0, 0.3) 65%,
     transparent 67%,
     rgba(0, 0, 0, 0.2) 69%,
-    transparent 71%,
+    transparent 71%
   );
   background-size: 100% 200%;
 }
 
-.rings {
-  --width: calc((var(--base-size) * 2) + var(--rings-distance));
-  --height: calc(((var(--base-size) * 2 + var(--rings-distance)) / 2));
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: var(--width);
-  height: var(--height);
-  transform: translate(-50%, -50%) rotate(25deg) perspective(4000px) rotateX(var(--perspectiveY)) rotateY(var(--perspectiveX));
+// Component styles
+.planet-container {
+  position: relative;
+  width: var(--wanted-size);
+  height: var(--wanted-size);
+  transform: perspective(400px);
+  @include centered-flex;
+  contain: all;
+}
 
-  .ring-left {
+.wrapper {
+  position: absolute;
+  display: block;
+  width: var(--base-size);
+  height: var(--base-size);
+  transform: scale(var(--scale));
+}
+
+.planet,
+.p-background,
+.p-color-1,
+.p-color-2,
+.p-mask {
+  position: absolute;
+  width: var(--base-size);
+  height: var(--base-size);
+  transform: rotate(10deg);
+  z-index: 1;
+  @include rounded-blur(10px);
+}
+
+.p-background {
+  scale: 0.95;
+}
+
+.p-color-1 {
+  background-color: var(--color-primary);
+}
+
+.p-color-2 {
+  @include rounded-blur(2px);
+  background-color: var(--color-secondary);
+}
+
+// Rings styles
+.rings {
+  @include absolute-center;
+
+  --width: calc((var(--base-size) * 2) + var(--rings-distance));
+  --height: calc((var(--width) / 2));
+
+  transform: rotate(25deg) perspective(4000px) rotateX(var(--perspectiveY)) rotateY(var(--perspectiveX));
+
+  .ring-left,
+  .ring-right {
     @include ring-base;
     top: 50%;
     transform: translate(-50%, -100%);
   }
 
   .ring-right {
-    @include ring-base;
     top: calc(50% + var(--height));
     transform: translate(-50%, -100%) scaleY(-1);
   }

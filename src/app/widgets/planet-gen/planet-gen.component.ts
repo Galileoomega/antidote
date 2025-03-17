@@ -5,94 +5,93 @@ import { Component, HostListener, Input, OnChanges, SimpleChanges } from '@angul
   selector: 'app-planet-gen',
   imports: [CommonModule],
   templateUrl: './planet-gen.component.html',
-  styleUrl: './planet-gen.component.scss'
+  styleUrls: ['./planet-gen.component.scss']
 })
 export class PlanetGenComponent implements OnChanges {
   @Input() primaryColor: string = 'red';
   @Input() secondaryColor: string = 'blue';
-
   @Input() animPercentage: number = 0;
   @Input() hasRings: boolean = false;
   @Input() planetSize: number = 900;
   @Input() hasPerspective: boolean = false;
-  
-  public readonly BASE_SIZE: number = 600;
-  
-  public scaleFactor: number = 1;
-  public mouseOffsetY: number = 0;
-  public mouseOffsetX: number = 0;
+
+  public readonly BASE_SIZE = 600;
+
+  public scaleFactor = 1;
+  public mouseOffsetX = 0;
+  public mouseOffsetY = 0;
 
   constructor() {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.scaleFactor = this.planetSize / this.BASE_SIZE;
-
-    if (changes['animPercentage']) {
-      if (this.animPercentage > 100) {
-        this.animPercentage = 100;
-      }
-
-      if (this.animPercentage < 0) {
-        this.animPercentage = 0;
-      }
-    }
+  ngOnChanges(): void {
+    this.scaleFactor = this.calculateScaleFactor();
+    this.animPercentage = this.clampPercentage(this.animPercentage);
   }
 
   @HostListener('document:mousemove', ['$event'])
-  onMouseMoveEvent(event: MouseEvent) {
-    if (this.hasPerspective && this.hasRings) {
-      this.calculateMouseOffsetFromCenter(event); 
+  onMouseMoveEvent(event: MouseEvent): void {
+    if (this.shouldUpdatePerspective()) {
+      this.updateMouseOffsets(event);
     }
   }
 
-  private calculateMouseOffsetFromCenter(mouse: MouseEvent): void {
-    // Get the center of the screen
+  private calculateScaleFactor(): number {
+    return this.planetSize / this.BASE_SIZE;
+  }
+
+  private clampPercentage(value: number): number {
+    return Math.min(100, Math.max(0, value));
+  }
+
+  private shouldUpdatePerspective(): boolean {
+    return this.hasPerspective && this.hasRings;
+  }
+
+  private updateMouseOffsets(event: MouseEvent): void {
+    const { offsetX, offsetY } = this.calculateMouseOffsetFromCenter(event);
+    this.mouseOffsetX = this.normalizeOffset(offsetX, window.innerWidth);
+    this.mouseOffsetY = this.normalizeOffset(offsetY, window.innerHeight);
+  }
+
+  private calculateMouseOffsetFromCenter(event: MouseEvent): { offsetX: number, offsetY: number } {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
 
-    // Calculate the mouse offset from the center
-    const mouseOffsetX = mouse.clientX - centerX;
-    const mouseOffsetY = mouse.clientY - centerY;
-
-    // Calculate the percentage of the offset relative to the screen dimensions
-    this.mouseOffsetX = (mouseOffsetX / centerX) * 100
-    this.mouseOffsetY = (mouseOffsetY / centerY) * 100
-  }
-
-  /**
-   * Updates the mask background based on the percentage.
-   * The mask is a linear gradient that transitions from transparent to black.
-   * @param percentage The percentage to adjust the mask's opacity.
-   * @returns The updated mask background style.
-   */
-  updateMask(percentage: number): any {
     return {
-      'background': `linear-gradient(126deg, #00000000 ${this.interpolate(20, 0, percentage)}%, #000000 ${this.interpolate(70, 0, percentage)}%)`,
-      'margin-top': `${this.interpolate(5, 0, percentage)}%`,
-      'margin-left': `${this.interpolate(5, 0, percentage)}%`
+      offsetX: event.clientX - centerX,
+      offsetY: event.clientY - centerY,
     };
   }
 
-  /**
-   * Interpolates between two values based on the given progress percentage.
-   * @param start The starting value of the interpolation.
-   * @param end The ending value of the interpolation.
-   * @param progress The progress percentage (0 to 100).
-   * @returns The interpolated value.
-   */
+  private normalizeOffset(offset: number, dimension: number): number {
+    return (offset / (dimension / 2)) * 100;
+  }
+
+  updateMask(percentage: number): any {
+    const startOpacity = 20;
+    const endOpacity = 70;
+    const margin = 5;
+
+    return {
+      'background': `linear-gradient(126deg, #00000000 ${this.interpolate(startOpacity, 0, percentage)}%, #000000 ${this.interpolate(endOpacity, 0, percentage)}%)`,
+      'margin-top': `${this.interpolate(margin, 0, percentage)}%`,
+      'margin-left': `${this.interpolate(margin, 0, percentage)}%`,
+    };
+  }
+
   interpolate(start: number, end: number, progress: number): number {
     return start + (end - start) * (progress / 100);
   }
 
-  generateStyleVariables() {
+  generateStyleVariables(): Record<string, string> {
     return {
-      '--base-size': this.BASE_SIZE + 'px', 
-      '--scale': this.scaleFactor, 
-      '--wanted-size': this.planetSize + 'px', 
-      '--perspectiveY': this.interpolate(80, 82, this.mouseOffsetY * -1) + 'deg',
-      '--perspectiveX': this.interpolate(0, 1, this.mouseOffsetX) + 'deg',
+      '--base-size': `${this.BASE_SIZE}px`,
+      '--scale': `${this.scaleFactor}`,
+      '--wanted-size': `${this.planetSize}px`,
+      '--perspectiveY': `${this.interpolate(80, 82, -this.mouseOffsetY)}deg`,
+      '--perspectiveX': `${this.interpolate(0, 1, this.mouseOffsetX)}deg`,
       '--color-primary': this.primaryColor,
-      '--color-secondary': this.secondaryColor
-    }
+      '--color-secondary': this.secondaryColor,
+    };
   }
 }
