@@ -2,7 +2,7 @@
 
 <app-star-exposure 
     [ngStyle]="{
-        'opacity': currentPageIndex >= 2 && currentPageIndex <= 4 ? 0 : 1,
+        'opacity': currentPageIndex >= 2 && currentPageIndex <= 5 ? 0 : 1,
     }" 
     [move]="moveStarExposure()"
     [scale]="currentPageIndex >= 12 ? 3 : 1"
@@ -15,7 +15,7 @@
             <div [ngStyle]="updatePlanet()" class="planets-1">
                 <app-planet-gen 
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.75" 
+                    [planetSize]="screenHeight * 0.7" 
                     [primaryColor]="'#4239ac'"
                     [secondaryColor]="'#00E0FF'"
                     [hasRings]="true"
@@ -26,16 +26,16 @@
                 <app-planet-gen 
                     [ngStyle]="moveByMouseOffset('sat-1', 0.3)"
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="150" 
+                    [planetSize]="screenHeight * 0.18" 
                     [primaryColor]="'#697c90'"
                     [secondaryColor]="'#269ac0'"
                     class="planet-1-satellite-1"
                 ></app-planet-gen>
     
                 <app-planet-gen 
-                    [ngStyle]="moveByMouseOffset('sat-2', 0.3)"
+                    [ngStyle]="moveByMouseOffset('sat-2', 0.1)"
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="100" 
+                    [planetSize]="screenHeight * 0.1" 
                     [primaryColor]="'#51598b'"
                     [secondaryColor]="'#2f1a94'"
                     class="planet-1-satellite-2"

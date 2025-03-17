@@ -17,6 +17,7 @@
                 (mouseleave)="resetImagePerspective($index)" (click)="openProject($index)" class="item">
 
                 <div class="illustration">
+                    <div class="blur"></div>
                     <img class="project-thumbnail" [ngStyle]="{'transform': transformStyles[$index]}" [src]="project.thumbnail" [alt]="project.title" loading="lazy">
 
                     <div class="select-hover-container">

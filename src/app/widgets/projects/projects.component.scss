@@ -18,8 +18,7 @@
         }
 
         .description {
-            font-size: 1.7vw;
-            // margin-right: 40px;
+            font-size: 1.5vw;
             text-align: right;
         }
     }
@@ -45,9 +44,9 @@
                 width: 100%;
                 aspect-ratio: 16/9;
                 background-color: black;
-                border-radius: 25px;
                 margin-bottom: 20px;
                 overflow: hidden;
+                border-radius: 25px;
 
                 img {   
                     width: 120%;
@@ -55,18 +54,25 @@
             }
 
             .tags {
-                font-size: 0.9vw;
+                font-size: 1.3vw;
             }
 
             .title {
                 opacity: 0;
-                font-size: 2vw;
+                font-size: 2.1vw;
             }
 
-            &:hover {
-                .illustration {
-                    animation: blury .5s ease-in-out forwards;
-                }
+            .blur {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+            }
+
+            &:hover .blur {
+                animation: blury .5s ease-in-out;
             }
         }
 
@@ -122,15 +128,15 @@
 
 @keyframes blury {
     0% {
-        filter: blur(0px);
+        backdrop-filter: blur(0px);
     }
 
     30% {
-        filter: blur(5px);
+        backdrop-filter: blur(5px);
     }
 
     100% {
-        filter: blur(0px);
+        backdrop-filter: blur(0px);
     }
 }
 

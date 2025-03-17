@@ -56,6 +56,23 @@ export class ProjectsService {
         { type: 'image', url: 'projects/aeris/5.jpg', name: 'Checkout' },
       ]
     },
+    {
+      id: 'aeris',
+      title: 'AERIS',
+      description: 'E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.',
+      services: ['UI/UX', 'Concept', 'Development', 'Branding'],
+      client: 'L\'usine',
+      websiteUrl: 'https://example.com',
+      tags: '3D • WEB • DESIGN • ANIMATION • MOTION GRAPHICS',
+      thumbnail: 'projects/aeris/1.jpg',
+      medias: [
+        { type: 'video', url: 'projects/aeris/2.mp4', name: 'Products' },
+        { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart' },
+        { type: 'image', url: 'projects/aeris/2.jpg', name: 'Product Detail' },
+        { type: 'image', url: 'projects/aeris/4.jpg', name: 'Checkout' },
+        { type: 'image', url: 'projects/aeris/5.jpg', name: 'Checkout' },
+      ]
+    },
   ];
 
   getAllProjects(): Project[] {
