@@ -72,7 +72,7 @@
 
         <!-- PLANETS-2 -->
          @if(currentPageIndex >= 5) {
-            <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 20, [5, 10]) * -1 + 'vh'}" class="planets-2">
+            <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 50, [4, 10]) * -1 + 'vh'}" class="planets-2">
                 <app-planet-gen 
                 [animPercentage]="getPositionForPage(100, 0, 6)"  
                 [planetSize]="screenHeight * 1.3" 
