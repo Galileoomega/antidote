@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, NgZone, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
@@ -9,15 +9,13 @@ import { ProjectsService } from '../../common/services/projects.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './project-infos.component.html',
-  styleUrl: './project-infos.component.scss'
+  styleUrls: ['./project-infos.component.scss']
 })
 export class ProjectInfosComponent implements OnInit {
-  @ViewChild('carousel', { static: false }) carousel!: ElementRef;
-  targetPosition = 0;  // The target scroll position
-  currentPosition = 0; // The current scroll position
-  smoothingFactor = 0.3; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
+  targetPosition = 0;
+  currentPosition = 0;
+  smoothingFactor = 0.1;
   isExiting = false;
-
   projectId: string | null = null;
   project: Project | null = null;
 
@@ -28,53 +26,86 @@ export class ProjectInfosComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+  /**
+   * Initializes the component and subscribes to route parameters.
+   */
+  ngOnInit(): void {
+    this.subscribeToRouteParams();
+    this.smoothUpdate();
+  }
+
+  /**
+   * Subscribes to route parameters and loads the project based on the `id`.
+   */
+  private subscribeToRouteParams(): void {
     this.route.paramMap.subscribe(params => {
       this.projectId = params.get('id');
       if (this.projectId) {
-        this.project = this.projectsService.getProjectById(this.projectId);
+        this.loadProject();
+        console.log('found')
+      }
+      else {
+        console.log('no found')
+      }
+      
+      if(this.project == null) {
+        this.router.navigateByUrl('/')
       }
     });
-
-    this.smoothUpdate()
   }
 
-  onScroll(event: WheelEvent) {
+  /**
+   * Loads the project details based on the `projectId`.
+   */
+  private loadProject(): void {
+    this.project = this.projectsService.getProjectById(this.projectId!);
+  }
+
+  /**
+   * Handles the scroll event to update the target scroll position.
+   * 
+   * @param event - The wheel event
+   */
+  onScroll(event: WheelEvent): void {
     event.preventDefault();
-    // Update the target position based on the wheel event
-    this.targetPosition -= event.deltaY;
-    
-    if (this.targetPosition < 0) {
-      this.targetPosition = 0;
-    }
+    this.targetPosition = Math.max(0, this.targetPosition + event.deltaY);
   }
 
-  smoothUpdate() {
+  /**
+   * Smoothly updates the current scroll position.
+   */
+  private smoothUpdate(): void {
     const update = () => {
       this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
-      this.cdr.detectChanges(); // Trigger change detection
-      requestAnimationFrame(update); // Use requestAnimationFrame for smoother updates
+      this.cdr.detectChanges();
+      requestAnimationFrame(update);
     };
     requestAnimationFrame(update);
   }
 
-  updateScrollPosition() {
-    // Custom smoothing logic: Linear interpolation with a custom factor
-
-    // Apply the smooth scroll transform using translate3d
-    return {'transform': `translate3d(${-this.currentPosition}px, 0, 0)`};
+  /**
+   * Returns the CSS transform property for scroll positioning.
+   * 
+   * @returns The transform style object
+   */
+  public updateScrollPosition(): { transform: string } {
+    return { transform: `translate3d(${-this.currentPosition}px, 0, 0)` };
   }
 
-  visitWebsite() {
+  /**
+   * Opens the project's website URL in a new tab.
+   */
+  public visitWebsite(): void {
     if (this.project?.websiteUrl) {
       window.open(this.project.websiteUrl, '_blank');
     }
   }
 
-  goBack() {
+  /**
+   * Navigates back to the homepage with a slight delay.
+   */
+  public goBack(): void {
     this.isExiting = true;
-    setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 300); // Match the animation duration
+    setTimeout(() => this.router.navigateByUrl('/'), 300);
   }
 }
