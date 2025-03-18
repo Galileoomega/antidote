@@ -116,9 +116,10 @@ export class HomeComponent {
     };
   }
 
-  public updatePlanet(): {opacity: number} {
+  public updatePlanet() {
     return {
-      opacity: this.getPositionOnPercentage(1, 0, this.calculPercentage(2))
+      opacity: this.getPositionOnPercentage(1, 0, this.calculPercentage(2)),
+      scale: this.getPositionOnPercentage(1, 1.3, this.calculPercentage(2)),
     };
   }
 
