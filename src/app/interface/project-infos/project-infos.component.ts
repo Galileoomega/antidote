@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, NgZone, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
@@ -15,7 +15,7 @@ export class ProjectInfosComponent implements OnInit {
   @ViewChild('carousel', { static: false }) carousel!: ElementRef;
   targetPosition = 0;  // The target scroll position
   currentPosition = 0; // The current scroll position
-  smoothingFactor = 0.01; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
+  smoothingFactor = 0.3; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
   isExiting = false;
 
   projectId: string | null = null;
@@ -24,7 +24,8 @@ export class ProjectInfosComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -49,9 +50,12 @@ export class ProjectInfosComponent implements OnInit {
   }
 
   smoothUpdate() {
-    setInterval(() => {
-      this.currentPosition += (this.targetPosition - this.currentPosition) * 0.05;
-    }, 0.1)
+    const update = () => {
+      this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
+      this.cdr.detectChanges(); // Trigger change detection
+      requestAnimationFrame(update); // Use requestAnimationFrame for smoother updates
+    };
+    requestAnimationFrame(update);
   }
 
   updateScrollPosition() {
