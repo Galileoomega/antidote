@@ -15,7 +15,7 @@ export class ProjectInfosComponent implements OnInit {
   @ViewChild('carousel', { static: false }) carousel!: ElementRef;
   targetPosition = 0;  // The target scroll position
   currentPosition = 0; // The current scroll position
-  smoothingFactor = 0.2; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
+  smoothingFactor = 1; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
   isExiting = false;
 
   projectId: string | null = null;
@@ -39,26 +39,19 @@ export class ProjectInfosComponent implements OnInit {
   onScroll(event: WheelEvent) {
     event.preventDefault();
     // Update the target position based on the wheel event
-    this.targetPosition -= event.deltaY > 0 ? -100 : 100;
+    this.targetPosition -= event.deltaY;
     
     if (this.targetPosition < 0) {
       this.targetPosition = 0;
     }
   }
 
-  updatePosition() {
+  updateScrollPosition() {
     // Custom smoothing logic: Linear interpolation with a custom factor
     this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
 
     // Apply the smooth scroll transform using translate3d
-    this.carousel.nativeElement.style.transform = `translate3d(${-this.currentPosition}px, 0, 0)`;
-  }
-
-  ngAfterViewInit() {
-    // Continuously update the position to apply the smooth transition
-    setInterval(() => {
-      this.updatePosition();
-    }, 0.1); // Roughly 60 frames per second (16ms per frame)
+    return {'transform': `translate3d(${-this.currentPosition}px, 0, 0)`};
   }
 
   visitWebsite() {
