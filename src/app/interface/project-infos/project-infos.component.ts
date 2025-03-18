@@ -15,7 +15,7 @@ export class ProjectInfosComponent implements OnInit {
   @ViewChild('carousel', { static: false }) carousel!: ElementRef;
   targetPosition = 0;  // The target scroll position
   currentPosition = 0; // The current scroll position
-  smoothingFactor = 1; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
+  smoothingFactor = 0.01; // Custom smoothing factor (0.0 - 1.0), smaller = smoother
   isExiting = false;
 
   projectId: string | null = null;
@@ -40,15 +40,21 @@ export class ProjectInfosComponent implements OnInit {
     event.preventDefault();
     // Update the target position based on the wheel event
     this.targetPosition -= event.deltaY;
+    this.smoothUpdate()
     
     if (this.targetPosition < 0) {
       this.targetPosition = 0;
     }
   }
 
+  smoothUpdate() {
+    setInterval(() => {
+      this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
+    }, 0.1)
+  }
+
   updateScrollPosition() {
     // Custom smoothing logic: Linear interpolation with a custom factor
-    this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
 
     // Apply the smooth scroll transform using translate3d
     return {'transform': `translate3d(${-this.currentPosition}px, 0, 0)`};
@@ -66,4 +72,8 @@ export class ProjectInfosComponent implements OnInit {
       this.router.navigate(['/']);
     }, 300); // Match the animation duration
   }
+
+
+
+  
 }
