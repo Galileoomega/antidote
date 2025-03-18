@@ -9,7 +9,7 @@
     display: flex;
     z-index: 11;
     align-items: center;
-    font-size: 1vw;
+    font-size: 0.8vw;
 }
 
 .main-logo {
@@ -36,7 +36,10 @@
         aspect-ratio: 1/1;
         border-radius: 100%;
         transition: all 0.2s ease-in-out;
-        // background-color: red;
+        
+        * {
+            transition: all 0.2s ease-in-out;
+        }
 
         .circle {
             position: absolute;
@@ -57,6 +60,16 @@
             left: auto;
             right: 0%;
         }
+
+        .close-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0.9vw;
+            aspect-ratio: 1/1;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+        }
     }
 
     &:hover {
@@ -64,4 +77,125 @@
             transform: rotate(180deg);
         }
     }
+}
+
+.dots-container-close {
+    transform: rotate(180deg);
+
+    .circle {
+        opacity: 0;
+    }
+
+    .close-icon {
+        opacity: 1 !important;
+        transform: translate(-50%, -50%) scale(1) !important;
+    }
+}
+
+.navigation-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #00000039;
+    backdrop-filter: blur(25px);
+    opacity: 0;
+    pointer-events: none;
+
+    z-index: 10;
+    transition: opacity .6s ease-in-out;
+
+    .navigation {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+
+        .nav-container {
+            display: flex;
+            flex-direction: column;
+            width: fit-content;
+            
+            .line {
+                width: 0%;
+                height: 2px;
+                background-color: var(--white);
+                transition: all 0.15s ease-in-out;
+                margin-left: auto;
+            }
+
+            .line-active {
+                width: 100% !important;
+            }
+
+            nav {
+                font-size: 6vh;
+                cursor: pointer;
+                width: fit-content;
+                margin-left: 30vw;
+            }
+
+            .fake-nav {
+                position: relative;
+                color: transparent;
+                overflow: hidden;
+            }
+
+            .real-nav {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                color: var(--white);
+            }
+
+            .real-nav-show {
+                opacity: 0;
+                animation: lala 0.4s ease-in-out forwards;
+            }
+
+            .real-nav-hide {
+                animation: lala2 0.15s ease-in-out forwards;
+            }
+
+            &:hover {
+                .line {
+                    width: 20%;
+                }
+            }
+        }
+    }
+}
+
+@keyframes lala {
+    from {
+        top: 90px;
+        opacity: 1;
+    }
+
+    to {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes lala2 {
+    from {
+        top: 0px;
+        opacity: 1;
+    }
+
+    to {
+        top: -50px;
+        opacity: 0;
+    }
+}
+
+.navigation-menu-show {
+    opacity: 1;
+    pointer-events: all;
 }

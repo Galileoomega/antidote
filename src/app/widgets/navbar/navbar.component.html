@@ -4,13 +4,37 @@
 
         <img class="main-logo" src="icons/antidote-logo-full.svg" alt="">
 
-        <div class="menu-btn">
+        <div (click)="manageNavigationMenu()" class="menu-btn">
             <p>MENU</p>
 
-            <div class="dots-container">
+            <div [ngClass]="{'dots-container-close': showNavigationMenu}" class="dots-container">
                 <div class="circle c-1"></div>
                 <div class="circle c-2"></div>
+
+                <img class="close-icon" src="icons/close.svg" alt="">
             </div>
+        </div>
+    </div>
+
+    <div [ngClass]="{'navigation-menu-show': showNavigationMenu}" class="navigation-menu">
+        <div class="navigation">
+
+            @for (route of routes; track $index) {
+                <div class="nav-container">
+                    <nav class="fake-nav" (click)="navigate(route.url)">
+                        {{route.name}}
+                        <p 
+                            [ngStyle]="{'animation-delay': ($index * 0.05) + 's'}" 
+                            [ngClass]="{'real-nav-show': showNavigationMenu==true, 'real-nav-hide': showNavigationMenu==false}" 
+                            class="real-nav"
+                        >
+                            {{route.name}}
+                        </p>
+                    </nav>
+    
+                    <div [ngClass]="{'line-active': currentUrl == route.url && showNavigationMenu}" class="line"></div>
+                </div>
+            }
         </div>
     </div>
 </div>
