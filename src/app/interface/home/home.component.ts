@@ -7,7 +7,7 @@ import { StarExposureComponent } from '../../widgets/star-exposure/star-exposure
 import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.component';
 import { AutoScrollService } from '../../common/services/auto-scroll.service';
 import { StarRainComponent } from '../../widgets/star-rain/star-rain.component';
-import { ProjectsComponent } from '../../widgets/projects/projects.component';
+import { ProjectsPreviewComponent } from '../../widgets/projects-preview/projects-preview.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ import { ProjectsComponent } from '../../widgets/projects/projects.component';
     RouterLink, 
     PlanetGenComponent, 
     StarRainComponent,
-    ProjectsComponent
+    ProjectsPreviewComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

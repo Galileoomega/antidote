@@ -9,10 +9,10 @@ import { ScrollPositionService } from '../../common/services/scroll-position.ser
   selector: 'app-projects',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss',
+  templateUrl: './projects-preview.component.html',
+  styleUrl: './projects-preview.component.scss',
 })
-export class ProjectsComponent implements AfterViewInit {
+export class ProjectsPreviewComponent implements AfterViewInit {
   @ViewChildren('tracking') targets!: QueryList<ElementRef>;
 
   // Projects data
