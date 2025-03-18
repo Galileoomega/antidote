@@ -13,9 +13,11 @@
 }
 
 .main-logo {
+    position: absolute;
     min-width: 12vh;
     width: 12vh;
-    margin-inline: auto;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 .menu-btn {
@@ -29,6 +31,7 @@
     backdrop-filter: blur(10px);
     outline: 1.5px solid rgb(48, 48, 48);
     cursor: pointer;
+    margin-left: auto;
 
     .dots-container {
         position: relative;

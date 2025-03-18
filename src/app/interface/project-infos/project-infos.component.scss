@@ -108,7 +108,6 @@ $spacing-xxl: 100px;
 
 // Components
 .button {
-  margin-top: $spacing-xxl;
   width: fit-content;
   padding: $spacing-base;
   padding-inline: $spacing-base * 2;
@@ -126,7 +125,7 @@ $spacing-xxl: 100px;
   @extend .button;
 
   position: absolute;
-  top: 10px;
+  top: 9%;
   left: 50%;
   transform: translate(-50%);
   z-index: 10;
