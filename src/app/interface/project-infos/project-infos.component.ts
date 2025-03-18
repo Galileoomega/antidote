@@ -34,13 +34,14 @@ export class ProjectInfosComponent implements OnInit {
         this.project = this.projectsService.getProjectById(this.projectId);
       }
     });
+
+    this.smoothUpdate()
   }
 
   onScroll(event: WheelEvent) {
     event.preventDefault();
     // Update the target position based on the wheel event
     this.targetPosition -= event.deltaY;
-    this.smoothUpdate()
     
     if (this.targetPosition < 0) {
       this.targetPosition = 0;
@@ -49,7 +50,7 @@ export class ProjectInfosComponent implements OnInit {
 
   smoothUpdate() {
     setInterval(() => {
-      this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
+      this.currentPosition += (this.targetPosition - this.currentPosition) * 0.05;
     }, 0.1)
   }
 
@@ -72,8 +73,4 @@ export class ProjectInfosComponent implements OnInit {
       this.router.navigate(['/']);
     }, 300); // Match the animation duration
   }
-
-
-
-  
 }

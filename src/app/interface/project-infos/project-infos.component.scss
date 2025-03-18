@@ -51,7 +51,6 @@ $spacing-xxl: 100px;
   gap: $spacing-base;
   padding: $spacing-base;
   transform: translate3d(0, 0, 0);
-  transition: transform $transition-duration ease-out;
   animation: slideInFromRight $transition-duration ease-out;
 
   &.exiting {
