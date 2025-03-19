@@ -5,7 +5,6 @@ import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-t
 import { RouterLink } from '@angular/router';
 import { StarExposureComponent } from '../../widgets/star-exposure/star-exposure.component';
 import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.component';
-import { AutoScrollService } from '../../common/services/auto-scroll.service';
 import { StarRainComponent } from '../../widgets/star-rain/star-rain.component';
 import { ProjectsPreviewComponent } from '../../widgets/projects-preview/projects-preview.component';
 
@@ -42,9 +41,7 @@ export class HomeComponent {
 
   public currentPageIndex: number = 0;
 
-  constructor(
-    private autoScroll: AutoScrollService
-  ) {}
+  constructor() {}
 
   private getPageIndexFromScroll(): number {
     const percentage: number = ((this.scrollPosition - this.screenHeight * Math.floor(this.scrollPosition / this.screenHeight)) / this.screenHeight) * 100;
@@ -237,13 +234,6 @@ export class HomeComponent {
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {
     this.scrollPosition = window.scrollY;
-
-    if (this.currentPageIndex >= 10) {
-      this.autoScroll.activateAutoScroll();
-    }
-    else {
-      this.autoScroll.stopAutoScroll();
-    }
 
     this.currentPageIndex = this.getPageIndexFromScroll();
   }
