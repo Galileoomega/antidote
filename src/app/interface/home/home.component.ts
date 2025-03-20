@@ -81,9 +81,9 @@ export class HomeComponent {
   
     // Handle different bodyId cases
     switch (bodyId) {
-      case "planet-1":
-        styles['left'] = `calc(50% + ${offsetX}px)`;
-        styles['top'] = `calc(50% + ${offsetY}px)`;
+      case "nebula":
+        
+        styles['transform'] = `translate(-50%, -50%) perspective(500px) rotateX(${(this.mouseOffsetY * -1) * 0.5}deg) rotateY(${this.mouseOffsetX * 0.5}deg)`;
         break;
   
       case "sat-1":
@@ -109,7 +109,7 @@ export class HomeComponent {
     const position = (this.scrollPosition * -1) + this.screenHeight * pageNumber;
     
     return {
-      'top': `${position}px`
+      'top': `${position + 4}px`
     };
   }
 

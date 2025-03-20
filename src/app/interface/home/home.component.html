@@ -4,7 +4,6 @@
     [ngStyle]="{
         'opacity': currentPageIndex >= 2 && currentPageIndex <= 5 ? 0 : 1,
     }" 
-    [scale]="currentPageIndex >= 12 ? 3 : 1"
     [targetOffset]="getPositionForPage(0, 100, 10)"
 ></app-star-exposure>
 
@@ -139,34 +138,36 @@
 
         <img [ngClass]="{'astronaut-show': currentPageIndex >= 9}" class="astronaut" src="images/astronaut.svg" alt="">
 
-        <div [ngClass]="{'fader-show': currentPageIndex >= 12}" class="fader"></div>
-
         <!-- CONTACT -->
-        <div [ngClass]="{'contact-show': currentPageIndex >= 12}" class="contact">
-            <p class="subtitle">Your idea is ready to go wild?</p>
+        <div [ngStyle]="fixToPage(12)" class="contact">
+            <img [ngStyle]="moveByMouseOffset('nebula', 0.3)" class="gradient-1" src="icons/nebula.svg" alt="">
             
-            <div routerLink="contact" class="title-container">
-                <div class="title">
-                    LET'S WORK
-                    <div class="line"></div>
+            <div class="center-text">
+                <div class="small-text">
+                    <p>LET'S CHAT</p>
+                    <p>LET'S CHAT</p>
+                    <p>LET'S CHAT</p>
                 </div>
 
-                <div class="title">
-                    <div class="flex h-align">
-                        TOGETHER
-                        <img class="arrow" src="icons/arrow-right.svg" alt="">
-                    </div>
+                <p class="main">GET IN TOUCH</p>
 
-                    <div class="line"></div>
+                
+                <div routerLink="/contact" class="connect-button">
+                    <div>
+                        LET'S CONNECT
+
+                        <div class="line"></div>
+                    </div>
+                    <img src="icons/arrow-right.svg" alt="">
                 </div>
             </div>
 
-            <div class="bottom">
-                <p>AIM FOR THE STARS TO <br> LAND ON THE MOON</p>
-
-                <img class="animated-planet" src="images/planet.gif" alt="">
-
-                <p>AIM FOR THE STARS TO <br> LAND ON THE MOON</p>
+            <div class="footer">
+                <img class="cross c3" src="icons/cool-cross.svg" alt="">
+                <p class="credit">© 2025</p>
+                
+                <p>hello&#64;antidoteverse.com</p>
+                <img class="cross c4" src="icons/cool-cross.svg" alt="">
             </div>
         </div>
     </div>

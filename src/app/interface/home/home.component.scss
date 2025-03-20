@@ -187,7 +187,7 @@ app-projects {
     z-index: -1;
     font-size: 8vh;
     transition: all 0.4s $transition-ease;
-    color: $secondary-color;
+    // color: rgb(130, 60, 177);
     line-height: 1cap;
     opacity: 0;
     margin-top: 100px;
@@ -233,83 +233,85 @@ app-projects {
 }
 
 .contact {
-    @include flex-center;
-    flex-direction: column;
     position: absolute;
-    background-color: $background-color;
-    left: 0;
-    top: 0;
     width: 100vw;
     height: 100vh;
-    background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.187) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.187) 1px, transparent 1px);
-    background-size: 170px 170px;
-    background-position: center;
-    transition: all 0.2s $transition-ease;
-    transition-delay: 0.4s;
-    opacity: 0;
-    pointer-events: none;
+    background-color: black;
+    overflow: hidden;
 
-    .subtitle {
-        font-size: 2.6vh;
-        margin-top: auto;
+    .gradient-1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: all 1s ease-out;
+
+        width: 100%;
+        filter: blur(50px);
+        // z-index: 0;
     }
 
-    .title-container {
-        @include flex-center;
-        flex-direction: column;
+    .center-text {
+        position: absolute;
+        width: fit-content;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .small-text {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .main {
+            width: fit-content;
+            font-size: 13vw;
+            white-space: nowrap;
+        }
+    }
+
+    .connect-button {
+        width: fit-content;
+        display: flex;
         cursor: pointer;
-        text-align: center;
-        line-height: 0.9;
+        font-size: 2vw;
+        margin: auto;
+        margin-top: 7vw;
+
+        img {
+            width: 1.8vw;
+            object-fit: contain;
+            margin-left: 1.5vw;
+        }
 
         .line {
-            margin-left: 16px;
-            height: 6px;
-            width: 0;
+            width: 0%;
+            height: 3px;
             background-color: var(--white);
-            transition: all 0.2s $transition-ease;    
+            transition: width .15s ease-in-out;
         }
-
+        
         &:hover .line {
-            width: calc(100% - 16px);
+            width: 100%;
         }
     }
 
-    .title {
-        font-size: 10vh;
-        width: fit-content;
-        margin-top: 15px;
+    .footer {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        height: 1.5vw;
+        width: calc(100vw - 100px);
+        bottom: 50px;
+        left: 50px;
 
-        .arrow {
-            height: 5vh;
-            margin-left: 20px;
+        .cross {
+            width: 1.5vw;
+        }
+
+        .credit {
+            margin-right: auto;
         }
     }
-
-    .bottom {
-        width: 100%;
-        @include flex-center;
-        margin-top: auto;
-        padding: 20px;  
-
-        .animated-planet {
-            width: 10%;
-            margin-inline: 20px;
-        }
-
-        p {
-            font-size: 2vh;
-            color: $text-color;
-        }
-
-        p:first-child {
-            text-align: right;
-        }
-    }
-}
-
-.contact-show {
-    opacity: 1;
-    pointer-events: all;
 }
