@@ -1,51 +1,63 @@
-import { Component, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-nebula',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './nebula.component.html',
-  styleUrl: './nebula.component.scss'
+  styleUrl: './nebula.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NebulaComponent {
+export class NebulaComponent implements OnInit {
   private mouseX: number = 0;
   private mouseY: number = 0;
-
   private mouseOffsetX: number = 0;
   private mouseOffsetY: number = 0;
+  finalX: number = 0;
+  finalY: number = 0;
+  smoothingFactor: number = 0.05;
+  private lastUpdate: number = 0;
+  private updateFrequency: number = 16; // Limite la mise à jour à environ 60 fps
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.smoothUpdate();
+  }
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMoveEvent(event: MouseEvent) {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
+  }
 
-    this.calculateMouseOffsetFromCenter();
+  private smoothUpdate(): void {
+    const update = (timestamp: number) => {
+      // Limiter la fréquence de mise à jour
+      if (timestamp - this.lastUpdate >= this.updateFrequency) {
+        this.calculateMouseOffsetFromCenter();
+        this.finalX += (this.mouseOffsetX - this.finalX) * this.smoothingFactor;
+        this.finalY += (this.mouseOffsetY - this.finalY) * this.smoothingFactor;
+        this.cdr.markForCheck();
+        this.lastUpdate = timestamp;
+      }
+      requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
   }
 
   private calculateMouseOffsetFromCenter(): void {
-    // Get the center of the screen
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
-
-    // Calculate the mouse offset from the center
     const mouseOffsetX = this.mouseX - centerX;
     const mouseOffsetY = this.mouseY - centerY;
-
-    // Calculate the percentage of the offset relative to the screen dimensions
     this.mouseOffsetX = (mouseOffsetX / centerX) * 100;
     this.mouseOffsetY = (mouseOffsetY / centerY) * 100;
   }
 
-  public moveByMouseOffset(bodyId: string, speedFactor: number): { [key: string]: string } {
-    // Define base values for calculations
-    const offsetX = this.mouseOffsetX / 2 * speedFactor;
-    const offsetY = this.mouseOffsetY / 2 * speedFactor;
-  
-    // Create a default return object
+  public moveByMouseOffset(speedFactor: number): { [key: string]: string } {
     const styles: { [key: string]: string } = {};
-  
-    styles['transform'] = `translate(-50%, -50%) perspective(500px) rotateX(${(this.mouseOffsetY * -1) * 0.5}deg) rotateY(${this.mouseOffsetX * 0.5}deg)`;
-  
-    // Return the computed styles
+    styles['transform'] = `translate(-50%, -50%) perspective(500px) rotateX(${(this.finalY * -1) * 0.5}deg) rotateY(${this.finalX * 0.5}deg)`;
     return styles;
-  }  
+  }
 }
