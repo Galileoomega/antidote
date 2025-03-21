@@ -215,15 +215,18 @@ export class HomeComponent implements AfterViewInit {
     if (this.currentPageIndex == page) {
       return {
         'opacity': 1,
-        'margin-top': 0 + 'px'
-      };
-    } else if (this.currentPageIndex > page) {
+        'margin-top': 0 + 'px',
+        'letter-spacing': this.getPositionForPage(0, this.screenWidth / 10, page) + 'px',
+        'margin-right': this.getPositionForPage(0, this.screenWidth / 10, page) * -1 + 'px'
+      }
+    }
+    if (this.currentPageIndex > page) {
       return {
         'opacity': 1,
         'margin-top': 0 + 'px',
         'letter-spacing': this.screenWidth / 10 + 'px',
         'margin-right': (this.screenWidth / 10) * -1 + 'px'
-      };
+      }
     }
 
     return {};

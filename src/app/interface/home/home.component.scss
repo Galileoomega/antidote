@@ -187,8 +187,8 @@ app-projects-preview {
     transform: translate(0, -50%);
     z-index: -1;
     font-size: 8vh;
-    transition: all 0.4s $transition-ease;
-    // color: rgb(130, 60, 177);
+    transition: all 0.4s ease-out;
+    color: rgb(52 75 189);
     line-height: 1cap;
     opacity: 0;
     margin-top: 100px;
