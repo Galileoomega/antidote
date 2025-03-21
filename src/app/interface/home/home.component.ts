@@ -7,6 +7,7 @@ import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.componen
 import { StarRainComponent } from '../../widgets/star-rain/star-rain.component';
 import { ProjectsPreviewComponent } from '../../widgets/projects-preview/projects-preview.component';
 import { CRouterService } from '../../common/services/c-router.service';
+import { NebulaComponent } from '../../widgets/nebula/nebula.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ import { CRouterService } from '../../common/services/c-router.service';
     StarExposureComponent, 
     PlanetGenComponent, 
     StarRainComponent,
-    ProjectsPreviewComponent
+    ProjectsPreviewComponent,
+    NebulaComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -91,7 +93,6 @@ export class HomeComponent implements AfterViewInit {
     // Handle different bodyId cases
     switch (bodyId) {
       case "nebula":
-        
         styles['transform'] = `translate(-50%, -50%) perspective(500px) rotateX(${(this.mouseOffsetY * -1) * 0.5}deg) rotateY(${this.mouseOffsetX * 0.5}deg)`;
         break;
   
