@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
@@ -14,6 +14,8 @@ import { CRouterService } from '../../common/services/c-router.service';
   styleUrls: ['./project-infos.component.scss']
 })
 export class ProjectInfosComponent implements OnInit {
+  @ViewChild('carousel') myElement!: ElementRef;
+
   targetPosition = 0;
   currentPosition = 0;
   smoothingFactor = 0.1;
@@ -83,6 +85,19 @@ export class ProjectInfosComponent implements OnInit {
   onScroll(event: WheelEvent): void {
     event.preventDefault();
     this.targetPosition = Math.max(0, this.targetPosition + event.deltaY);
+
+    const endBound: number = this.getWidth() - window.innerWidth / 1.2;
+
+    if(this.targetPosition > endBound) {
+      this.targetPosition = endBound
+    }
+  }
+
+  getWidth(): number {
+    const width = this.myElement.nativeElement.offsetWidth;
+    console.log('Width:', width);
+
+    return width
   }
 
   /**
