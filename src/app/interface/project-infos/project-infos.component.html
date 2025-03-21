@@ -45,7 +45,8 @@
         @for (media of project?.medias; track $index) {
             <div class="carousel-item">
                 @if(media.type == 'image') {
-                    <img [src]="media.url" [alt]="media.name">
+                    <!-- <img [src]="media.url" [alt]="media.name"> -->
+                    <app-img-loader [src]="media.url"></app-img-loader>
                 }
                 
                 @if(media.type == 'video') {

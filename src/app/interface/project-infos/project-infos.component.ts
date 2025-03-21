@@ -3,11 +3,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
+import { ImgLoaderComponent } from '../../widgets/img-loader/img-loader.component';
 
 @Component({
   selector: 'app-project-infos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ImgLoaderComponent],
   templateUrl: './project-infos.component.html',
   styleUrls: ['./project-infos.component.scss']
 })

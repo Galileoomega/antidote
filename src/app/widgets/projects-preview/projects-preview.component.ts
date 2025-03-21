@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 import { ScrollPositionService } from '../../common/services/scroll-position.service';
@@ -8,7 +8,7 @@ import { ScrollPositionService } from '../../common/services/scroll-position.ser
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './projects-preview.component.html',
   styleUrl: './projects-preview.component.scss',
 })
