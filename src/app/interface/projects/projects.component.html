@@ -12,11 +12,9 @@
     </div>
 </div>
 
-<div class="grid">
-    
-</div>
+<app-projects-preview [hideTexts]="true"></app-projects-preview>
 
-<div class="items-grid">
+<!-- <div class="items-grid">
     @for (project of PROJECTS; track $index) {
     <div #tracking (mousemove)="updateImagePerspective($event, $index)"
         (mouseleave)="resetImagePerspective($index)" (click)="openProject($index)" class="item">
@@ -35,4 +33,4 @@
         <p class="title">{{ project.title }}</p>
     </div>
     }
-</div>
+</div> -->

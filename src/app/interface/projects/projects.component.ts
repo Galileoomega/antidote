@@ -5,10 +5,11 @@ import { ProjectsService } from '../../common/services/projects.service';
 import { ScrollPositionService } from '../../common/services/scroll-position.service';
 import { CommonModule } from '@angular/common';
 import { CRouterService } from '../../common/services/c-router.service';
+import { ProjectsPreviewComponent } from '../../widgets/projects-preview/projects-preview.component';
 
 @Component({
   selector: 'app-projects',
-  imports: [CommonModule],
+  imports: [CommonModule, ProjectsPreviewComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })

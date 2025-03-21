@@ -17,7 +17,7 @@ import { ScrollPositionService } from '../../common/services/scroll-position.ser
 import { CRouterService } from '../../common/services/c-router.service';
 
 @Component({
-  selector: 'app-projects',
+  selector: 'app-projects-preview',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './projects-preview.component.html',
@@ -26,7 +26,8 @@ import { CRouterService } from '../../common/services/c-router.service';
 export class ProjectsPreviewComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('tracking') targets!: QueryList<ElementRef>;
 
-  @Input() maxProjects: number = 2;
+  @Input() hideTexts: boolean = false;
+  @Input() maxProjects: number = Infinity;
   public PROJECTS: Project[] = [];
   public displayedProjects: Project[] = [];
   public transformStyles: string[] = [];

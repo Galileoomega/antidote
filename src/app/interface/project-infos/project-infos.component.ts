@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
@@ -25,7 +25,8 @@ export class ProjectInfosComponent implements OnInit {
     private route: ActivatedRoute,
     private crouter: CRouterService,
     private projectsService: ProjectsService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private location: Location
   ) {}
 
   /**
@@ -119,6 +120,7 @@ export class ProjectInfosComponent implements OnInit {
    */
   public goBack(): void {
     this.isExiting = true;
-    this.crouter.navigateTo('/', 300)
+    // this.crouter.navigateTo('/', 300)
+    this.location.back();
   }
 }
