@@ -1,28 +1,28 @@
 <canvas #warpCanvas></canvas>
 
 <div class="title">
-    {{displayTexts[0]}} <br>
-    {{displayTexts[1]}} <br>
+    <app-scrambler-text [duration]="100" [event]="displayText" [text]="'LET\'S GET'"></app-scrambler-text>
+    <app-scrambler-text [delay]="800" [duration]="100" [event]="displayText" [text]="'IN TOUCH'"></app-scrambler-text>
 </div>
 
 <div class="links">
-    <a href="mailto:{{displayTexts[2]}}">
-        {{displayTexts[2]}}
+    <a href="mailto:hello@antidoteverse.com">
+        <app-scrambler-text [delay]="1600" [duration]="50" [event]="displayText" [text]="'hello@antidoteverse.com'"></app-scrambler-text>
         <img src="icons/arrow-up-right-mini.svg" alt="" loading="lazy">
     </a>
 
     <a href="https://github.com">
-        {{displayTexts[3]}}
+        <app-scrambler-text [delay]="2600" [duration]="100" [event]="displayText" [text]="'Github'"></app-scrambler-text>
         <img src="icons/arrow-up-right-mini.svg" alt="" loading="lazy">
     </a>
 
     <a href="">
-        {{displayTexts[4]}}
+        <app-scrambler-text [delay]="3000" [duration]="100" [event]="displayText" [text]="'ArtStation'"></app-scrambler-text>
         <img src="icons/arrow-up-right-mini.svg" alt="" loading="lazy">
     </a>
     
     <a href="">
-        {{displayTexts[5]}}
+        <app-scrambler-text [delay]="3800" [duration]="100" [event]="displayText" [text]="'antidote.gems'"></app-scrambler-text>
         <img src="icons/arrow-up-right-mini.svg" alt="" loading="lazy">
     </a>
 </div>
