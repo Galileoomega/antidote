@@ -32,9 +32,9 @@
             }
         </div>
 
-        <div routerLink="projects" class="button">
+        <div (click)="navigateTo('/projects')" class="button">
             <span>SEE ALL PROJECTS</span>
         </div>
     </div>
-    <div [ngClass]="{'anim-fader': animateSliding}" class="fader"></div>
+    <!-- <div [ngClass]="{'anim-fader': animateSliding}" class="fader"></div> -->
 </div>

@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { ProjectsService } from '../../common/services/projects.service';
 import { ScrollPositionService } from '../../common/services/scroll-position.service';
 import { CommonModule } from '@angular/common';
+import { CRouterService } from '../../common/services/c-router.service';
 
 @Component({
   selector: 'app-projects',
@@ -25,7 +26,7 @@ export class ProjectsComponent {
   private readonly SMOOTHING_FACTOR = 0.1;
   public readonly TRANSITION_TIME_MILLISECOND = 500;
 
-  constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService) {
+  constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService, private crouter: CRouterService) {
     this.PROJECTS = this.projectsService.getAllProjects();
     this.initializePerspectiveData();
 
@@ -40,6 +41,8 @@ export class ProjectsComponent {
 
   ngAfterViewInit(): void {
     this.setupIntersectionObserver();
+
+    this.crouter.acceptNavigation();
   }
 
   /**

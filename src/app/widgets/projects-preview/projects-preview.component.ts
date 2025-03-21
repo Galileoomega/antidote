@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
-import { Router, NavigationEnd, RouterLink } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 import { ScrollPositionService } from '../../common/services/scroll-position.service';
+import { CRouterService } from '../../common/services/c-router.service';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './projects-preview.component.html',
   styleUrl: './projects-preview.component.scss',
 })
@@ -26,9 +27,13 @@ export class ProjectsPreviewComponent implements AfterViewInit {
   private readonly SMOOTHING_FACTOR = 0.1;
   public readonly TRANSITION_TIME_MILLISECOND = 500;
 
-  constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService) {
+  constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService, private crouter: CRouterService) {
     this.PROJECTS = this.projectsService.getAllProjects();
     this.initializePerspectiveData();
+  }
+
+  ngAfterViewInit(): void {
+    this.setupIntersectionObserver();
 
     // Listen for navigation events to handle return animation
     this.router.events.subscribe((event) => {
@@ -39,10 +44,6 @@ export class ProjectsPreviewComponent implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.setupIntersectionObserver();
-  }
-
   /**
    * Navigates to the project details page with a sliding animation.
    */
@@ -51,7 +52,7 @@ export class ProjectsPreviewComponent implements AfterViewInit {
     
     this.animateSliding = true;
     const projectId = this.PROJECTS[index].id;
-    setTimeout(() => this.router.navigateByUrl(`projects/${projectId}`), this.TRANSITION_TIME_MILLISECOND + 100);
+    this.crouter.navigateTo(`projects/${projectId}`);
   }
 
   /**
@@ -112,5 +113,9 @@ export class ProjectsPreviewComponent implements AfterViewInit {
       rotation.rotateY += (this.targetRotations[index].rotateY - rotation.rotateY) * this.SMOOTHING_FACTOR;
       this.transformStyles[index] = `perspective(800px) rotateX(${rotation.rotateX}deg) rotateY(${rotation.rotateY}deg)`;
     });
+  }
+
+  public navigateTo(url: string) {
+    this.crouter.navigateTo(url);
   }
 }

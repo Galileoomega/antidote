@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 import { ImgLoaderComponent } from '../../widgets/img-loader/img-loader.component';
+import { CRouterService } from '../../common/services/c-router.service';
 
 @Component({
   selector: 'app-project-infos',
@@ -22,7 +23,7 @@ export class ProjectInfosComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    private crouter: CRouterService,
     private projectsService: ProjectsService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -33,6 +34,17 @@ export class ProjectInfosComponent implements OnInit {
   ngOnInit(): void {
     this.subscribeToRouteParams();
     this.smoothUpdate();
+  }
+
+  imgLoaded = 0
+
+  public loaded(index: number) {
+    this.imgLoaded += 1;
+
+    if(this.imgLoaded >= this.project!.medias.length) {
+      console.log("LOADED ALL")
+      this.crouter.acceptNavigation()
+    }
   }
 
   /**
@@ -50,7 +62,7 @@ export class ProjectInfosComponent implements OnInit {
       }
       
       if(this.project == null) {
-        this.router.navigateByUrl('/')
+        this.crouter.navigateTo('/')
       }
     });
   }
@@ -107,6 +119,6 @@ export class ProjectInfosComponent implements OnInit {
    */
   public goBack(): void {
     this.isExiting = true;
-    setTimeout(() => this.router.navigateByUrl('/'), 300);
+    this.crouter.navigateTo('/', 300)
   }
 }

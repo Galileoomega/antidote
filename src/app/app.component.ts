@@ -1,23 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './widgets/navbar/navbar.component';
-import { LoaderComponent } from './interface/loader/loader.component';
+import { FooterBlurComponent } from './widgets/footer-blur/footer-blur.component';
+import { CRouterService } from './common/services/c-router.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule, CommonModule, NavbarComponent],
+  imports: [RouterOutlet, RouterModule, CommonModule, NavbarComponent, FooterBlurComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'antidote';
 
-  @HostListener('document:contextmenu', ['$event'])
-  onRightClick(event: MouseEvent) {
-    // event.preventDefault();
-    // return false;
-  }
+  showFader: boolean = false;
 
-  constructor() {}
+  constructor(private crouter: CRouterService) {
+    crouter.loading$.subscribe((newState: boolean) => {
+      setTimeout(() => {
+        this.showFader = newState;
+      }, 1);
+    });
+  }
 }

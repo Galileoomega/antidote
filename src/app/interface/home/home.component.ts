@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component';
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
-import { RouterLink } from '@angular/router';
 import { StarExposureComponent } from '../../widgets/star-exposure/star-exposure.component';
 import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.component';
 import { StarRainComponent } from '../../widgets/star-rain/star-rain.component';
 import { ProjectsPreviewComponent } from '../../widgets/projects-preview/projects-preview.component';
+import { CRouterService } from '../../common/services/c-router.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +15,6 @@ import { ProjectsPreviewComponent } from '../../widgets/projects-preview/project
     ScrollbarComponent, 
     ScramblerTextComponent, 
     StarExposureComponent, 
-    RouterLink, 
     PlanetGenComponent, 
     StarRainComponent,
     ProjectsPreviewComponent
@@ -23,7 +22,7 @@ import { ProjectsPreviewComponent } from '../../widgets/projects-preview/project
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
   // Store the current coordinates of the mouse.
   private mouseX: number = 0;
   private mouseY: number = 0;
@@ -41,7 +40,13 @@ export class HomeComponent {
 
   public currentPageIndex: number = 0;
 
-  constructor() {}
+  constructor(
+    private crouter: CRouterService
+  ) {}
+
+  ngAfterViewInit(): void {
+    this.crouter.acceptNavigation()
+  }
 
   private getPageIndexFromScroll(): number {
     const percentage: number = ((this.scrollPosition - this.screenHeight * Math.floor(this.scrollPosition / this.screenHeight)) / this.screenHeight) * 100;
@@ -55,6 +60,10 @@ export class HomeComponent {
     }
 
     return pageIndex;
+  }
+
+  public navigateTo(url: string) {
+    this.crouter.navigateTo(url);
   }
   
   private calculateMouseOffsetFromCenter(): void {

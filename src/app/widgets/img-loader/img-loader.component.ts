@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-img-loader',
@@ -13,6 +13,7 @@ export class ImgLoaderComponent {
   // For example, if resolutions = 2, the chain will be:
   // myimage-res1.webp, myimage-res2.webp, myimage.webp
   @Input() resolutions: number = 2;
+  @Output() loaded = new EventEmitter<boolean>();
 
   currentSrc!: string;
   isFinalLoaded = false;
@@ -69,5 +70,6 @@ export class ImgLoaderComponent {
 
   handleLoad(): void {
     // Additional on-load logic can be placed here.
+    this.loaded.emit(true)
   }
 }

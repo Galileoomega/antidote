@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -11,7 +10,7 @@ export class LoaderService {
 
   private timeoutId: any;
 
-  constructor(private router: Router) {
+  constructor() {
     this.startRandomProgress();
   }
 

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterLink} from '@angular/router';
+import { CRouterService } from '../../common/services/c-router.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -21,12 +22,16 @@ export class NavbarComponent {
 
   public currentUrl: string = '';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private crouter: CRouterService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.urlAfterRedirects;
       }
     });
+  }
+
+  public navigateTo(url: string) {
+    this.crouter.navigateTo(url)
   }
 
   public manageNavigationMenu(): void {
@@ -44,7 +49,8 @@ export class NavbarComponent {
 
   public navigate(url: string) {
     this.showNavigationMenu = false;
-    this.router.navigateByUrl(url);
+
+    this.crouter.navigateTo(url);
 
     this.enableScroll();
   }

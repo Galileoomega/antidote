@@ -67,10 +67,7 @@ export class ProjectsService {
       thumbnail: 'projects/aeris/1.jpg',
       medias: [
         { type: 'video', url: 'projects/aeris/2.mp4', name: 'Products' },
-        { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart' },
-        { type: 'image', url: 'projects/aeris/2.jpg', name: 'Product Detail' },
-        { type: 'image', url: 'projects/aeris/4.jpg', name: 'Checkout' },
-        { type: 'image', url: 'projects/aeris/5.jpg', name: 'Checkout' },
+        { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart' }
       ]
     },
   ];
