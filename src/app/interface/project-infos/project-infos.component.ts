@@ -120,7 +120,6 @@ export class ProjectInfosComponent implements OnInit {
    */
   public goBack(): void {
     this.isExiting = true;
-    // this.crouter.navigateTo('/', 300)
     this.location.back();
   }
 }

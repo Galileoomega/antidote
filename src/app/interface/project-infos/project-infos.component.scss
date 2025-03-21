@@ -21,11 +21,12 @@ $spacing-xxl: 100px;
 
 @keyframes slideOutToRight {
   0% {
-    transform: translate3d(0, 0, 0);
+    margin-left: 0vw;
     opacity: 1;
   }
   100% {
-    transform: translate3d(100px, 0, 0);
+    margin-left: 5vw;
+    // transform: translate3d(100px, 0, 0);
     opacity: 0;
   }
 }

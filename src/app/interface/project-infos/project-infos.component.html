@@ -17,7 +17,7 @@
                         {{ project?.description }}
                     </p>
 
-                    <div class="button" (click)="visitWebsite()" *ngIf="project?.websiteUrl">VISIT WEBSITE</div>
+                    <div style="margin-top: 50px;" class="button" (click)="visitWebsite()" *ngIf="project?.websiteUrl">VISIT WEBSITE</div>
                 </div>
 
                 <div>
@@ -45,7 +45,6 @@
         @for (media of project?.medias; track $index) {
             <div class="carousel-item">
                 @if(media.type == 'image') {
-                    <!-- <img [src]="media.url" [alt]="media.name"> -->
                     <app-img-loader (loaded)="loaded($index)" [src]="media.url"></app-img-loader>
                 }
                 

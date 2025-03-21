@@ -118,7 +118,7 @@ export class HomeComponent implements AfterViewInit {
     const position = (this.scrollPosition * -1) + this.screenHeight * pageNumber;
     
     return {
-      'top': `${position + 4}px`
+      'top': `${position}px`
     };
   }
 
