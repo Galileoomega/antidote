@@ -12,7 +12,7 @@
         </div>
 
         <div class="items-grid">
-            @for (project of PROJECTS; track $index) {
+            @for (project of displayedProjects; track $index) {
             <div #tracking (mousemove)="updateImagePerspective($event, $index)"
                 (mouseleave)="resetImagePerspective($index)" (click)="openProject($index)" class="item">
 

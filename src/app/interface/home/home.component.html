@@ -67,7 +67,7 @@
         <app-star-rain [scrollPosition]="scrollPosition"></app-star-rain>
 
         <!-- Projects Highlight -->
-        <app-projects [ngStyle]="fixToPage(4)"></app-projects>
+        <app-projects [maxProjects]="4" [ngStyle]="fixToPage(4)"></app-projects>
 
         <!-- PLANETS-2 -->
          @if(currentPageIndex >= 5) {

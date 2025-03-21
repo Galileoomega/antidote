@@ -1,6 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, QueryList, ViewChildren, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  QueryList,
+  ViewChildren,
+  AfterViewInit,
+  OnInit,
+  OnDestroy,
+  Input
+} from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { filter, takeUntil, Subject } from 'rxjs';
 import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 import { ScrollPositionService } from '../../common/services/scroll-position.service';
@@ -11,37 +21,72 @@ import { CRouterService } from '../../common/services/c-router.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './projects-preview.component.html',
-  styleUrl: './projects-preview.component.scss',
+  styleUrls: ['./projects-preview.component.scss'],
 })
-export class ProjectsPreviewComponent implements AfterViewInit {
+export class ProjectsPreviewComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('tracking') targets!: QueryList<ElementRef>;
 
-  // Projects data
-  public readonly PROJECTS: Project[];
-
+  @Input() maxProjects: number = 2;
+  public PROJECTS: Project[] = [];
+  public displayedProjects: Project[] = [];
   public transformStyles: string[] = [];
   private targetRotations: { rotateX: number; rotateY: number }[] = [];
   private currentRotations: { rotateX: number; rotateY: number }[] = [];
   public animateSliding = false;
-  
+
   private readonly SMOOTHING_FACTOR = 0.1;
   public readonly TRANSITION_TIME_MILLISECOND = 500;
+  private destroy$ = new Subject<void>();
 
-  constructor(private router: Router, private projectsService: ProjectsService, private scrollPositionService: ScrollPositionService, private crouter: CRouterService) {
+  private intersectionObserver!: IntersectionObserver;
+  private animationFrameId: number = 0;
+
+  constructor(
+    private router: Router,
+    private projectsService: ProjectsService,
+    private scrollPositionService: ScrollPositionService,
+    private crouter: CRouterService
+  ) {}
+
+  /**
+   * Initializes the component by loading projects data and setting up perspective.
+   */
+  ngOnInit(): void {
     this.PROJECTS = this.projectsService.getAllProjects();
+    this.displayedProjects = this.PROJECTS.slice(0, this.maxProjects);
     this.initializePerspectiveData();
   }
 
+  /**
+   * Sets up the intersection observer and router events after view initialization.
+   */
   ngAfterViewInit(): void {
     this.setupIntersectionObserver();
 
-    // Listen for navigation events to handle return animation
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && event.url === '/') {
-        // Reset animation state when returning to projects
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd && event.url === '/'),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
         this.animateSliding = false;
-      }
-    });
+      });
+
+    // Start the animation loop.
+    this.startAnimationLoop();
+  }
+
+  /**
+   * Cleans up subscriptions, disconnects the observer, and cancels the animation frame.
+   */
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+
+    if (this.intersectionObserver) {
+      this.intersectionObserver.disconnect();
+    }
+    cancelAnimationFrame(this.animationFrameId);
   }
 
   /**
@@ -49,9 +94,8 @@ export class ProjectsPreviewComponent implements AfterViewInit {
    */
   public openProject(index: number): void {
     this.scrollPositionService.saveScrollPosition();
-    
     this.animateSliding = true;
-    const projectId = this.PROJECTS[index].id;
+    const projectId = this.displayedProjects[index].id;
     this.crouter.navigateTo(`projects/${projectId}`);
   }
 
@@ -59,14 +103,12 @@ export class ProjectsPreviewComponent implements AfterViewInit {
    * Initializes the intersection observer for tracking elements.
    */
   private setupIntersectionObserver(): void {
-    const observer = new IntersectionObserver(
+    this.intersectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const activeClass = `${entry.target.className}-active`;
           if (entry.isIntersecting) {
-            entry.target.classList.toggle(activeClass, true);
+            entry.target.classList.add('item-active');
           } else {
-            // Remove the active class when the element is out of view
             entry.target.classList.remove('item-active');
           }
         });
@@ -74,24 +116,28 @@ export class ProjectsPreviewComponent implements AfterViewInit {
       { threshold: 0.1 }
     );
 
-    this.targets.forEach((target) => observer.observe(target.nativeElement));
+    this.targets.forEach((target) =>
+      this.intersectionObserver.observe(target.nativeElement)
+    );
   }
 
   /**
-   * Initializes perspective data and starts the animation loop.
+   * Initializes perspective data for projects and sets up rotation arrays.
    */
   private initializePerspectiveData(): void {
-    this.transformStyles = new Array(this.PROJECTS.length).fill('');
-    this.targetRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
-    this.currentRotations = this.PROJECTS.map(() => ({ rotateX: 0, rotateY: 0 }));
-    setInterval(() => this.applySmoothPerspectiveEffect(), 17);
+    const count = this.displayedProjects.length;
+    this.transformStyles = Array(count).fill('');
+    this.targetRotations = Array(count).fill({}).map(() => ({ rotateX: 0, rotateY: 0 }));
+    this.currentRotations = Array(count).fill({}).map(() => ({ rotateX: 0, rotateY: 0 }));
   }
 
   /**
    * Updates the image perspective based on mouse movement.
    */
   public updateImagePerspective(event: MouseEvent, index: number): void {
-    const box = (event.target as HTMLElement).closest('.item')!.getBoundingClientRect();
+    const item = (event.target as HTMLElement).closest('.item');
+    if (!item) return;
+    const box = item.getBoundingClientRect();
     const x = (event.clientX - box.left) / box.width - 0.5;
     const y = (event.clientY - box.top) / box.height - 0.5;
     this.targetRotations[index] = { rotateX: y * 15, rotateY: -x * 15 };
@@ -105,7 +151,18 @@ export class ProjectsPreviewComponent implements AfterViewInit {
   }
 
   /**
-   * Smoothly interpolates rotations for a natural effect.
+   * Starts the animation loop using requestAnimationFrame.
+   */
+  private startAnimationLoop(): void {
+    const animate = () => {
+      this.applySmoothPerspectiveEffect();
+      this.animationFrameId = requestAnimationFrame(animate);
+    };
+    this.animationFrameId = requestAnimationFrame(animate);
+  }
+
+  /**
+   * Smoothly interpolates rotations for a natural effect and updates transform styles.
    */
   private applySmoothPerspectiveEffect(): void {
     this.currentRotations.forEach((rotation, index) => {
@@ -115,7 +172,10 @@ export class ProjectsPreviewComponent implements AfterViewInit {
     });
   }
 
-  public navigateTo(url: string) {
+  /**
+   * Navigates to the specified URL using the custom router service.
+   */
+  public navigateTo(url: string): void {
     this.crouter.navigateTo(url);
   }
 }
