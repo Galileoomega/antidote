@@ -1,8 +1,18 @@
 <div class="navbar-container">
+
+    <div class="navbar-mobile">
+        <img (click)="navigateTo('/')" class="main-logo" src="icons/antidote-logo-full.svg" alt="">
+
+        <div [class.mobile-btn-active]="showNavigationMenu" (click)="manageNavigationMenu()" class="mobile-btn">
+            <div class="c"></div>
+            <div class="c"></div>
+        </div>
+    </div>
+
     <div class="navbar">
+        <img (click)="navigateTo('/')" class="main-logo" src="icons/antidote-logo-full.svg" alt="">
         <p class="navbar-text-item">.2025</p>
 
-        <img (click)="navigateTo('/')" class="main-logo" src="icons/antidote-logo-full.svg" alt="">
 
         <div (click)="manageNavigationMenu()" class="menu-btn">
             <p>MENU</p>

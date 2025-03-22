@@ -86,7 +86,7 @@ export class ProjectInfosComponent implements OnInit {
     event.preventDefault();
     this.targetPosition = Math.max(0, this.targetPosition + event.deltaY);
 
-    const endBound: number = this.getWidth() - window.innerWidth / 1.2;
+    const endBound: number = this.getWidth() - window.innerWidth / 1 + 30;
 
     if(this.targetPosition > endBound) {
       this.targetPosition = endBound

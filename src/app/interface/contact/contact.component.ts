@@ -10,10 +10,10 @@ import {
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
 
 const STAR_COLORS = [
-  [132, 106, 230],
-  [113, 97, 180],
-  [45, 40, 69],
-  [212, 210, 249]
+  [142, 116, 240],
+  [123, 107, 190],
+  [55, 50, 79],
+  [222, 220, 259]
 ];
 
 @Component({

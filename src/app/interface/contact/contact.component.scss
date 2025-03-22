@@ -12,7 +12,7 @@ canvas {
 
 .title {
     position: absolute;
-    font-size: 90px;
+    font-size: 6.5vh;
     left: 30px;
     bottom: 70px;
 }
@@ -27,6 +27,8 @@ canvas {
     display: flex;
     flex-direction: column;
     gap: 15px;
+
+    font-size: 2.1vh;
 
     * {
         transition: all 0.15s ease-in-out;
@@ -62,9 +64,15 @@ canvas {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    font-size: 1.5vh;
 
     div {
         display: flex;
         gap: 8px;
+    }
+
+    img {
+        width: 2vh;
+        object-fit: contain;
     }
 }
