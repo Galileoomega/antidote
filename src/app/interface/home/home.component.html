@@ -1,5 +1,3 @@
-<app-scrollbar [scrollPosition]="scrollPosition" [numberOfPage]="12"></app-scrollbar>
-
 <app-star-exposure 
     [ngStyle]="{
         'opacity': currentPageIndex >= 2 && currentPageIndex <= 5 ? 0 : 1,
@@ -10,7 +8,7 @@
 <div class="canvas">
     <div class="presented">
         <!-- PLANETS-1 -->
-        @if(currentPageIndex < 3) {
+        @if(currentPageIndex < 3 && clientIsMobile == false) {
             <div [ngStyle]="updatePlanet()" class="planets-1">
                 <app-planet-gen 
                     [animPercentage]="getPositionForPage(0, 100, 1)" 
@@ -38,6 +36,27 @@
                     [primaryColor]="'#51598b'"
                     [secondaryColor]="'#2f1a94'"
                     class="planet-1-satellite-2"
+                ></app-planet-gen>
+            </div>
+        }
+
+        @if(currentPageIndex < 3 && clientIsMobile == true) {
+            <div [ngStyle]="updatePlanet()" class="planets-1">
+                <app-planet-gen 
+                    [animPercentage]="getPositionForPage(0, 100, 1)" 
+                    [planetSize]="screenHeight * 0.8" 
+                    [primaryColor]="'#4239ac'"
+                    [secondaryColor]="'#00E0FF'"
+                    [hasRings]="true"
+                    class="planet-1"
+                ></app-planet-gen>
+    
+                <app-planet-gen 
+                    [animPercentage]="getPositionForPage(0, 100, 1)" 
+                    [planetSize]="screenHeight * 0.15" 
+                    [primaryColor]="'#51598b'"
+                    [secondaryColor]="'#2f1a94'"
+                    class="planet-1-satellite-1"
                 ></app-planet-gen>
             </div>
         }

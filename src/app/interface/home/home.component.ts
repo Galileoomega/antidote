@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
-import { ScrollbarComponent } from '../../widgets/scrollbar/scrollbar.component';
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
 import { StarExposureComponent } from '../../widgets/star-exposure/star-exposure.component';
 import { PlanetGenComponent } from '../../widgets/planet-gen/planet-gen.component';
@@ -8,12 +7,12 @@ import { StarRainComponent } from '../../widgets/star-rain/star-rain.component';
 import { ProjectsPreviewComponent } from '../../widgets/projects-preview/projects-preview.component';
 import { CRouterService } from '../../common/services/c-router.service';
 import { NebulaComponent } from '../../widgets/nebula/nebula.component';
+import { DeviceDetectorService } from '../../common/services/device-detector.service';
 
 @Component({
   selector: 'app-home',
   imports: [
     CommonModule, 
-    ScrollbarComponent, 
     ScramblerTextComponent, 
     StarExposureComponent, 
     PlanetGenComponent, 
@@ -42,9 +41,16 @@ export class HomeComponent implements AfterViewInit {
 
   public currentPageIndex: number = 0;
 
+  public clientIsMobile: boolean = false;
+
   constructor(
-    private crouter: CRouterService
-  ) {}
+    private crouter: CRouterService,
+    private deviceDetector: DeviceDetectorService
+  ) {
+    deviceDetector.isMobile$.subscribe((isMobile: boolean) => {
+      this.clientIsMobile = isMobile;
+    });
+  }
 
   ngAfterViewInit(): void {
     this.crouter.acceptNavigation()
@@ -128,23 +134,6 @@ export class HomeComponent implements AfterViewInit {
       opacity: this.getPositionOnPercentage(1, 0, this.calculPercentage(2)),
       scale: this.getPositionOnPercentage(1, 1.3, this.calculPercentage(2)),
     };
-  }
-
-  public updatePlanet2(): any {
-    const percentage: number = this.calculPercentage(8);
-
-    if (percentage > 200) {
-      return {
-        'transform': `scale(2) translate3d(0, 0, 0)`,
-        'opacity': 0,
-        'display': 'none'
-      }
-    }
-
-    return {
-      'opacity': this.getPositionOnPercentage(0, 1, percentage),
-      'display': 'block'
-    }
   }
 
   private calculPercentage(pageIndex: number): number {
@@ -231,17 +220,6 @@ export class HomeComponent implements AfterViewInit {
     }
 
     return {};
-  }
-
-  moveStarExposure() {
-    if (this.currentPageIndex >= 12) {
-      return 'pause';
-    }
-    if (this.currentPageIndex >= 10) {
-      return 'play';
-    }
-
-    return 'stop';
   }
 
   @HostListener('window:scroll', ['$event'])

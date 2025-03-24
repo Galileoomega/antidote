@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-scrollbar',
   imports: [CommonModule],
   templateUrl: './scrollbar.component.html',
-  styleUrl: './scrollbar.component.scss'
+  styleUrls: ['./scrollbar.component.scss']
 })
 export class ScrollbarComponent implements AfterViewInit {
-  @ViewChildren('scrollbar') target!: ElementRef;
+  @ViewChild('scrollbar') target!: ElementRef;
 
   @Input() scrollPosition: number = 0;
   @Input() numberOfPage: number = 0;
@@ -16,40 +16,47 @@ export class ScrollbarComponent implements AfterViewInit {
   public containerHeight: number = 200;
   public barHeight: number = 150;
 
-  oldPosition: number = 0
-  lastUpdate: number = new Date().getTime();
-  element!: HTMLElement;
+  private hideTimeout: any = null;
+  private element!: HTMLElement;
 
-  constructor() {
-    setInterval(() => this.manageVisibility(), 200);
+  constructor() { }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(): void {
+    // Update the current scroll position.
+    this.scrollPosition = window.scrollY;
+    
+    // Immediately show the scrollbar.
+    this.element.classList.replace('hide', 'show');
+
+    // Reset the hide timer.
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+    }
+    this.hideTimeout = setTimeout(() => {
+      this.element.classList.replace('show', 'hide');
+    }, 1000);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
+    // Get the scrollbar element by its ID.
     this.element = document.getElementById('bar-container')!;
   }
 
-  public calculateBarPosition() {
-    let final = window.innerHeight * this.numberOfPage;
-
-    const value = this.barHeight * (this.scrollPosition / final);
-
-    return {
-      'margin-top': value + 'px'
-    };
+  public calculateBarPosition(): { [key: string]: string } {
+    const totalScrollHeight = this.getPageHeight() - window.innerHeight;
+    const value = this.barHeight * (this.scrollPosition / totalScrollHeight);
+    return { 'margin-top': `${value}px` };
   }
 
-  private manageVisibility() {
-    // GOT AN UPDATE
-    if(this.scrollPosition != this.oldPosition) {
-      this.lastUpdate = new Date().getTime();
-      this.oldPosition = this.scrollPosition;
-      this.element.classList.replace('hide', 'show');
-      
-      return;
-    }
-
-    if(new Date().getTime() - this.lastUpdate > 1000) {
-      this.element.classList.replace('show', 'hide');
-    }
+  getPageHeight(): number {
+    return Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.body.clientHeight,
+      document.documentElement.clientHeight
+    );
   }
 }

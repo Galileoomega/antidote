@@ -6,3 +6,7 @@
 <app-footer-blur></app-footer-blur>
 
 <div [ngClass]="{'show': showFader}" class="fader"></div>
+
+@if(!clientIsMobile) {
+    <app-scrollbar></app-scrollbar>
+}

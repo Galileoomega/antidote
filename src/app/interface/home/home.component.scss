@@ -1,3 +1,13 @@
+@media (max-width: 768px) {
+    .planets-1 {
+        .planet-1 {
+            top: 50%;
+            left: 40% !important;
+            transform: translate(0, -50%) !important;
+        }
+    }
+}
+
 // Variables
 $transition-duration: 0.3s;
 $transition-ease: ease-in-out;
