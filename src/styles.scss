@@ -66,6 +66,7 @@ body {
 body, html, p {
     padding: 0;
     margin: 0;
+    touch-action: manipulation; /* or 'none' */
 }
 
 .flex {

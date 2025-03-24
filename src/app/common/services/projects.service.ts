@@ -9,11 +9,10 @@ export class ProjectsService {
     {
       id: 'techno-posters',
       title: 'Techno Posters',
-      description: 'E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.',
-      services: ['UI/UX', 'Concept', 'Development', 'Branding'],
+      description: 'A collection of vibrant and dynamic posters designed for an event at L\'Usine. The visuals reflect the raw energy and underground spirit of the event, combining bold typography and electrifying graphics.',
+      services: ['Graphic Design', 'Poster', 'Visual Identity', 'Print Media'],
       client: 'L\'usine',
-      websiteUrl: 'https://example.com',
-      tags: 'WEB • DESIGN',
+      tags: 'CONCEPT • DESIGN • POSTER',
       thumbnail: 'projects/techno-posters/plana-1.webp',
       medias: [
         { type: 'image', url: 'projects/techno-posters/plana-2.jpg', name: 'Products' },
@@ -26,10 +25,10 @@ export class ProjectsService {
     {
       id: 'halte-geneva',
       title: 'HALTE Geneva',
-      description: 'Theatrical design and brochure creation for HALTE Geneva, showcasing their artistic performances and cultural events.',
+      description: 'A captivating theatrical design and brochure creation for HALTE Geneva, reflecting the essence of their artistic performances and cultural events.',
       services: ['Theatrical Design', 'Brochure Design', 'Print Media'],
       client: 'Comédie de Genève',
-      tags: 'THEATRAL • DESIGN • BROCHURE',
+      tags: 'DESIGN • BROCHURE • THEATRAL',
       thumbnail: 'projects/halte/cover.webp',
       medias: [
         { type: 'image', url: 'projects/halte/1.webp', name: 'Products' },
@@ -42,12 +41,12 @@ export class ProjectsService {
     {
       id: 'aeris',
       title: 'AERIS',
-      description: 'E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.',
-      services: ['UI/UX', 'Concept', 'Development', 'Branding'],
-      client: 'L\'usine',
-      websiteUrl: 'https://example.com',
-      tags: '3D • WEB • DESIGN • ANIMATION • MOTION GRAPHICS',
-      thumbnail: 'projects/aeris/1.jpg',
+      description: 'Presentation website for Aeris Dynamics, showcasing their cutting-edge human-sized VTOL drone. The drone structure has been designed in 3D for more immersive presentation.',
+      services: ['Web Design', 'UI/UX', 'Development', 'Branding', '3D', 'Motion Design'],
+      client: 'Aeris Dynamics',
+      websiteUrl: 'https://aeris-dynamics.netlify.app/',
+      tags: '3D • WEB • DESIGN • MOTION DESIGN',
+      thumbnail: 'projects/aeris/cover.webp',
       medias: [
         { type: 'video', url: 'projects/aeris/2.mp4', name: 'Products' },
         { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart' },
@@ -55,21 +54,7 @@ export class ProjectsService {
         { type: 'image', url: 'projects/aeris/4.jpg', name: 'Checkout' },
         { type: 'image', url: 'projects/aeris/5.jpg', name: 'Checkout' },
       ]
-    },
-    {
-      id: 'aeris',
-      title: 'AERIS',
-      description: 'E-commerce website, selling unique gemstones. Giving energies, love, strength. From design to final website implementation.',
-      services: ['UI/UX', 'Concept', 'Development', 'Branding'],
-      client: 'L\'usine',
-      websiteUrl: 'https://example.com',
-      tags: '3D • WEB • DESIGN • ANIMATION • MOTION GRAPHICS',
-      thumbnail: 'projects/aeris/1.jpg',
-      medias: [
-        { type: 'video', url: 'projects/aeris/2.mp4', name: 'Products' },
-        { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart' }
-      ]
-    },
+    }
   ];
 
   getAllProjects(): Project[] {

@@ -25,9 +25,9 @@
                         <div style="margin-bottom: 25px;" class="section">
                             <p class="section-title">SERVICES</p>
     
-                            <p class="section-content">
+                            <p style="word-wrap: normal; word-break: keep-all; white-space: nowrap;" class="section-content">
                                 <ng-container *ngFor="let service of project?.services">
-                                    {{ service }}<br>
+                                    {{ service }} <br>
                                 </ng-container>
                             </p>
                         </div>
@@ -84,7 +84,7 @@
                 }
                 
                 @if(media.type == 'video') {
-                    <video width="640" height="360" autoplay loop muted>
+                    <video width="640" autoplay loop muted>
                         <source [src]="media.url" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -98,6 +98,6 @@
     <img src="icons/left-arrow.svg" alt="">
 </div>
 
-<div class="mobile-open-btn">
+<div (click)="visitWebsite()" *ngIf="project?.websiteUrl" class="mobile-open-btn">
     OPEN WEBSITE
 </div>
