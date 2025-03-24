@@ -1,6 +1,6 @@
 <div class="desktop-view">
     <div class="back-button" (click)="goBack()">
-        <img src="icons/arrow-left.svg">
+        <img src="icons/arrow-left.svg" loading="lazy">
     
         GO BACK
     </div>
@@ -95,7 +95,7 @@
 </div>
 
 <div (click)="goBack()" class="mobile-back-btn">
-    <img src="icons/left-arrow.svg" alt="">
+    <img src="icons/left-arrow.svg" alt="" loading="lazy">
 </div>
 
 <div (click)="visitWebsite()" *ngIf="project?.websiteUrl" class="mobile-open-btn">
