@@ -48,10 +48,14 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   // Interval and timeout references for cleanup
   private smoothSpeedIntervalId: any;
 
+  private isMobile: boolean = false;
+
   constructor(
     private deviceDetector: DeviceDetectorService
   ) {
     deviceDetector.isMobile$.subscribe((isMobile: boolean) => {
+      this.isMobile = isMobile;
+
       if(isMobile) {
         this.TARGET_SPEED = 3;
         this.TEXT_COUNT = 0;
@@ -79,7 +83,9 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   // Using HostListener to handle window resize events
   @HostListener('window:resize')
   onResize(): void {
-    this.resizeCanvas();
+    if(this.isMobile == false) {
+      this.resizeCanvas();
+    }
   }
 
   /**
