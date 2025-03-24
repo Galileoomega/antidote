@@ -1,49 +1,84 @@
-<div class="back-button" (click)="goBack()">
-    <img src="icons/arrow-left.svg">
-
-    GO BACK
-</div>
-
-<div class="carousel-container" (wheel)="onScroll($event)">
-    <div [ngStyle]="updateScrollPosition()" #carousel class="carousel" [class.exiting]="isExiting">
-        <div class="carousel-first-item">
-            <div class="title">{{ project?.title }}</div>
-
-            <div class="flex">
-                <div class="section">
-                    <p class="section-title">DESCRIPTION</p>
-
-                    <p class="section-content">
-                        {{ project?.description }}
-                    </p>
-
-                    <div style="margin-top: 50px;" class="button" (click)="visitWebsite()" *ngIf="project?.websiteUrl">VISIT WEBSITE</div>
-                </div>
-
-                <div>
-                    <div style="margin-bottom: 25px;" class="section">
-                        <p class="section-title">SERVICES</p>
-
-                        <p class="section-content">
-                            <ng-container *ngFor="let service of project?.services">
-                                {{ service }}<br>
-                            </ng-container>
-                        </p>
-                    </div>
-
+<div class="desktop-view">
+    <div class="back-button" (click)="goBack()">
+        <img src="icons/arrow-left.svg">
+    
+        GO BACK
+    </div>
+    
+    <div class="carousel-container" (wheel)="onScroll($event)">
+        <div [ngStyle]="updateScrollPosition()" #carousel class="carousel" [class.exiting]="isExiting">
+            <div class="carousel-first-item">
+                <div class="title">{{ project?.title }}</div>
+    
+                <div class="flex">
                     <div class="section">
-                        <p class="section-title">CLIENT</p>
-
+                        <p class="section-title">DESCRIPTION</p>
+    
                         <p class="section-content">
-                            {{ project?.client }}
+                            {{ project?.description }}
                         </p>
+    
+                        <div style="margin-top: 50px;" class="button" (click)="visitWebsite()" *ngIf="project?.websiteUrl">VISIT WEBSITE</div>
+                    </div>
+    
+                    <div>
+                        <div style="margin-bottom: 25px;" class="section">
+                            <p class="section-title">SERVICES</p>
+    
+                            <p class="section-content">
+                                <ng-container *ngFor="let service of project?.services">
+                                    {{ service }}<br>
+                                </ng-container>
+                            </p>
+                        </div>
+    
+                        <div class="section">
+                            <p class="section-title">CLIENT</p>
+    
+                            <p class="section-content">
+                                {{ project?.client }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            @for (media of project?.medias; track $index) {
+                <div class="carousel-item">
+                    @if(media.type == 'image') {
+                        <app-img-loader (loaded)="loaded($index)" [src]="media.url"></app-img-loader>
+                    }
+                    
+                    @if(media.type == 'video') {
+                        <video width="640" height="360" autoplay loop muted>
+                            <source [src]="media.url" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    }
+                </div>
+            }
         </div>
-        
+    </div>
+</div>
+
+<div class="mobile-view">
+    <div class="mobile-page">
+        <div class="title">{{project?.title}}</div>
+
+        <div class="section-name">DESCRIPTION</div>
+
+        <p class="text-content">{{project?.description}}</p>
+
+        <div class="section-name">SERVICES</div>
+
+        <p class="text-content">
+            <ng-container *ngFor="let service of project?.services">
+                {{ service }}<br>
+            </ng-container>
+        </p>
+
         @for (media of project?.medias; track $index) {
-            <div class="carousel-item">
+            <div class="media-item">
                 @if(media.type == 'image') {
                     <app-img-loader (loaded)="loaded($index)" [src]="media.url"></app-img-loader>
                 }
@@ -57,4 +92,12 @@
             </div>
         }
     </div>
+</div>
+
+<div (click)="goBack()" class="mobile-back-btn">
+    <img src="icons/left-arrow.svg" alt="">
+</div>
+
+<div class="mobile-open-btn">
+    OPEN WEBSITE
 </div>

@@ -60,11 +60,16 @@
     width: 100vw;
     padding: 30px;
     padding-inline: 40px;
+    pointer-events: none;
 
     display: none;
     z-index: 11;
     align-items: center;
     font-size: 1.8vh;
+
+    > * {
+        pointer-events: auto;
+    }
 }
 
 .navbar {

@@ -5,6 +5,7 @@ import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 import { ImgLoaderComponent } from '../../widgets/img-loader/img-loader.component';
 import { CRouterService } from '../../common/services/c-router.service';
+import { DeviceDetectorService } from '../../common/services/device-detector.service';
 
 @Component({
   selector: 'app-project-infos',
@@ -23,13 +24,20 @@ export class ProjectInfosComponent implements OnInit {
   projectId: string | null = null;
   project: Project | null = null;
 
+  private isMobile: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private crouter: CRouterService,
     private projectsService: ProjectsService,
     private cdr: ChangeDetectorRef,
-    private location: Location
-  ) {}
+    private location: Location,
+    private deviceDetector: DeviceDetectorService
+  ) {
+    deviceDetector.isMobile$.subscribe((isMobile: boolean) => {
+      this.isMobile = isMobile;
+    });
+  }
 
   /**
    * Initializes the component and subscribes to route parameters.
