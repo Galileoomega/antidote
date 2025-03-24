@@ -27,9 +27,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
-                "glob": "_redirects",
-                "input": "public",
-                "output": "/"
+                "glob": "**/*",
+                "input": "public"
               }
             ],
             "styles": [
