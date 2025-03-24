@@ -15,6 +15,7 @@ import { Project } from '../../common/models/project.interface';
 import { ProjectsService } from '../../common/services/projects.service';
 import { ScrollPositionService } from '../../common/services/scroll-position.service';
 import { CRouterService } from '../../common/services/c-router.service';
+import { DeviceDetectorService } from '../../common/services/device-detector.service';
 
 @Component({
   selector: 'app-projects-preview',
@@ -42,12 +43,19 @@ export class ProjectsPreviewComponent implements OnInit, AfterViewInit, OnDestro
   private intersectionObserver!: IntersectionObserver;
   private animationFrameId: number = 0;
 
+  private isMobile: boolean = false;
+
   constructor(
     private router: Router,
     private projectsService: ProjectsService,
     private scrollPositionService: ScrollPositionService,
-    private crouter: CRouterService
-  ) {}
+    private crouter: CRouterService,
+    private deviceDetector: DeviceDetectorService
+  ) {
+    deviceDetector.isMobile$.subscribe((isMobile: boolean) => {
+      this.isMobile = isMobile;
+    });
+  }
 
   /**
    * Initializes the component by loading projects data and setting up perspective.
@@ -55,6 +63,11 @@ export class ProjectsPreviewComponent implements OnInit, AfterViewInit, OnDestro
   ngOnInit(): void {
     this.PROJECTS = this.projectsService.getAllProjects();
     this.displayedProjects = this.PROJECTS.slice(0, this.maxProjects);
+    
+    if(this.isMobile == true) {
+      return;
+    }
+
     this.initializePerspectiveData();
   }
 
@@ -63,16 +76,20 @@ export class ProjectsPreviewComponent implements OnInit, AfterViewInit, OnDestro
    */
   ngAfterViewInit(): void {
     this.setupIntersectionObserver();
+    
+    if(this.isMobile == true) {
+      return;
+    }
 
     this.router.events
-      .pipe(
-        filter((event) => event instanceof NavigationEnd && event.url === '/'),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(() => {
-        this.animateSliding = false;
-      });
-
+    .pipe(
+      filter((event) => event instanceof NavigationEnd && event.url === '/'),
+      takeUntil(this.destroy$)
+    )
+    .subscribe(() => {
+      this.animateSliding = false;
+    });
+    
     // Start the animation loop.
     this.startAnimationLoop();
   }

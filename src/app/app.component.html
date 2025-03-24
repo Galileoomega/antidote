@@ -3,10 +3,10 @@
 
 <router-outlet></router-outlet>
 
-<app-footer-blur></app-footer-blur>
 
 <div [ngClass]="{'show': showFader}" class="fader"></div>
 
 @if(!clientIsMobile) {
+    <app-footer-blur></app-footer-blur>
     <app-scrollbar></app-scrollbar>
 }

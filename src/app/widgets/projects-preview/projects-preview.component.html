@@ -41,3 +41,22 @@
         }
     </div>
 </div>
+
+<div class="mobile-projects">
+    @for (project of displayedProjects; track $index) {
+        <div #tracking class="item" (click)="openProject($index)">
+            <div class="illustration">
+                <img class="project-thumbnail" [src]="project.thumbnail" [alt]="project.title" loading="lazy">
+            </div>
+    
+            <p class="tags">{{ project.tags }}</p>
+            <p class="title">{{ project.title }}</p>
+        </div>
+    }
+
+    @if(hideTexts == false) {
+        <div (click)="navigateTo('/projects')" class="button">
+            <span>SEE ALL PROJECTS</span>
+        </div>
+    }
+</div>
