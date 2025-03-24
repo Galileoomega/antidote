@@ -8,6 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { ScramblerTextComponent } from '../../widgets/scrambler-text/scrambler-text.component';
+import { DeviceDetectorService } from '../../common/services/device-detector.service';
 
 const STAR_COLORS = [
   [142, 116, 240],
@@ -39,13 +40,26 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   public displayText = false;
 
   // CUSTOMIZATION CONSTANTS
-  private readonly TARGET_SPEED = 6;
-  private readonly STARS_COUNT = this.width * 0.8;
+  private TARGET_SPEED = 7;
+  private readonly STARS_COUNT = this.height;
   private readonly LINE_LENGTH = 2;
-  private readonly TEXT_COUNT = 17;
+  private TEXT_COUNT = 17;
 
   // Interval and timeout references for cleanup
   private smoothSpeedIntervalId: any;
+
+  constructor(
+    private deviceDetector: DeviceDetectorService
+  ) {
+    deviceDetector.isMobile$.subscribe((isMobile: boolean) => {
+      if(isMobile) {
+        this.TARGET_SPEED = 3;
+        this.TEXT_COUNT = 0;
+      }
+      else {  
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.initStars();
@@ -75,6 +89,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
   private smoothSpeedIncrease(): void {
     const highestSpeed = this.TARGET_SPEED * 10;
     const step = 0.2;
+    
     let ascending = true;
 
     this.smoothSpeedIntervalId = setInterval(() => {
@@ -152,7 +167,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   private initStars(): void {
     let textStarCount = 0;
-    this.stars = new Array(this.STARS_COUNT).fill(null).map(() => {
+    this.stars = new Array(Math.round(this.STARS_COUNT)).fill(null).map(() => {
       textStarCount++;
       return {
         x: Math.random() * this.width - this.width / 2,
@@ -216,8 +231,8 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
       if (star.text && this.displayText) {
         this.ctx.strokeStyle = '#343434';
         this.ctx.fillStyle = '#343434';
-        this.ctx.font = `${8 * this.devicePixelRatio}px JetBrains-ExtraLight`;
-        this.ctx.fillText(star.text, sx + 15, sy + 4);
+        this.ctx.font = `${(this.height / 150) * this.devicePixelRatio}px JetBrains-ExtraLight`;
+        this.ctx.fillText(star.text, sx + 15, sy + 6);
         this.ctx.strokeRect(sx - 7, sy - 7, 14, 14);
       }
     });

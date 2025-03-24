@@ -1,3 +1,32 @@
+@media (max-width: 768px) {
+    .title {
+        left: 20px !important;
+        font-size: 16.2vw !important;
+        bottom: auto !important;
+        top: 20vw !important;
+    }
+
+    .links {
+        left: 25px !important;
+        top: 70vw !important;
+        right: auto !important;
+        text-align: left !important;
+        font-size: 1.8vh !important;
+
+        img {
+            display: none !important;
+        }
+    }
+
+    .credits {
+        font-size: 3vw !important;
+
+        .right-text {
+            display: none;
+        }
+    }
+}
+
 * {
     box-sizing: border-box;
 }
