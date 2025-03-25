@@ -237,7 +237,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
       if (star.text && this.displayText) {
         this.ctx.strokeStyle = '#343434';
         this.ctx.fillStyle = '#343434';
-        this.ctx.font = `${(this.height / 150) * this.devicePixelRatio}px JetBrains-ExtraLight`;
+        this.ctx.font = `${(this.height / 150) * this.devicePixelRatio}px JetBrains-Regular`;
         this.ctx.fillText(star.text, sx + 15, sy + 6);
         this.ctx.strokeRect(sx - 7, sy - 7, 14, 14);
       }
