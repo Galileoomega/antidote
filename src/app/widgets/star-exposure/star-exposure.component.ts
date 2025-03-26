@@ -35,8 +35,6 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
     return this._targetOffset;
   }
 
-  @Input() scale: number = 1;
-
   private ctx!: CanvasRenderingContext2D;
   private stars: Star[] = [];
   private width = window.innerWidth;
@@ -53,7 +51,7 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   
   // CONFIGURABLES
   // Use a fixed star count to reduce load instead of basing on window.innerWidth.
-  private readonly MAX_STARS = window.innerWidth;
+  private readonly MAX_STARS = this.width;
   private readonly STAR_SIZE_RANGE: [number, number] = [0.8, 1.5];
 
   // Debounce timer for resize events.
@@ -66,12 +64,10 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
     this.resizeCanvas();
     this.initializeStars();
     this.ngZone.runOutsideAngular(() => this.draw());
-    document.addEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
   ngOnDestroy(): void {
     if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
-    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
   }
 
   @HostListener('window:resize')
@@ -87,14 +83,6 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
     }, 200);
   }
 
-  private handleVisibilityChange = () => {
-    if (document.hidden) {
-      this.stopAnimation();
-    } else if (Math.abs(this.offset - this.targetOffset) > this.THRESHOLD) {
-      this.startAnimation();
-    }
-  };
-
   private resizeCanvas(): void {
     const canvas = this.canvasRef.nativeElement;
     canvas.width = this.width;
@@ -106,17 +94,14 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   }
 
   private createStar(): Star {
-    const angle = Math.random() * Math.PI * 2;
-    const maxRadius = Math.sqrt(this.width ** 2 + this.height ** 2) / 2;
-    const radius = Math.pow(Math.random(), 0.6) * maxRadius;
-    const size = Math.random() * (this.STAR_SIZE_RANGE[1] - this.STAR_SIZE_RANGE[0]) + this.STAR_SIZE_RANGE[0];
+    const angle: number = Math.random() * Math.PI * 2;
 
     return {
-      angle,
+      angle: angle,
       endAngle: angle,
-      radius,
+      radius: Math.pow(Math.random(), 0.6) * Math.sqrt(this.width ** 2 + this.height ** 2) / 2,
       color: STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)],
-      size,
+      size: Math.random() * (this.STAR_SIZE_RANGE[1] - this.STAR_SIZE_RANGE[0]) + this.STAR_SIZE_RANGE[0]
     };
   }
 
@@ -136,7 +121,6 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   }
 
   private draw = (): void => {
-    // Update smoothing offset
     this.offset += (this.targetOffset - this.offset) * this.SMOOTHING_FACTOR;
 
     this.clearCanvas();
@@ -170,12 +154,15 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   }
 
   private drawStar(star: Star): void {
-    const x = this.centerX + Math.cos(star.angle) * star.radius;
-    const y = this.centerY + Math.sin(star.angle) * star.radius;
-
     this.ctx.fillStyle = star.color;
     this.ctx.beginPath();
-    this.ctx.arc(x, y, star.size, 0, Math.PI * 2);
+    this.ctx.arc(
+      this.centerX + Math.cos(star.angle) * star.radius, 
+      this.centerY + Math.sin(star.angle) * star.radius, 
+      star.size, 
+      0, 
+      Math.PI * 2
+    );
     this.ctx.fill();
   }
 
