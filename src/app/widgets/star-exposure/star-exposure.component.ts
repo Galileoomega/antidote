@@ -20,15 +20,14 @@ const STAR_COLORS: string[] = ["#7A60DC", "#6757AA", "#231E3B", "#CAC8EF", "#2F2
 })
 export class StarExposureComponent implements AfterViewInit, OnDestroy {
   @ViewChild('warpCanvas') canvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('baseCanvas') baseCanvasRef!: ElementRef<HTMLCanvasElement>;
 
   private _targetOffset: number = 0;
   @Input()
   set targetOffset(value: number) {
     if (value !== this._targetOffset) {
       this._targetOffset = value;
-      if (!this.isAnimating) {
-        this.startAnimation();
-      }
+      this.startAnimation();
     }
   }
   get targetOffset(): number {
@@ -36,6 +35,7 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   }
 
   private ctx!: CanvasRenderingContext2D;
+  private baseCtx!: CanvasRenderingContext2D;
   private stars: Star[] = [];
   private width = window.innerWidth;
   private height = window.innerHeight;
@@ -47,11 +47,10 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   // Smoothing state
   private offset: number = 0;
   private readonly SMOOTHING_FACTOR = 0.3;
-  private readonly THRESHOLD = 8;
+  private readonly THRESHOLD = 2;
   
   // CONFIGURABLES
-  // Use a fixed star count to reduce load instead of basing on window.innerWidth.
-  private readonly MAX_STARS = this.width;
+  private readonly STARS_COUNT = this.width;
   private readonly STAR_SIZE_RANGE: [number, number] = [0.8, 1.5];
 
   // Debounce timer for resize events.
@@ -61,8 +60,11 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
+    this.baseCtx = this.baseCanvasRef.nativeElement.getContext('2d')!;
+
     this.resizeCanvas();
     this.initializeStars();
+    this.drawFixedStars();
     this.ngZone.runOutsideAngular(() => this.draw());
   }
 
@@ -80,17 +82,27 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
       this.centerY = this.height / 2;
       this.resizeCanvas();
       this.initializeStars();
+      this.drawFixedStars();
     }, 200);
   }
 
   private resizeCanvas(): void {
-    const canvas = this.canvasRef.nativeElement;
-    canvas.width = this.width;
-    canvas.height = this.height;
+    this.canvasRef.nativeElement.width = this.width;
+    this.canvasRef.nativeElement.height = this.height;
+    
+    this.baseCanvasRef.nativeElement.width = this.width;
+    this.baseCanvasRef.nativeElement.height = this.height;
   }
 
   private initializeStars(): void {
-    this.stars = Array.from({ length: this.MAX_STARS }, () => this.createStar());
+    this.stars = Array.from({ length: this.STARS_COUNT }, () => this.createStar());
+  }
+
+  private drawFixedStars(): void {
+    for (const star of this.stars) {
+      this.updateStar(star);
+      this.drawStar(star);
+    }
   }
 
   private createStar(): Star {
@@ -138,7 +150,6 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
 
       for (const star of this.stars) {
         this.updateStar(star);
-        this.drawStar(star);
       }
 
       this.stopAnimation();
@@ -154,16 +165,16 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   }
 
   private drawStar(star: Star): void {
-    this.ctx.fillStyle = star.color;
-    this.ctx.beginPath();
-    this.ctx.arc(
+    this.baseCtx.fillStyle = star.color;
+    this.baseCtx.beginPath();
+    this.baseCtx.arc(
       this.centerX + Math.cos(star.angle) * star.radius, 
       this.centerY + Math.sin(star.angle) * star.radius, 
       star.size, 
       0, 
       Math.PI * 2
     );
-    this.ctx.fill();
+    this.baseCtx.fill();
   }
 
   private drawExposureArc(star: Star): void {
