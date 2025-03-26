@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, HostListener, Input, OnChanges, NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-planet-gen',
@@ -15,32 +15,36 @@ export class PlanetGenComponent implements OnChanges {
   @Input() planetSize: number = 900;
   @Input() hasPerspective: boolean = false;
 
-  public readonly BASE_SIZE = 600;
+  readonly BASE_SIZE = 600;
+  scaleFactor = 1;
+  mouseOffsetX = 0;
+  mouseOffsetY = 0;
 
-  public scaleFactor = 1;
-  public mouseOffsetX = 0;
-  public mouseOffsetY = 0;
+  // Flag to throttle mousemove handling.
+  private pendingAnimationFrame = false;
 
-  constructor() {}
+  constructor(private ngZone: NgZone) {}
 
   ngOnChanges(): void {
-    this.scaleFactor = this.calculateScaleFactor();
-    this.animPercentage = this.clampPercentage(this.animPercentage);
+    this.scaleFactor = this.planetSize / this.BASE_SIZE;
+    this.animPercentage = Math.min(100, Math.max(0, this.animPercentage));
   }
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMoveEvent(event: MouseEvent): void {
-    if (this.shouldUpdatePerspective()) {
-      this.updateMouseOffsets(event);
+    if (!this.shouldUpdatePerspective()) {
+      return;
     }
-  }
-
-  private calculateScaleFactor(): number {
-    return this.planetSize / this.BASE_SIZE;
-  }
-
-  private clampPercentage(value: number): number {
-    return Math.min(100, Math.max(0, value));
+    // Throttle updates using requestAnimationFrame.
+    if (!this.pendingAnimationFrame) {
+      this.pendingAnimationFrame = true;
+      this.ngZone.runOutsideAngular(() => {
+        requestAnimationFrame(() => {
+          this.updateMouseOffsets(event);
+          this.pendingAnimationFrame = false;
+        });
+      });
+    }
   }
 
   private shouldUpdatePerspective(): boolean {
@@ -48,34 +52,23 @@ export class PlanetGenComponent implements OnChanges {
   }
 
   private updateMouseOffsets(event: MouseEvent): void {
-    const { offsetX, offsetY } = this.calculateMouseOffsetFromCenter(event);
-    this.mouseOffsetX = this.normalizeOffset(offsetX, window.innerWidth);
-    this.mouseOffsetY = this.normalizeOffset(offsetY, window.innerHeight);
+    const offsetX = event.clientX - window.innerWidth / 2;
+    const offsetY = event.clientY - window.innerHeight / 2;
+    this.mouseOffsetX = (offsetX / (window.innerWidth / 2)) * 100;
+    this.mouseOffsetY = (offsetY / (window.innerHeight / 2)) * 100;
   }
 
-  private calculateMouseOffsetFromCenter(event: MouseEvent): { offsetX: number, offsetY: number } {
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-
-    return {
-      offsetX: event.clientX - centerX,
-      offsetY: event.clientY - centerY,
-    };
-  }
-
-  private normalizeOffset(offset: number, dimension: number): number {
-    return (offset / (dimension / 2)) * 100;
-  }
-
-  updateMask(percentage: number): any {
+  updateMask(percentage: number): { [key: string]: string } {
     const startOpacity = 20;
     const endOpacity = 70;
     const margin = 5;
-
+    const interpolatedOpacityStart = this.interpolate(startOpacity, 0, percentage);
+    const interpolatedOpacityEnd = this.interpolate(endOpacity, 0, percentage);
+    const interpolatedMargin = this.interpolate(margin, 0, percentage);
     return {
-      'background': `linear-gradient(126deg, #00000000 ${this.interpolate(startOpacity, 0, percentage)}%, #000000 ${this.interpolate(endOpacity, 0, percentage)}%)`,
-      'margin-top': `${this.interpolate(margin, 0, percentage)}%`,
-      'margin-left': `${this.interpolate(margin, 0, percentage)}%`,
+      background: `linear-gradient(126deg, #00000000 ${interpolatedOpacityStart}%, #000000 ${interpolatedOpacityEnd}%)`,
+      'margin-top': `${interpolatedMargin}%`,
+      'margin-left': `${interpolatedMargin}%`,
     };
   }
 
