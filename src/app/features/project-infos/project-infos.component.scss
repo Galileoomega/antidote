@@ -1,0 +1,213 @@
+@media (max-width: 768px) {
+    .desktop-view {
+      display: none;
+    }
+  
+    .mobile-view {
+      display: block !important;
+    }
+  
+    .mobile-back-btn {
+      display: flex !important;
+    }
+  
+    .mobile-open-btn {
+      display: flex !important;
+    }
+  }
+  
+  .mobile-page {
+    padding-inline: 25px;
+    padding-top: 70px;
+  
+    video {
+      width: 100%;
+    }
+  
+    .title {
+      font-family: 'JetBrains-Medium';
+    }
+  
+    .section-name {
+      color: #6E00C3;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  
+    .text-content {
+      font-size: 18px;
+      text-align: justify;
+      margin-bottom: 35px;
+    }
+  }
+  
+  .mobile-back-btn {
+    display: none;
+    position: fixed;
+    top: 25px;
+    right: 75px;
+    background-color: rgb(36, 35, 39);
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  
+  .mobile-open-btn {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 93vh;
+  
+    display: none;
+    align-items: center;
+    justify-content: center;
+  
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    width: fit-content;
+    padding-inline: 30px;
+    height: 40px;
+    border-radius: 100px;
+    z-index: 0;
+  }
+  
+  
+  // Variables
+  $primary-color: #6E00C3;
+  $border-radius-large: 50px;
+  $transition-duration: 0.3s;
+  $spacing-base: 10px;
+  $spacing-large: 25px;
+  $spacing-xl: 50px;
+  $spacing-xxl: 100px;
+  
+  // Animations
+  @keyframes slideInFromRight {
+    0% {
+      transform: translate3d(100px, 0, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOutToRight {
+    0% {
+      margin-left: 0vw;
+      opacity: 1;
+    }
+    100% {
+      margin-left: 5vw;
+      // transform: translate3d(100px, 0, 0);
+      opacity: 0;
+    }
+  }
+  
+  // Base styles
+  * {
+    will-change: transform, opacity;
+  }
+  
+  // Carousel Layout
+  .carousel-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .carousel {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 100%;
+    gap: $spacing-base;
+    padding: $spacing-base;
+    transform: translate3d(0, 0, 0);
+    animation: slideInFromRight $transition-duration ease-out;
+  
+    &.exiting {
+      animation: slideOutToRight $transition-duration ease-out forwards;
+    }
+  
+    &-first-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 40vw;
+      height: 70%;
+      padding: $spacing-xl;
+    }
+  
+    &-item {
+      flex: 0 0 auto;
+      height: 70%;
+      aspect-ratio: 16/9;
+      background-color: grey;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: $border-radius-large;
+      overflow: hidden;
+  
+      img, video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  
+  // Typography
+  .title {
+    font-size: 5vh;
+    margin-bottom: $spacing-large;
+  }
+  
+  .section {
+    font-size: 1.5vh;
+    
+    &-title {
+      margin-bottom: $spacing-base + 5px;
+      color: $primary-color;
+    }
+  }
+  
+  // Layout utilities
+  .flex {
+    gap: $spacing-xxl;
+  }
+  
+  // Components
+  .button {
+    width: fit-content;
+    padding: $spacing-base;
+    padding-inline: $spacing-base * 2;
+    border: 1.5px solid white;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all $transition-duration ease;
+  
+    &:hover {
+      background-color: rgba(white, 0.1);
+    }
+  }
+  
+  .back-button {
+    @extend .button;
+  
+    position: absolute;
+    top: 9%;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 1;
+  
+    &:hover {
+      background-color: rgba(white, 0.1);
+    }
+  }

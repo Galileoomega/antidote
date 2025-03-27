@@ -1,0 +1,115 @@
+// Variables
+:host {
+    --ring-color: #a3a9d781;
+    --rings-distance: 500px;
+  }
+  
+  // Mixins
+  @mixin absolute-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  @mixin centered-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @mixin rounded-blur($blur: 10px) {
+    border-radius: 100%;
+    filter: blur($blur);
+  }
+  
+  @mixin ring-base {
+    position: absolute;
+    left: 50%;
+    width: var(--width);
+    height: var(--height);
+    background: radial-gradient(
+      circle,
+      transparent 39%,
+      var(--ring-color) 40%,
+      var(--ring-color) 40%,
+      transparent 41%,
+      transparent 46%,
+      var(--ring-color) 51%,
+      var(--ring-color) 54%,
+      transparent 55%,
+      var(--ring-color) 58%,
+      transparent 61%,
+      rgba(0, 0, 0, 0.3) 64%,
+      rgba(0, 0, 0, 0.3) 65%,
+      transparent 67%,
+      rgba(0, 0, 0, 0.2) 69%,
+      transparent 71%
+    );
+    background-size: 100% 200%;
+  }
+  
+  // Component styles
+  .planet-container {
+    position: relative;
+    width: var(--wanted-size);
+    height: var(--wanted-size);
+    transform: perspective(400px);
+    @include centered-flex;
+  }
+  
+  .wrapper {
+    position: absolute;
+    display: block;
+    width: var(--base-size);
+    height: var(--base-size);
+    transform: scale(var(--scale));
+  }
+  
+  .planet,
+  .p-background,
+  .p-color-1,
+  .p-color-2,
+  .p-mask {
+    position: absolute;
+    width: var(--base-size);
+    height: var(--base-size);
+    transform: rotate(10deg);
+    z-index: 1;
+    @include rounded-blur(10px);
+  }
+  
+  .p-background {
+    scale: 0.95;
+  }
+  
+  .p-color-1 {
+    background-color: var(--color-primary);
+  }
+  
+  .p-color-2 {
+    @include rounded-blur(2px);
+    background-color: var(--color-secondary);
+  }
+  
+  // Rings styles
+  .rings {
+    @include absolute-center;
+  
+    --width: calc((var(--base-size) * 2) + var(--rings-distance));
+    --height: calc((var(--width) / 2));
+  
+    transform: rotate(25deg) perspective(4000px) rotateX(var(--perspectiveY)) rotateY(var(--perspectiveX));
+  
+    .ring-left,
+    .ring-right {
+      @include ring-base;
+      top: 50%;
+      transform: translate(-50%, -100%);
+    }
+  
+    .ring-right {
+      top: calc(50% + var(--height));
+      transform: translate(-50%, -100%) scaleY(-1);
+    }
+  }

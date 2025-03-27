@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "antidote": {
+    "antidote-ssr": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/antidote",
+            "outputPath": "dist/antidote-ssr",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -29,17 +29,17 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "_redirects",
-                "input": "public",
-                "output": "/"
               }
             ],
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
           },
           "configurations": {
             "production": {
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "antidote:build:production"
+              "buildTarget": "antidote-ssr:build:production"
             },
             "development": {
-              "buildTarget": "antidote:build:development"
+              "buildTarget": "antidote-ssr:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -103,8 +103,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }
