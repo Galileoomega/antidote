@@ -177,35 +177,37 @@
 
         <!-- CONTACT -->
         @if(currentPageIndex > 11) {
-            <div [ngStyle]="fixToPage(12)" class="contact">
-                <app-nebula></app-nebula>
-                
-                <div class="center-text">
-                    <div class="small-text">
-                        <p>LET'S CHAT</p>
-                        <p>LET'S CHAT</p>
-                        <p>LET'S CHAT</p>
-                    </div>
-    
-                    <p class="main">GET IN TOUCH</p>
-    
+            <div [ngStyle]="fixToPage(12)" class="contact-container">
+                <div class="contact">
+                    <app-nebula></app-nebula>
                     
-                    <div (click)="navigateTo('/contact')" class="connect-button">
-                        <div>
-                            LET'S CONNECT
-    
-                            <div class="line"></div>
+                    <div class="center-text">
+                        <div class="small-text">
+                            <p>LET'S CHAT</p>
+                            <p>LET'S CHAT</p>
+                            <p>LET'S CHAT</p>
                         </div>
-                        <img src="icons/arrow-right.svg" alt="" loading="lazy">
+        
+                        <p class="main">GET IN TOUCH</p>
+        
+                        
+                        <div (click)="navigateTo('/contact')" class="connect-button">
+                            <div>
+                                LET'S CONNECT
+        
+                                <div class="line"></div>
+                            </div>
+                            <img src="icons/arrow-right.svg" alt="" loading="lazy">
+                        </div>
                     </div>
-                </div>
-    
-                <div class="footer">
-                    <img class="cross c3" src="icons/cool-cross.svg" alt="" loading="lazy">
-                    <p class="credit">© 2025</p>
-                    
-                    <p>hello&#64;antidoteverse.com</p>
-                    <img class="cross c4" src="icons/cool-cross.svg" alt="" loading="lazy">
+        
+                    <div class="footer">
+                        <img class="cross c3" src="icons/cool-cross.svg" alt="" loading="lazy">
+                        <p class="credit">© 2025</p>
+                        
+                        <p>hello&#64;antidoteverse.com</p>
+                        <img class="cross c4" src="icons/cool-cross.svg" alt="" loading="lazy">
+                    </div>
                 </div>
             </div>
         }
