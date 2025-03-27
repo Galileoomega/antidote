@@ -61,6 +61,11 @@ export class ProjectsService {
     return this.projects;
   }
 
+  // Function to return all the ids of the projects
+  getProjectIds(): string[] {
+    return this.projects.map(project => project.id);
+  }
+
   getProjectById(id: string): Project | null {
     return this.projects.find(project => project.id === id) || null;
   }

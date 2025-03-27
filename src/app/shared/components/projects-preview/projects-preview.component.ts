@@ -119,7 +119,7 @@ export class ProjectsPreviewComponent implements OnInit, AfterViewInit, OnDestro
     this.scrollPositionService.saveScrollPosition();
     this.animateSliding = true;
     const projectId = this.displayedProjects[index].id;
-    this.crouter.navigateTo(`projects/${projectId}`);
+    this.crouter.navigateTo(`project/${projectId}`);
   }
 
   /**

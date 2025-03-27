@@ -9,6 +9,6 @@ export const routes: Routes = [
     { path: "", component: HomeComponent, resolve: {delay: delayResolver} },
     { path: "contact", component: ContactComponent, resolve: {delay: delayResolver} },
     { path: "projects", component: ProjectsComponent, resolve: {delay: delayResolver} },
-    { path: "projects/:id", component: ProjectInfosComponent, resolve: {delay: delayResolver} },
+    { path: "project/:id", component: ProjectInfosComponent, resolve: {delay: delayResolver} },
     { path: '**', redirectTo: '' }
 ];
