@@ -31,7 +31,6 @@ export class AppComponent {
 
     deviceDetector.isMobile$.subscribe((isMobile: boolean) => {
       this.clientIsMobile = isMobile;
-      console.log(this.clientIsMobile)
     });
   }
 }
