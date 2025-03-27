@@ -56,7 +56,6 @@
   height: var(--wanted-size);
   transform: perspective(400px);
   @include centered-flex;
-  contain: all;
 }
 
 .wrapper {
