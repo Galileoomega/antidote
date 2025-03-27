@@ -14,6 +14,14 @@
     .landing-title {
         display: none !important;
     }
+
+    .landing-title-mobile-1 {
+        display: block !important;
+    }
+
+    .landing-title-mobile-2 {
+        display: block !important;
+    }
 }
 
 // Variables
@@ -131,6 +139,7 @@ app-projects-preview {
 }
 
 .landing-title-mobile-1 {
+    display: none;
     position: absolute;
     z-index: -1;
 
@@ -147,6 +156,7 @@ app-projects-preview {
 }
 
 .landing-title-mobile-2 {
+    display: none;
     position: absolute;
 
     .multi {
