@@ -5,6 +5,14 @@
             left: 40% !important;
             transform: translate(0, -50%) !important;
         }
+
+        .planet-1-satellite-2 {
+            display: none !important;
+        }
+    }
+
+    .landing-title {
+        display: none !important;
     }
 }
 
@@ -122,21 +130,48 @@ app-projects-preview {
     }
 }
 
-.band-title {
-    position: fixed;
-    bottom: 20px;
-    overflow: auto;
-    display: inline-block;
-    white-space: nowrap;
-    font-size: 1.9vw;
-    color: $text-color;
-    font-family: $font-family;
-    transition: all 0.15s $transition-ease;
+.landing-title-mobile-1 {
+    position: absolute;
+    z-index: -1;
+
+    .multi {
+        position: relative;
+        text-align: center;
+
+        p {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            font-size: 18vw;
+        }
+    }
 }
 
-.band-title-hide {
-    bottom: -40px;
-    opacity: 0;
+.landing-title-mobile-2 {
+    position: absolute;
+
+    .multi {
+        position: relative;
+        text-align: center;
+
+        p {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            font-size: 18vw;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 1px var(--white);
+        }
+    }
+
+    .sub {
+        position: fixed;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        font-size: 10vw;
+        color: $primary-color;  
+        white-space: nowrap;
+    }
 }
 
 .landing-title {
@@ -144,6 +179,7 @@ app-projects-preview {
     display: flex;
     flex-direction: column;
     font-family: $font-family;
+    z-index: 0;
     
     div {
         display: flex;
@@ -153,7 +189,6 @@ app-projects-preview {
     p {
         font-size: 9vh;
         overflow: hidden;
-        // font-family: 'JetBrains-Medium', sans-serif;
     }
 
     span {

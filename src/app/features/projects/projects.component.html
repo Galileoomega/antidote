@@ -1,16 +1,31 @@
-<div class="landing">
-    <img class="gradient-1" src="icons/nebulla-2.svg" alt="" loading="lazy">
+<div class="wrapper">
     
-    <div class="center-text">
-        <div class="small-text">
-            <p>WEB DESIGN</p>
-            <p>3D RENDERS</p>
-            <p>MOBILE DEVELOPMENT</p>
-            <p>AND MORE</p>
+    <div class="mobile-landing">
+        <img class="gradient-mobile" src="icons/nebulla-2.svg" alt="" loading="lazy">
+        <div class="texts">
+            <div class="heading">
+                <p>WEB DESIGN</p>
+                <p>3D RENDERS</p>
+                <p>AND MORE</p>
+            </div>
+            <h1>OUR PROJECTS</h1>
         </div>
-
-        <p class="main">OUR PROJECTS</p>
     </div>
+    
+    <div class="landing">
+        <img class="gradient-1" src="icons/nebulla-2.svg" alt="" loading="lazy">
+        
+        <div class="center-text">
+            <div class="small-text">
+                <p>WEB DESIGN</p>
+                <p>3D RENDERS</p>
+                <p>MOBILE DEVELOPMENT</p>
+                <p>AND MORE</p>
+            </div>
+    
+            <p class="main">OUR PROJECTS</p>
+        </div>
+    </div>
+    
+    <app-projects-preview [hideTexts]="true"></app-projects-preview>
 </div>
-
-<app-projects-preview [hideTexts]="true"></app-projects-preview>

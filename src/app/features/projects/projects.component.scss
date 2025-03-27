@@ -1,3 +1,53 @@
+@media (max-width: 768px) {
+    .landing {
+        display: none !important;
+    }
+
+    .mobile-landing {
+        display: flex !important;
+    }
+}
+
+.wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.mobile-landing {
+    position: relative;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 40vh;
+
+    .texts {
+        .heading {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        h1 {
+            font-size: 12vw;
+            margin: 0;
+        }
+    }
+}
+
+.gradient-mobile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400vw;
+    height: 200vw;
+    transform: translate(-50%, -50%);
+    filter: blur(50px);
+    z-index: -1;
+    opacity: 0.7;
+}
+
 .landing {
     position: relative;
     width: 100vw;

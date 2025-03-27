@@ -49,10 +49,15 @@ body {
     font-family: 'JetBrains-Regular', sans-serif;
 }
 
+body, html {
+    overflow-x: hidden !important;
+    max-width: 100vw;
+}
+
 body, html, p {
     padding: 0;
     margin: 0;
-    touch-action: manipulation; /* or 'none' */
+    touch-action: manipulation;
 }
 
 .flex {

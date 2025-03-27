@@ -106,13 +106,16 @@ export class ProjectInfosComponent implements OnInit {
    * Smoothly updates the current scroll position.
    */
   private smoothUpdate(): void {
-    const update = () => {
-      this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
-      this.cdr.detectChanges();
+    try {
+      const update = () => {
+        this.currentPosition += (this.targetPosition - this.currentPosition) * this.smoothingFactor;
+        this.cdr.detectChanges();
+        requestAnimationFrame(update);
+      };
+      
       requestAnimationFrame(update);
-    };
-    
-    requestAnimationFrame(update);
+    }
+    catch {}
   }
 
   /**

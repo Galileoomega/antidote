@@ -61,26 +61,44 @@
             </div>
         }
 
-        <!-- Landing Title -->
-        <div class="landing-title">
-            <div>
-                <p [ngStyle]="{
-                    'width': getPositionForPage(32, 0, 2) + 'vh', 
-                    'opacity': getPositionForPage(1, 0, 2)
-                }">CREATE</p>
+        @if(currentPageIndex < 5) {
+            <!-- Landing Title -->
+            <div class="landing-title">
+                <div>
+                    <p [ngStyle]="{
+                        'width': getPositionForPage(32, 0, 2) + 'vh', 
+                        'opacity': getPositionForPage(1, 0, 2)
+                    }">CREATE</p>
 
-                <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">WITH</span>
+                    <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">WITH</span>
+                </div>
+
+                <div>
+                    <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">LOVE</span>
+
+                    <p [ngStyle]="{
+                        'width': getPositionForPage(43, 0, 2) + 'vh', 
+                        'opacity': getPositionForPage(1, 0, 2)
+                    }">ANYTHING</p>
+                </div>
             </div>
 
-            <div>
-                <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">LOVE</span>
-
-                <p [ngStyle]="{
-                    'width': getPositionForPage(43, 0, 2) + 'vh', 
-                    'opacity': getPositionForPage(1, 0, 2)
-                }">ANYTHING</p>
+            <div [ngStyle]="{'margin-bottom': getPositionForPage(0, 100, 1) + 'px'}" class="landing-title-mobile-1">
+                <div [ngStyle]="{'opacity': getPositionForPage(1, 0, 1)}" class="multi">
+                    <p>CREATE <br> ANYTHING</p>
+                </div>
             </div>
-        </div>
+
+            <div [ngStyle]="{'margin-bottom': getPositionForPage(0, 100, 1) + 'px'}" class="landing-title-mobile-2">
+                <div [ngStyle]="{'opacity': getPositionForPage(1, 0, 1)}" class="multi">
+                    <p>CREATE <br> ANYTHING</p>
+                </div>
+
+                <div [ngStyle]="{'margin-bottom': getPositionForPage(0, 150, 1) + 'px', 'opacity': getPositionForPage(1, 0, 3)}" class="sub">
+                    <p>WITH LOVE</p>
+                </div>
+            </div>
+        }
 
         <!-- Raining Stars -->
         <app-star-rain [scrollPosition]="scrollPosition"></app-star-rain>
