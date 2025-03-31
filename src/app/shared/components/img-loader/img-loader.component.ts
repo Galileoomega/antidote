@@ -65,9 +65,7 @@ export class ImgLoaderComponent {
         this.isFinalLoaded = true;
       }
       // Load the next image in the chain.
-      setTimeout(() => {
-        this.loadImagesProgressively(index + 1);
-      }, 100)
+      this.loadImagesProgressively(index + 1);
     };
     // If the image fails to load, simply skip to the next image.
     img.onerror = () => {
