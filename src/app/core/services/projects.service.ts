@@ -13,13 +13,29 @@ export class ProjectsService {
       services: ['Graphic Design', 'Poster', 'Visual Identity', 'Print Media'],
       client: 'L\'usine',
       tags: 'CONCEPT • DESIGN • POSTER',
-      thumbnail: 'projects/techno-posters/plana-1.webp',
+      thumbnail: 'projects/techno-posters/1.webp',
       medias: [
-        { type: 'image', url: 'projects/techno-posters/plana-2.jpg', name: 'Products' },
-        { type: 'image', url: 'projects/techno-posters/plana-3.jpg', name: 'Product Detail' },
-        { type: 'image', url: 'projects/techno-posters/plana-4.jpg', name: 'Cart' },
-        { type: 'image', url: 'projects/techno-posters/plana-5.jpg', name: 'Checkout' },
-        { type: 'image', url: 'projects/techno-posters/plana-6.jpg', name: 'Checkout' },
+        { type: 'image', url: 'projects/techno-posters/2.webp', name: 'Products' },
+        { type: 'image', url: 'projects/techno-posters/3.webp', name: 'Product Detail' },
+        { type: 'image', url: 'projects/techno-posters/4.webp', name: 'Cart' },
+        { type: 'image', url: 'projects/techno-posters/5.webp', name: 'Checkout' },
+        { type: 'image', url: 'projects/techno-posters/6.webp', name: 'Checkout' },
+      ]
+    },
+    {
+      id: 'superk',
+      title: 'SUPER-K',
+      description: 'NA',
+      services: ['Web Design', 'UI/UX', 'Development', 'Branding', '3D', 'Motion Design'],
+      client: 'Aeris Dynamics',
+      websiteUrl: 'https://superk.vercel.app/',
+      tags: '3D • WEB • DESIGN • MOTION DESIGN',
+      thumbnail: 'projects/superk/1.webp',
+      medias: [
+        { type: 'image', url: 'projects/superk/2.png', name: 'Products' },
+        { type: 'image', url: 'projects/superk/3.png', name: 'Cart' },
+        { type: 'image', url: 'projects/superk/4.png', name: 'Product Detail' },
+        { type: 'image', url: 'projects/superk/5.png', name: 'Product Detail' }
       ]
     },
     {
@@ -50,11 +66,11 @@ export class ProjectsService {
       medias: [
         { type: 'video', url: 'projects/aeris/2.mp4', name: 'Products' },
         { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart' },
-        { type: 'image', url: 'projects/aeris/2.jpg', name: 'Product Detail' },
+        { type: 'video', url: 'projects/aeris/4.mp4', name: 'Product Detail' },
         { type: 'image', url: 'projects/aeris/4.jpg', name: 'Checkout' },
         { type: 'image', url: 'projects/aeris/5.jpg', name: 'Checkout' },
       ]
-    }
+    },
   ];
 
   getAllProjects(): Project[] {

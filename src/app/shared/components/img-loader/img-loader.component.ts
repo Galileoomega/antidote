@@ -12,7 +12,7 @@ export class ImgLoaderComponent {
   // Input to specify the number of lower resolution images available.
   // For example, if resolutions = 2, the chain will be:
   // myimage-res1.webp, myimage-res2.webp, myimage.webp
-  @Input() resolutions: number = 2;
+  @Input() resolutions: number = 4;
   @Output() loaded = new EventEmitter<boolean>();
 
   currentSrc!: string;
@@ -21,7 +21,10 @@ export class ImgLoaderComponent {
 
   ngOnInit(): void {
     this.setupImageChain();
-    this.loadImagesProgressively();
+    
+    if (typeof window !== 'undefined') {
+      this.loadImagesProgressively();
+    }
   }
 
   /**
@@ -49,9 +52,11 @@ export class ImgLoaderComponent {
     if (index >= this.imageChain.length) {
       return;
     }
+
     const imgSrc = this.imageChain[index];
     const img = new Image();
     img.src = imgSrc;
+    
     img.onload = () => {
       // Update current image source.
       this.currentSrc = imgSrc;
@@ -60,7 +65,9 @@ export class ImgLoaderComponent {
         this.isFinalLoaded = true;
       }
       // Load the next image in the chain.
-      this.loadImagesProgressively(index + 1);
+      setTimeout(() => {
+        this.loadImagesProgressively(index + 1);
+      }, 100)
     };
     // If the image fails to load, simply skip to the next image.
     img.onerror = () => {

@@ -145,21 +145,10 @@
     }
   
     &-item {
-      flex: 0 0 auto;
       height: 70%;
       aspect-ratio: 16/9;
-      background-color: grey;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       border-radius: $border-radius-large;
       overflow: hidden;
-  
-      img, video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
     }
   }
   
