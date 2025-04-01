@@ -301,5 +301,11 @@
     cursor: pointer;
     transition: all 0.10s ease-in-out;
     margin: auto;
-    margin-top: 200px;
+    margin-top: 150px;
+}
+
+.mobile-button {
+    @extend .button;
+    padding-inline: 25px;
+    font-size: 14px;
 }
