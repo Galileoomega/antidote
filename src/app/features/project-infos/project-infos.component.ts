@@ -1,16 +1,14 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ImgLoaderComponent } from '../../shared/components/img-loader/img-loader.component';
 import { Project } from '../../shared/models/project.model';
 import { CRouterService } from '../../core/services/c-router.service';
 import { ProjectsService } from '../../core/services/projects.service';
-import { DeviceDetectorService } from '../../core/services/device-detector.service';
 
 @Component({
   selector: 'app-project-infos',
   standalone: true,
-  imports: [CommonModule, ImgLoaderComponent],
+  imports: [CommonModule],
   templateUrl: './project-infos.component.html',
   styleUrls: ['./project-infos.component.scss']
 })
@@ -24,20 +22,13 @@ export class ProjectInfosComponent implements OnInit {
   projectId: string | null = null;
   project: Project | null = null;
 
-  private isMobile: boolean = false;
-
   constructor(
     private route: ActivatedRoute,
     private crouter: CRouterService,
     private projectsService: ProjectsService,
     private cdr: ChangeDetectorRef,
-    private location: Location,
-    private deviceDetector: DeviceDetectorService
-  ) {
-    deviceDetector.isMobile$.subscribe((isMobile: boolean) => {
-      this.isMobile = isMobile;
-    });
-  }
+    private location: Location
+  ) {}
 
   /**
    * Initializes the component and subscribes to route parameters.
@@ -49,10 +40,10 @@ export class ProjectInfosComponent implements OnInit {
 
   imgLoaded = 0
 
-  public loaded(index: number) {
-    this.imgLoaded += 1;
+  public loaded() {
+    this.imgLoaded++;
 
-    if(this.imgLoaded >= this.project!.medias.length) {
+    if(this.imgLoaded > 0) {
       this.crouter.acceptNavigation();
     }
   }

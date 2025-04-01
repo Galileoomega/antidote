@@ -46,11 +46,11 @@
             @for (media of project?.medias; track $index) {
                 <div class="carousel-item">
                     @if(media.type == 'image') {
-                        <app-img-loader (loaded)="loaded($index)" [src]="media.url"></app-img-loader>
+                        <img (load)="loaded()" [src]="media.url">
                     }
                     
                     @if(media.type == 'video') {
-                        <video width="640" height="360" autoplay loop muted>
+                        <video (load)="loaded()" autoplay loop muted>
                             <source [src]="media.url" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -62,36 +62,34 @@
 </div>
 
 <div class="mobile-view">
-    <div class="mobile-page">
-        <div class="title">{{project?.title}}</div>
+    <div class="title">{{project?.title}}</div>
 
-        <div class="section-name">DESCRIPTION</div>
+    <div class="section-name">DESCRIPTION</div>
 
-        <p class="text-content">{{project?.description}}</p>
+    <p class="text-content">{{project?.description}}</p>
 
-        <div class="section-name">SERVICES</div>
+    <div class="section-name">SERVICES</div>
 
-        <p class="text-content">
-            <ng-container *ngFor="let service of project?.services">
-                {{ service }}<br>
-            </ng-container>
-        </p>
+    <p class="text-content">
+        <ng-container *ngFor="let service of project?.services">
+            {{ service }}<br>
+        </ng-container>
+    </p>
 
-        @for (media of project?.medias; track $index) {
-            <div class="media-item">
-                @if(media.type == 'image') {
-                    <app-img-loader (loaded)="loaded($index)" [src]="media.url"></app-img-loader>
-                }
-                
-                @if(media.type == 'video') {
-                    <video width="640" autoplay loop muted>
-                        <source [src]="media.url" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                }
-            </div>
-        }
-    </div>
+    @for (media of project?.medias; track $index) {
+        <div class="media-item">
+            @if(media.type == 'image') {
+                <img (load)="loaded()" [src]="media.url">
+            }
+            
+            @if(media.type == 'video') {
+                <video (load)="loaded()" width="640" autoplay loop muted>
+                    <source [src]="media.url" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            }
+        </div>
+    }
 </div>
 
 <div (click)="goBack()" class="mobile-back-btn">

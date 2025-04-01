@@ -11,8 +11,8 @@
         </div>
     </div>
     
-    <div class="landing">
-        <img class="gradient-1" src="icons/nebulla-2.svg" alt="" loading="lazy">
+    <div class="desktop-landing">
+        <img (load)="imageLoaded()" class="gradient-1" src="icons/nebulla-2.svg" alt="" loading="lazy">
         
         <div class="center-text">
             <div class="small-text">
@@ -27,4 +27,6 @@
     </div>
     
     <app-projects-preview [hideTexts]="true"></app-projects-preview>
+
+    <!-- <app-footer></app-footer> -->
 </div>

@@ -14,7 +14,6 @@ export class NavbarComponent {
   public readonly ROUTES: {name: string, url: string}[] = [
     {name: 'Home', url: '/'},
     {name: 'Projects', url: '/projects'},
-    {name: 'Skills', url: '/skills'},
     {name: 'Contact Us', url: '/contact'}
   ];
 

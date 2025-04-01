@@ -6,6 +6,6 @@ export interface Project {
     client: string;
     websiteUrl?: string;
     thumbnail?: string;
-    medias: { type: 'video' | 'image', url: string; name: string }[];
+    medias: { type: 'video' | 'image', url: string; name: string, color: string }[];
     tags: string;
 }
