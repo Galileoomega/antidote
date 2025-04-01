@@ -43,8 +43,10 @@
 </div>
 
 <div class="mobile-projects">
-    <p class="m-heading">FEATURED PROJECTS</p>
-    <p class="m-subheading">A SELECTION OF OUR MOST LOVED AND PASSIONATE WORK.</p>
+    @if(hideTexts == false) {
+        <p class="m-heading">FEATURED PROJECTS</p>
+        <p class="m-subheading">A SELECTION OF OUR MOST LOVED AND PASSIONATE WORK.</p>
+    }
 
     @for (project of displayedProjects; track $index) {
         <div #tracking class="item" (click)="openProject($index)">
