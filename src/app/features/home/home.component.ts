@@ -21,7 +21,7 @@ import { DeviceDetectorService } from '../../core/services/device-detector.servi
     NebulaComponent
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: ['./home.component.scss', './home-mobile.component.scss']
 })
 export class HomeComponent implements OnInit {
   // Store the current coordinates of the mouse.

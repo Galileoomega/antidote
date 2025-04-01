@@ -1,215 +1,236 @@
-<app-star-exposure 
-    [ngStyle]="{
-        'opacity': currentPageIndex >= 2 && currentPageIndex <= 5 ? 0 : 1,
-    }" 
-    [targetOffset]="getPositionForPage(0, 100, 10)"
-></app-star-exposure>
+@if(clientIsMobile === false) {
+    <app-star-exposure 
+        [ngStyle]="{
+            'opacity': currentPageIndex >= 2 && currentPageIndex <= 5 ? 0 : 1,
+        }" 
+        [targetOffset]="getPositionForPage(0, 100, 10)"
+    ></app-star-exposure>
 
-<div class="canvas">
-    <div class="presented">
-        <!-- PLANETS-1 -->
-        @if(currentPageIndex < 3 && clientIsMobile == false) {
-            <div [ngStyle]="updatePlanet()" class="planets-1">
-                <app-planet-gen 
-                    [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.7" 
-                    [primaryColor]="'#4239ac'"
-                    [secondaryColor]="'#00E0FF'"
+    <div class="canvas">
+        <div class="presented">
+            <!-- PLANETS-1 -->
+            @if(currentPageIndex < 3) {
+                <div [ngStyle]="updatePlanet()" class="planets-1">
+                    <app-planet-gen 
+                        [animPercentage]="getPositionForPage(0, 100, 1)" 
+                        [planetSize]="screenHeight * 0.7" 
+                        [primaryColor]="'#4239ac'"
+                        [secondaryColor]="'#00E0FF'"
+                        [hasRings]="true"
+                        [hasPerspective]="true"
+                        class="planet-1"
+                    ></app-planet-gen>
+        
+                    <app-planet-gen 
+                        [ngStyle]="moveByMouseOffset('sat-1', 0.3)"
+                        [animPercentage]="getPositionForPage(0, 100, 1)" 
+                        [planetSize]="screenHeight * 0.18" 
+                        [primaryColor]="'#697c90'"
+                        [secondaryColor]="'#269ac0'"
+                        class="planet-1-satellite-1"
+                    ></app-planet-gen>
+        
+                    <app-planet-gen 
+                        [ngStyle]="moveByMouseOffset('sat-2', 0.1)"
+                        [animPercentage]="getPositionForPage(0, 100, 1)" 
+                        [planetSize]="screenHeight * 0.1" 
+                        [primaryColor]="'#51598b'"
+                        [secondaryColor]="'#2f1a94'"
+                        class="planet-1-satellite-2"
+                    ></app-planet-gen>
+                </div>
+            }
+    
+            @if(currentPageIndex < 5) {
+                <!-- Landing Title -->
+                <div class="landing-title">
+                    <div>
+                        <p [ngStyle]="{
+                            'width': getPositionForPage(32, 0, 2) + 'vh', 
+                            'opacity': getPositionForPage(1, 0, 2)
+                        }">CREATE</p>
+    
+                        <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">WITH</span>
+                    </div>
+    
+                    <div>
+                        <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">LOVE</span>
+    
+                        <p [ngStyle]="{
+                            'width': getPositionForPage(43, 0, 2) + 'vh', 
+                            'opacity': getPositionForPage(1, 0, 2)
+                        }">ANYTHING</p>
+                    </div>
+                </div>
+            }
+    
+            <!-- Raining Stars -->
+            <app-star-rain [scrollPosition]="scrollPosition"></app-star-rain>
+    
+            <!-- Projects Highlight -->
+            <app-projects-preview class="projects" [maxProjects]="4" [ngStyle]="fixToPage(4)"></app-projects-preview>
+    
+            <!-- PLANETS-2 -->
+             @if(currentPageIndex >= 5 && currentPageIndex < 10) {
+                <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 70, [4, 10]) * -1 + 'vh'}" class="planets-2">
+                    <app-planet-gen 
+                    [animPercentage]="getPositionForPage(100, 0, 6)"  
+                    [planetSize]="screenHeight * 1.3" 
+                    [primaryColor]="'#636491'"
+                    [secondaryColor]="'#4253a3'"
                     [hasRings]="true"
-                    [hasPerspective]="true"
-                    class="planet-1"
+                    class="planet-2"
                 ></app-planet-gen>
     
                 <app-planet-gen 
-                    [ngStyle]="moveByMouseOffset('sat-1', 0.3)"
-                    [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.18" 
-                    [primaryColor]="'#697c90'"
-                    [secondaryColor]="'#269ac0'"
-                    class="planet-1-satellite-1"
+                    [ngStyle]="{'bottom': getPositionForPage(0, 40, 6) + 'px'}"
+                    [animPercentage]="getPositionForPage(100, 0, 6)"  
+                    [planetSize]="screenHeight * 0.2" 
+                    [primaryColor]="'#636491'"
+                    [secondaryColor]="'#4253a3'"
+                    class="planet-2-satellite"
                 ></app-planet-gen>
+                </div>
+            }
     
-                <app-planet-gen 
-                    [ngStyle]="moveByMouseOffset('sat-2', 0.1)"
-                    [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.1" 
-                    [primaryColor]="'#51598b'"
-                    [secondaryColor]="'#2f1a94'"
-                    class="planet-1-satellite-2"
-                ></app-planet-gen>
-            </div>
-        }
-
-        @if(currentPageIndex < 3 && clientIsMobile == true) {
-            <div [ngStyle]="updatePlanet()" class="planets-1">
-                <app-planet-gen 
-                    [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.8" 
-                    [primaryColor]="'#4239ac'"
-                    [secondaryColor]="'#00E0FF'"
-                    [hasRings]="true"
-                    class="planet-1"
-                ></app-planet-gen>
+            <div class="sliding-text">
+                <app-scrambler-text 
+                    [text]="'CRAFTING IDEAS \n TO UNIQUE \n EXPERIENCES'"
+                    [event]="currentPageIndex == 7"
+                    [ngStyle]="appearDisappear(7)"
+                    class="title"
+                ></app-scrambler-text>
     
-                <app-planet-gen 
-                    [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.15" 
-                    [primaryColor]="'#51598b'"
-                    [secondaryColor]="'#2f1a94'"
-                    class="planet-1-satellite-1"
-                ></app-planet-gen>
-            </div>
-        }
-
-        @if(currentPageIndex < 5) {
-            <!-- Landing Title -->
-            <div class="landing-title">
-                <div>
-                    <p [ngStyle]="{
-                        'width': getPositionForPage(32, 0, 2) + 'vh', 
-                        'opacity': getPositionForPage(1, 0, 2)
-                    }">CREATE</p>
-
-                    <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">WITH</span>
-                </div>
-
-                <div>
-                    <span [ngStyle]="{'opacity': getPositionForPage(1, 0, 3)}">LOVE</span>
-
-                    <p [ngStyle]="{
-                        'width': getPositionForPage(43, 0, 2) + 'vh', 
-                        'opacity': getPositionForPage(1, 0, 2)
-                    }">ANYTHING</p>
+                <div [ngStyle]="appearDisappear(7)" class="paragraph">
+                    <app-scrambler-text 
+                        [text]="'ANTIDOTE IS A DIGITAL STUDIO DESIGNED \n TO REALIZE YOUR PROJECTS.'"
+                        [event]="currentPageIndex == 7"
+                        [duration]="10"
+                    ></app-scrambler-text>
+    
+                    <app-scrambler-text 
+                        [text]="'BRINGING TO LIFE INNOVATIVE SOLUTIONS \n WITH A PERFECT BALANCE OF ART, \n TECHNOLOGY, AND CREATIVITY. '"
+                        [event]="currentPageIndex == 7"
+                        [duration]="10"
+                    ></app-scrambler-text>
                 </div>
             </div>
-
-            <div [ngStyle]="{'margin-bottom': getPositionForPage(0, 100, 1) + 'px'}" class="landing-title-mobile-1">
-                <div [ngStyle]="{'opacity': getPositionForPage(1, 0, 1)}" class="multi">
-                    <p>CREATE <br> ANYTHING</p>
-                </div>
+    
+            <div class="sliding-text">
+                <app-scrambler-text 
+                    [text]="'OUR SKILLSET \n YOUR VISION'"
+                    [event]="currentPageIndex == 8"
+                    [ngStyle]="appearDisappear(8)"
+                    class="title"
+                ></app-scrambler-text>
+    
+                <app-scrambler-text
+                    [ngStyle]="appearDisappear(8)" class="paragraph" 
+                    [text]="'WE SPECIALIZE IN VARIOUS \n TECHNOLOGIES THAT ELEVATE YOUR BRAND \n AND ENGAGE YOUR AUDIENCE IN WAYS THAT \n FEEL BOTH FUTURISTIC AND TIMELESS.'"
+                    [event]="currentPageIndex == 8"
+                    [duration]="10"
+                ></app-scrambler-text>
             </div>
-
-            <div [ngStyle]="{'margin-bottom': getPositionForPage(0, 100, 1) + 'px'}" class="landing-title-mobile-2">
-                <div [ngStyle]="{'opacity': getPositionForPage(1, 0, 1)}" class="multi">
-                    <p>CREATE <br> ANYTHING</p>
-                </div>
-
-                <div [ngStyle]="{'margin-bottom': getPositionForPage(0, 150, 1) + 'px', 'opacity': getPositionForPage(1, 0, 3)}" class="sub">
-                    <p>WITH LOVE</p>
-                </div>
+    
+            <div [ngStyle]="stretch(9)" class="sliding-text-2">
+                <p>BEYOND</p>
+                <p>VISION</p>
             </div>
-        }
+    
+            <img [ngClass]="{'astronaut-show': currentPageIndex >= 9}" class="astronaut" src="images/astronaut.svg" alt="" loading="lazy">
+    
+            <!-- CONTACT -->
+            @if(currentPageIndex > 11) {
+                <div [ngStyle]="fixToPage(12)" class="contact-container">
+                    <div class="contact">
+                        <app-nebula></app-nebula>
+                        
+                        <div class="center-text">
+                            <div class="small-text">
+                                <p>LET'S CHAT</p>
+                                <p>LET'S CHAT</p>
+                                <p>LET'S CHAT</p>
+                            </div>
+            
+                            <p class="main">GET IN TOUCH</p>
+            
+                            
+                            <div (click)="navigateTo('/contact')" class="connect-button">
+                                <div>
+                                    LET'S CONNECT
+            
+                                    <div class="line"></div>
+                                </div>
+                                <img src="icons/arrow-right.svg" alt="" loading="lazy">
+                            </div>
+                        </div>
+            
+                        <div class="footer">
+                            <img class="cross c3" src="icons/cool-cross.svg" alt="" loading="lazy">
+                            <p class="credit">© 2025</p>
+                            
+                            <p>hello&#64;antidoteverse.com</p>
+                            <img class="cross c4" src="icons/cool-cross.svg" alt="" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+@else {
+    <app-star-exposure [targetOffset]="getPositionForPage(0, 100, 10)"></app-star-exposure>
 
-        <!-- Raining Stars -->
-        <app-star-rain [scrollPosition]="scrollPosition"></app-star-rain>
+    <div class="m-section m-landing">
+        <div [ngStyle]="updatePlanet()" class="m-planets-1">
+            <app-planet-gen 
+                [animPercentage]="getPositionForPage(0, 100, 1)" 
+                [planetSize]="screenHeight * 0.8" 
+                [primaryColor]="'#4239ac'"
+                [secondaryColor]="'#00E0FF'"
+                [hasRings]="true"
+                class="m-planet-1"
+            ></app-planet-gen>
+    
+            <app-planet-gen 
+                [animPercentage]="getPositionForPage(0, 100, 1)" 
+                [planetSize]="screenHeight * 0.15" 
+                [primaryColor]="'#51598b'"
+                [secondaryColor]="'#2f1a94'"
+                class="m-planet-1-satellite-1"
+            ></app-planet-gen>
+        </div>
 
-        <!-- Projects Highlight -->
-        <app-projects-preview [maxProjects]="4" [ngStyle]="fixToPage(4)"></app-projects-preview>
+        <div class="m-landing-title">
+            <p>CREATE <br> ANYTHING</p>
+        </div>
+    </div>
 
-        <!-- PLANETS-2 -->
-         @if(currentPageIndex >= 5 && currentPageIndex < 10) {
-            <div [ngClass]="{'planets-2-hide': currentPageIndex >= 9}" [ngStyle]="{'opacity': getPositionForPage(0, 1, 5), 'top': getPositionForPage2(0, 70, [4, 10]) * -1 + 'vh'}" class="planets-2">
-                <app-planet-gen 
-                [animPercentage]="getPositionForPage(100, 0, 6)"  
+    <!-- Projects Highlight -->
+    <div class="m-section m-projects">
+        <app-projects-preview [maxProjects]="4"></app-projects-preview>
+    </div>
+
+    <div class="m-section sliding">
+        <div class="m-planets-2">
+            <app-planet-gen 
+                [animPercentage]="getPositionForPage(100, 0, 2)"  
                 [planetSize]="screenHeight * 1.3" 
                 [primaryColor]="'#636491'"
                 [secondaryColor]="'#4253a3'"
                 [hasRings]="true"
-                class="planet-2"
+                class="m-planet-2"
             ></app-planet-gen>
 
             <app-planet-gen 
-                [ngStyle]="{'bottom': getPositionForPage(0, 40, 6) + 'px'}"
-                [animPercentage]="getPositionForPage(100, 0, 6)"  
+                [animPercentage]="getPositionForPage(100, 0, 2)"  
                 [planetSize]="screenHeight * 0.2" 
                 [primaryColor]="'#636491'"
                 [secondaryColor]="'#4253a3'"
-                class="planet-2-satellite"
+                class="m-planet-2-satellite"
             ></app-planet-gen>
-            </div>
-        }
-
-        <div class="sliding-text">
-            <app-scrambler-text 
-                [text]="'CRAFTING IDEAS \n TO UNIQUE \n EXPERIENCES'"
-                [event]="currentPageIndex == 7"
-                [ngStyle]="appearDisappear(7)"
-                class="title"
-            ></app-scrambler-text>
-
-            <div [ngStyle]="appearDisappear(7)" class="paragraph">
-                <app-scrambler-text 
-                    [text]="'ANTIDOTE IS A DIGITAL STUDIO DESIGNED \n TO REALIZE YOUR PROJECTS.'"
-                    [event]="currentPageIndex == 7"
-                    [duration]="10"
-                ></app-scrambler-text>
-
-                <app-scrambler-text 
-                    [text]="'BRINGING TO LIFE INNOVATIVE SOLUTIONS \n WITH A PERFECT BALANCE OF ART, \n TECHNOLOGY, AND CREATIVITY. '"
-                    [event]="currentPageIndex == 7"
-                    [duration]="10"
-                ></app-scrambler-text>
-            </div>
         </div>
-
-        <div class="sliding-text">
-            <app-scrambler-text 
-                [text]="'OUR SKILLSET \n YOUR VISION'"
-                [event]="currentPageIndex == 8"
-                [ngStyle]="appearDisappear(8)"
-                class="title"
-            ></app-scrambler-text>
-
-            <app-scrambler-text
-                [ngStyle]="appearDisappear(8)" class="paragraph" 
-                [text]="'WE SPECIALIZE IN VARIOUS \n TECHNOLOGIES THAT ELEVATE YOUR BRAND \n AND ENGAGE YOUR AUDIENCE IN WAYS THAT \n FEEL BOTH FUTURISTIC AND TIMELESS.'"
-                [event]="currentPageIndex == 8"
-                [duration]="10"
-            ></app-scrambler-text>
-        </div>
-
-        <div [ngStyle]="stretch(9)" class="sliding-text-2">
-            <p>BEYOND</p>
-            <p>VISION</p>
-        </div>
-
-        <img [ngClass]="{'astronaut-show': currentPageIndex >= 9}" class="astronaut" src="images/astronaut.svg" alt="" loading="lazy">
-
-        <!-- CONTACT -->
-        @if(currentPageIndex > 11) {
-            <div [ngStyle]="fixToPage(12)" class="contact-container">
-                <div class="contact">
-                    <app-nebula></app-nebula>
-                    
-                    <div class="center-text">
-                        <div class="small-text">
-                            <p>LET'S CHAT</p>
-                            <p>LET'S CHAT</p>
-                            <p>LET'S CHAT</p>
-                        </div>
-        
-                        <p class="main">GET IN TOUCH</p>
-        
-                        
-                        <div (click)="navigateTo('/contact')" class="connect-button">
-                            <div>
-                                LET'S CONNECT
-        
-                                <div class="line"></div>
-                            </div>
-                            <img src="icons/arrow-right.svg" alt="" loading="lazy">
-                        </div>
-                    </div>
-        
-                    <div class="footer">
-                        <img class="cross c3" src="icons/cool-cross.svg" alt="" loading="lazy">
-                        <p class="credit">© 2025</p>
-                        
-                        <p>hello&#64;antidoteverse.com</p>
-                        <img class="cross c4" src="icons/cool-cross.svg" alt="" loading="lazy">
-                    </div>
-                </div>
-            </div>
-        }
     </div>
-</div>
+
+    <div class="m-section"></div>
+}

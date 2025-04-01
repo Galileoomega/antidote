@@ -1,0 +1,68 @@
+$title-size: 18vw;
+$text-size: 18vw;
+
+.m-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.m-landing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-title {
+        text-align: center;
+        font-size: 18vw;
+    }
+}
+
+.m-planets-1 {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+
+    .m-planet-1 {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translate(-40%, -50%);
+    }
+    
+    .m-planet-1-satellite-1 {
+        position: absolute;
+        left: 30vw;
+        bottom: 10vh;
+    }
+}
+
+.m-planets-2 {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+
+    .m-planet-2 {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) rotate(10deg);
+    }
+
+    .m-planet-2-satellite {
+        position: absolute;
+        left: 30vw;
+        bottom: 10vh;
+    }
+}
+
+.m-projects {
+    height: fit-content;
+}
+
+.sliding {
+    overflow: visible;
+}

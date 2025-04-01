@@ -3,14 +3,13 @@
         display: block !important;
     }
 
-    .projects {
+    .desktop-projects {
         display: none !important;
     }
 }
 
 .mobile-projects {
     display: none;
-    position: absolute;
     padding-inline: 25px;
     width: 100vw;
 
@@ -42,6 +41,18 @@
 
     .title {
         font-size: 5vw;
+    }
+
+    .m-heading {
+        font-size: 19vw;
+        width: 100%;
+        text-align: center;
+    }
+
+    .m-subheading {
+        font-size: 5vw;
+        margin-bottom: 25px;
+        margin-top: -15px;
     }
 }
 
@@ -308,4 +319,5 @@
     @extend .button;
     padding-inline: 25px;
     font-size: 14px;
+    margin-top: 50px;
 }
