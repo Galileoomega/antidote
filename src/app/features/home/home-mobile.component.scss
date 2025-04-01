@@ -6,6 +6,10 @@ $text-size: 18vw;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+
+    * {
+        overflow: hidden;
+    }
 }
 
 .m-landing {
