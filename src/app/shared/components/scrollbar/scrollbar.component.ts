@@ -29,6 +29,10 @@ export class ScrollbarComponent implements AfterViewInit {
     this.scrollPosition = window.scrollY;
     this.element.classList.replace('hide', 'show');
 
+    if(window.scrollY == 0) {
+      this.element.classList.replace('show', 'hide');
+    }
+
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
     }
@@ -44,10 +48,10 @@ export class ScrollbarComponent implements AfterViewInit {
   }
 
   public calculateBarPosition(): { [key: string]: string } {
-    return { 'margin-top': `${this.BAR_HEIGHT * (this.scrollPosition / (this.getPageHeight() - this.screenHeight))}%` };
+    return { 'margin-top': `${this.BAR_HEIGHT * (this.scrollPosition / (this.getPageHeight() - this.screenHeight))}px` };
   }
 
-  getPageHeight(): number {
+  private getPageHeight(): number {
     if (typeof window !== 'undefined') {
       return Math.max(
         document.body.scrollHeight,
