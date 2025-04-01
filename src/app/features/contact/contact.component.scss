@@ -74,11 +74,13 @@ canvas {
     img {
         position: absolute;
         right: -30px;
-        top: 11px;
+        top: 10px;
+        height: 1.3vh;
+        object-fit: cover;
     }
 
     a:hover {
-        padding-right: 50px;
+        padding-right: 40px;
 
         img {
             right: 10px;

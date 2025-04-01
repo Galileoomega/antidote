@@ -8,34 +8,31 @@ import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } 
   styleUrls: ['./scrollbar.component.scss']
 })
 export class ScrollbarComponent implements AfterViewInit {
-  private scrollPosition: number = 0;
-  public containerHeight: number = 200;
-  public barHeight: number = 150;
-  private hideTimeout: any = null;
   private element!: HTMLElement;
+  private scrollPosition: number = 0;
+  private hideTimeout: any = null;
   private screenHeight: number = 0;
+  
+  public readonly BAR_HEIGHT: number = 150;
 
   constructor() { }
 
   ngAfterViewInit(): void {
     if (typeof window !== 'undefined') {
-      // Get the scrollbar element by its ID.
       this.element = document.getElementById('bar-container')!;
+      this.screenHeight = window.innerHeight;
     }
   }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {
-    // Update the current scroll position.
     this.scrollPosition = window.scrollY;
-    
-    // Immediately show the scrollbar.
     this.element.classList.replace('hide', 'show');
 
-    // Reset the hide timer.
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
     }
+    
     this.hideTimeout = setTimeout(() => {
       this.element.classList.replace('show', 'hide');
     }, 1000);
@@ -47,9 +44,7 @@ export class ScrollbarComponent implements AfterViewInit {
   }
 
   public calculateBarPosition(): { [key: string]: string } {
-    const totalScrollHeight = this.getPageHeight() - this.screenHeight;
-    
-    return { 'margin-top': `${this.barHeight * (this.scrollPosition / totalScrollHeight)}px` };
+    return { 'margin-top': `${this.BAR_HEIGHT * (this.scrollPosition / (this.getPageHeight() - this.screenHeight))}%` };
   }
 
   getPageHeight(): number {
