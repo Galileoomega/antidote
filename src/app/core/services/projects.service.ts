@@ -35,7 +35,8 @@ export class ProjectsService {
         { type: 'image', url: 'projects/superk/2.png', name: 'Products' },
         { type: 'image', url: 'projects/superk/3.png', name: 'Cart' },
         { type: 'image', url: 'projects/superk/4.png', name: 'Product Detail' },
-        { type: 'image', url: 'projects/superk/5.png', name: 'Product Detail' }
+        { type: 'image', url: 'projects/superk/5.png', name: 'Product Detail' },
+        { type: 'video', url: 'projects/superk/6.mp4', name: 'Product Detail' },
       ]
     },
     {
