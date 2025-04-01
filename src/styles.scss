@@ -31,6 +31,12 @@
     --black: #000000;
 }
 
+img {
+    pointer-events: none;
+    user-drag: none;
+    -webkit-user-drag: none;
+}
+
 * {
     box-sizing: border-box;
     user-select: none;
