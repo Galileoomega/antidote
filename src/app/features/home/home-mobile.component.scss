@@ -8,7 +8,7 @@ $text-size: 18vw;
     overflow: hidden;
 
     * {
-        overflow: hidden;
+        overflow: visible;
     }
 }
 
@@ -19,7 +19,7 @@ $text-size: 18vw;
 
     &-title {
         text-align: center;
-        font-size: 18vw;
+        font-size: $title-size;
     }
 }
 
