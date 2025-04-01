@@ -1,5 +1,18 @@
-$title-size: 18vw;
+$h1-size: 18vw;
 $text-size: 18vw;
+
+h1 {
+    font-size: $h1-size;
+}
+
+h2 {
+    font-size: 13vw;
+    font-weight: normal;
+}
+
+p {
+    font-size: 4vw;
+}
 
 .m-section {
     position: relative;
@@ -8,7 +21,7 @@ $text-size: 18vw;
     overflow: hidden;
 
     * {
-        overflow: visible;
+        overflow: hidden;
     }
 }
 
@@ -19,7 +32,7 @@ $text-size: 18vw;
 
     &-title {
         text-align: center;
-        font-size: $title-size;
+        font-size: $h1-size;
     }
 }
 
@@ -45,6 +58,7 @@ $text-size: 18vw;
 
 .m-planets-2 {
     position: absolute;
+    left: 0;
     width: 100vw;
     height: 100vh;
     z-index: -1;
@@ -67,6 +81,80 @@ $text-size: 18vw;
     height: fit-content;
 }
 
-.sliding {
-    overflow: visible;
+.m-bio {
+    height: 200vh;
+    padding-top: 50px;
+    padding-inline: 25px;
+}
+
+.m-exposure {
+    .m-astronaut {
+        position: absolute;
+        width: 130%;
+        left: 50%;
+        bottom: -5px;
+        transform: translateX(-50%);
+    }
+}
+
+.m-contact {
+    background-color: black;
+    text-align: center;
+
+    .m-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .m-nebula {
+        position: absolute;
+        width: 400vw;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        filter: blur(50px);
+
+        animation: lala 30s ease-in-out infinite;
+    }
+
+    @keyframes lala {
+        0% {
+            transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
+        }
+
+        25% {
+            transform: translate(-50%, -50%) perspective(500px) rotateX(-30deg) rotateY(30deg);
+        }
+
+        50% {
+            transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(-10deg);
+        }
+
+        75% {
+            transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(10deg);
+        }
+
+        100% {
+            transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
+        }
+    }
+
+    .m-connect-btn {
+        display: flex;
+
+        img {
+            width: 20px;
+            object-fit: contain;
+            margin-left: 10px;
+        }
+    }
 }

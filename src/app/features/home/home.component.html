@@ -179,7 +179,7 @@
     </div>
 }
 @else {
-    <app-star-exposure [targetOffset]="getPositionForPage(0, 100, 10)"></app-star-exposure>
+    <app-star-exposure [targetOffset]="getPositionForPage(0, 300, 3)"></app-star-exposure>
 
     <div class="m-section m-landing">
         <div [ngStyle]="updatePlanet()" class="m-planets-1">
@@ -202,7 +202,7 @@
         </div>
 
         <div class="m-landing-title">
-            <p>CREATE <br> ANYTHING</p>
+            <h1>CREATE <br> ANYTHING</h1>
         </div>
     </div>
 
@@ -211,7 +211,27 @@
         <app-projects-preview [maxProjects]="4"></app-projects-preview>
     </div>
 
-    <div class="m-section sliding">
+    <div class="m-section m-exposure">
+        <img class="m-astronaut" src="images/astronaut.svg" alt="">
+    </div>
+
+    <div class="m-section m-contact">
+        <img class="m-nebula" src="icons/nebula.svg" alt="">
+
+        <div class="m-content">
+            <h1>
+                GET <br> IN <br> TOUCH
+            </h1>
+    
+            <div (click)="navigateTo('/contact')" class="m-connect-btn">
+                LET'S CONNECT
+    
+                <img src="icons/arrow-right.svg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="m-section m-bio">
         <div class="m-planets-2">
             <app-planet-gen 
                 [animPercentage]="getPositionForPage(100, 0, 2)"  
@@ -230,7 +250,8 @@
                 class="m-planet-2-satellite"
             ></app-planet-gen>
         </div>
-    </div>
 
-    <div class="m-section"></div>
+        <h2>CRAFTING IDEAS TO UNIQUE EXPERIENCES</h2>
+        <p>Antidote is a digital studio designed to realize your projects.</p>
+    </div> -->
 }
