@@ -135,6 +135,15 @@ p {
             margin-left: 10px;
         }
     }
+
+    .m-hider {
+        position: absolute;
+        top: 99vh;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+    }
 }
 
 @keyframes nebula-animation {
