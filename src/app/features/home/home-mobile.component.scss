@@ -123,29 +123,7 @@ p {
         z-index: 0;
         filter: blur(50px);
 
-        animation: lala 30s ease-in-out infinite;
-    }
-
-    @keyframes lala {
-        0% {
-            transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
-        }
-
-        25% {
-            transform: translate(-50%, -50%) perspective(500px) rotateX(-30deg) rotateY(30deg);
-        }
-
-        50% {
-            transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(-10deg);
-        }
-
-        75% {
-            transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(10deg);
-        }
-
-        100% {
-            transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
-        }
+        animation: nebula-animation 30s ease-in-out infinite;
     }
 
     .m-connect-btn {
@@ -156,5 +134,27 @@ p {
             object-fit: contain;
             margin-left: 10px;
         }
+    }
+}
+
+@keyframes nebula-animation {
+    0% {
+        transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
+    }
+
+    25% {
+        transform: translate(-50%, -50%) perspective(500px) rotateX(-30deg) rotateY(30deg);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(-10deg);
+    }
+
+    75% {
+        transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(10deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
     }
 }
