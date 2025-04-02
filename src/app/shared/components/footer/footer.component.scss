@@ -1,3 +1,9 @@
+@media (max-width: 768px) {
+    .footer-container {
+        display: none !important;
+    }
+}
+
 .footer-container {
     display: flex;
     align-items: center;
