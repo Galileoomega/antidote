@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:antidote-ssr": "node dist/antidote-ssr/server/server.mjs",
-    "vercel-build": "ng build && node dist/YOUR-APP/server/server.mjs"
+    "vercel-build": "ng build && node dist/antidote-ssr/server/server.mjs"
   },
   "private": true,
   "dependencies": {
