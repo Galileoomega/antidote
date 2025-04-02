@@ -1,12 +1,9 @@
 .footer-container {
-    position: absolute;
     display: flex;
     align-items: center;
     gap: 50px;
     height: 1.5vw;
-    width: calc(100vw - 100px);
-    bottom: 0px;
-    left: 50px;
+    padding: 50px;
 
     .cross {
         width: 1.5vw;

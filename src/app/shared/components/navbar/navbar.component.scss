@@ -54,6 +54,7 @@
 }
 
 .navbar-mobile {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -62,7 +63,6 @@
     padding-inline: 40px;
     pointer-events: none;
 
-    display: none;
     z-index: 21;
     align-items: center;
     font-size: 1.8vh;
@@ -93,6 +93,7 @@
     left: 50%;
     transform: translate(-50%);
     cursor: pointer;
+    pointer-events: all;
 }
 
 .menu-btn {
