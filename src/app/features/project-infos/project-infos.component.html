@@ -1,10 +1,4 @@
 <div class="desktop-view">
-    <div class="back-button" (click)="goBack()">
-        <img src="icons/arrow-left.svg" loading="lazy">
-    
-        GO BACK
-    </div>
-    
     <div class="carousel-container" (wheel)="onScroll($event)">
         <div [ngStyle]="updateScrollPosition()" #carousel class="carousel" [class.exiting]="isExiting">
             <div class="carousel-first-item">
@@ -18,7 +12,10 @@
                             {{ project?.description }}
                         </p>
     
-                        <div style="margin-top: 50px;" class="button" (click)="visitWebsite()" *ngIf="project?.websiteUrl">VISIT WEBSITE</div>
+                        <div style="margin-top: 50px;" class="button" (click)="visitWebsite()" *ngIf="project?.websiteUrl">
+                            START PROJECT
+                            <img src="icons/arrow-up-right-mini.svg" alt="">
+                        </div>
                     </div>
     
                     <div>
@@ -59,6 +56,12 @@
             }
         </div>
     </div>
+
+    <div class="back-button" (click)="goBack()">
+        <img src="icons/arrow-left.svg" loading="lazy">
+    
+        BACK
+    </div>
 </div>
 
 <div class="mobile-view">
@@ -97,5 +100,5 @@
 </div>
 
 <div (click)="visitWebsite()" *ngIf="project?.websiteUrl" class="mobile-open-btn">
-    OPEN WEBSITE
+    START PROJECT
 </div>

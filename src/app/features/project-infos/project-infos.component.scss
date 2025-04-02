@@ -183,20 +183,37 @@ $spacing-xxl: 100px;
 
 // Components
 .button {
-  width: fit-content;
-  padding: $spacing-base;
-  padding-inline: $spacing-base * 2;
-  border: 1.5px solid white;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all $transition-duration ease;
+  display: flex;
+  align-items: center;
+  gap: 1.2vh;
 
+  width: fit-content;
+  padding: 1vh;
+  padding-inline: 2vh;
+
+  border: 1.5px solid var(--white);
+  border-radius: 100px;
+ 
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  font-size: 1.8vh;
+  overflow: hidden;
+  transition: all $transition-duration ease;
+  
   &:hover {
     background-color: rgba(white, 0.1);
+  }
+  
+  img {
+    height: 1.5vh;
+    object-fit: cover;
   }
 }
 
 .back-button {
-  top: 25px;
-  
+  @extend .button;
+  position: fixed;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
 }

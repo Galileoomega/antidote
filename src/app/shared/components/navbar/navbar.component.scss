@@ -99,19 +99,19 @@
 .menu-btn {
     display: flex;
     align-items: center;
-    gap: 1vh;
+    gap: 1.2vh;
     padding: 1vh;
     padding-inline: 1.8vh;
     border-radius: 100px;
     background-color: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
-    outline: 1.5px solid rgb(48, 48, 48);
+    border: 1.5px solid rgb(75, 75, 75);
     cursor: pointer;
     margin-left: auto;
 
     .dots-container {
         position: relative;
-        width: 1vw;
+        width: 1.9vh;
         aspect-ratio: 1/1;
         border-radius: 100%;
         transition: all 0.2s ease-in-out;
@@ -124,10 +124,10 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 0.38vw;
+            width: 0.75vh;
             aspect-ratio: 1/1;
             transform: translate(0, -50%);
-            background-color: white;
+            background-color: var(--white);
             border-radius: 100%;
         }
 
