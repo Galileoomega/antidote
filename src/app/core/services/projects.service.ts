@@ -32,11 +32,11 @@ export class ProjectsService {
       tags: '3D • WEB • DESIGN • MOTION DESIGN',
       thumbnail: 'projects/superk/1.webp',
       medias: [
-        { type: 'video', url: 'projects/superk/6.mp4', name: 'Product Detail', color: "red" },
-        { type: 'image', url: 'projects/superk/2.png', name: 'Products', color: "red" },
-        { type: 'image', url: 'projects/superk/3.png', name: 'Cart', color: "red" },
-        { type: 'image', url: 'projects/superk/4.png', name: 'Product Detail', color: "red" },
-        { type: 'image', url: 'projects/superk/5.png', name: 'Product Detail', color: "red" },
+        { type: 'video', url: 'projects/superk/6.mkv', name: 'Product Detail', color: "red" },
+        { type: 'image', url: 'projects/superk/2.webp', name: 'Products', color: "red" },
+        { type: 'image', url: 'projects/superk/3.webp', name: 'Cart', color: "red" },
+        { type: 'image', url: 'projects/superk/4.webp', name: 'Product Detail', color: "red" },
+        { type: 'image', url: 'projects/superk/5.webp', name: 'Product Detail', color: "red" },
       ]
     },
     {
