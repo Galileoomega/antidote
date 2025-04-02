@@ -99,7 +99,7 @@
 .menu-btn {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 1vh;
     padding: 1vh;
     padding-inline: 1.8vh;
     border-radius: 100px;
@@ -111,7 +111,7 @@
 
     .dots-container {
         position: relative;
-        width: 0.8vw;
+        width: 1vw;
         aspect-ratio: 1/1;
         border-radius: 100%;
         transition: all 0.2s ease-in-out;
@@ -124,7 +124,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 0.31vw;
+            width: 0.38vw;
             aspect-ratio: 1/1;
             transform: translate(0, -50%);
             background-color: white;
@@ -144,7 +144,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 1vh;
+            width: 1.3vh;
             aspect-ratio: 1/1;
             opacity: 0;
             transform: translate(-50%, -50%) scale(0);

@@ -197,15 +197,6 @@ $spacing-xxl: 100px;
 }
 
 .back-button {
-  @extend .button;
-
-  position: absolute;
-  top: 9%;
-  left: 50%;
-  transform: translate(-50%);
-  z-index: 1;
-
-  &:hover {
-    background-color: rgba(white, 0.1);
-  }
+  top: 25px;
+  
 }
