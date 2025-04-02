@@ -4,10 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build-dev": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:antidote-ssr": "node dist/antidote-ssr/server/server.mjs"
+    "serve:ssr:antidote-ssr": "node dist/antidote-ssr/server/server.mjs",
+    "vercel-build": "ng build && node dist/YOUR-APP/server/server.mjs"
   },
   "private": true,
   "dependencies": {
