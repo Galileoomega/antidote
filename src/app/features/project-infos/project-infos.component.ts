@@ -26,8 +26,7 @@ export class ProjectInfosComponent implements OnInit {
     private route: ActivatedRoute,
     private crouter: CRouterService,
     private projectsService: ProjectsService,
-    private cdr: ChangeDetectorRef,
-    private location: Location
+    private cdr: ChangeDetectorRef
   ) {}
 
   /**
@@ -127,23 +126,11 @@ export class ProjectInfosComponent implements OnInit {
     }
   }
 
+  /**
+   * Navigates back to the homepage with a slight delay.
+   */
   public goBack(): void {
     this.isExiting = true;
-    console.log(new URL(document.referrer).hostname, window.location.hostname)
-    // Check if the document.referrer exists and is within the same domain.
-    if (document.referrer) {
-      try {
-        const referrerUrl = new URL(document.referrer);
-        if (referrerUrl.hostname === window.location.hostname) {
-          this.location.back();
-          return;
-        }
-      } catch (error) {
-        // If parsing the referrer fails, fall back to navigating home.
-        console.error('Error parsing referrer URL:', error);
-      }
-    }
-    // If no valid internal referrer is found, navigate to the home route.
-    this.crouter.navigateTo('/');
+    this.crouter.navigateBack();
   }
 }
