@@ -1,7 +1,6 @@
 @media (max-width: 768px) {
-    body {
-        height: 100vh !important;
-        overflow: auto !important;
+    body, html {
+        height: 100svh !important;
     }
 }
 

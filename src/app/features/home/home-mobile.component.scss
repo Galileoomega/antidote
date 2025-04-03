@@ -2,8 +2,9 @@ $h1-size: 18vw;
 $text-size: 18vw;
 
 .m-wrapper {
-    height: 100vh;
+    height: calc(100% + 2px);
     overflow: auto;
+    overscroll-behavior: none;
 }
 
 h1 {

@@ -229,10 +229,6 @@ export class HomeComponent implements OnInit {
     return {};
   }
 
-  lala(event: any) {
-    console.log(event)
-  }
-
   @HostListener('window:scroll', [])
   onWindowScroll(event: any = null): void {
     if(event) {
