@@ -1,3 +1,9 @@
+@media (max-width: 768px) {
+    body {
+        height: 100vh !important;
+    }
+}
+
 @font-face {
     font-family: 'JetBrains-Regular';
     src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');

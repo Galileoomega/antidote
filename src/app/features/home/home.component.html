@@ -181,57 +181,55 @@
 @else {
     <app-star-exposure [targetOffset]="getPositionForPage(0, 300, 3)"></app-star-exposure>
 
-    <div (scroll)="onWindowScroll($event)" class="m-wrapper">
-        <div class="m-section m-landing">
-            <div [ngStyle]="updatePlanet()" class="m-planets-1">
-                <app-planet-gen 
-                    [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.9" 
-                    [primaryColor]="'#4239ac'"
-                    [secondaryColor]="'#00E0FF'"
-                    [hasRings]="true"
-                    class="m-planet-1"
-                ></app-planet-gen>
-        
-                <app-planet-gen 
-                    [animPercentage]="getPositionForPage(0, 100, 1)" 
-                    [planetSize]="screenHeight * 0.15" 
-                    [primaryColor]="'#51598b'"
-                    [secondaryColor]="'#2f1a94'"
-                    class="m-planet-1-satellite-1"
-                ></app-planet-gen>
+    <div class="m-section m-landing">
+        <div [ngStyle]="updatePlanet()" class="m-planets-1">
+            <app-planet-gen 
+                [animPercentage]="getPositionForPage(0, 100, 1)" 
+                [planetSize]="screenHeight * 0.9" 
+                [primaryColor]="'#4239ac'"
+                [secondaryColor]="'#00E0FF'"
+                [hasRings]="true"
+                class="m-planet-1"
+            ></app-planet-gen>
+    
+            <app-planet-gen 
+                [animPercentage]="getPositionForPage(0, 100, 1)" 
+                [planetSize]="screenHeight * 0.15" 
+                [primaryColor]="'#51598b'"
+                [secondaryColor]="'#2f1a94'"
+                class="m-planet-1-satellite-1"
+            ></app-planet-gen>
+        </div>
+
+        <div class="m-landing-title">
+            <h1>CREATE <br> ANYTHING</h1>
+        </div>
+    </div>
+
+    <!-- Projects Highlight -->
+    <div class="m-section m-projects">
+        <app-projects-preview [maxProjects]="4"></app-projects-preview>
+    </div>
+
+    <div class="m-section m-exposure">
+        <img class="m-astronaut" src="images/astronaut.svg" alt="">
+    </div>
+
+    <div class="m-section m-contact">
+        <img class="m-nebula" src="icons/nebula.svg" alt="">
+
+        <div class="m-content">
+            <h1>
+                GET <br> IN <br> TOUCH
+            </h1>
+    
+            <div (click)="navigateTo('/contact')" class="m-connect-btn">
+                LET'S CONNECT
+    
+                <img src="icons/arrow-right.svg" alt="">
             </div>
-    
-            <div class="m-landing-title">
-                <h1>CREATE <br> ANYTHING</h1>
-            </div>
         </div>
-    
-        <!-- Projects Highlight -->
-        <div class="m-section m-projects">
-            <app-projects-preview [maxProjects]="4"></app-projects-preview>
-        </div>
-    
-        <div class="m-section m-exposure">
-            <img class="m-astronaut" src="images/astronaut.svg" alt="">
-        </div>
-    
-        <div class="m-section m-contact">
-            <img class="m-nebula" src="icons/nebula.svg" alt="">
-    
-            <div class="m-content">
-                <h1>
-                    GET <br> IN <br> TOUCH
-                </h1>
-        
-                <div (click)="navigateTo('/contact')" class="m-connect-btn">
-                    LET'S CONNECT
-        
-                    <img src="icons/arrow-right.svg" alt="">
-                </div>
-            </div>
-    
-            <div class="m-hider"></div>
-        </div>
+
+        <div class="m-hider"></div>
     </div>
 }
