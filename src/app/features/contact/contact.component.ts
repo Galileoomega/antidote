@@ -11,10 +11,10 @@ import { DeviceDetectorService } from '../../core/services/device-detector.servi
 import { ScramblerTextComponent } from '../../shared/components/scrambler-text/scrambler-text.component';
 
 const STAR_COLORS = [
-  [142, 116, 240],
-  [123, 107, 190],
-  [55, 50, 79],
-  [222, 220, 259]
+  [152, 126, 250],
+  [133, 117, 200],
+  [65, 60, 89],
+  [232, 230, 269]
 ];
 
 @Component({
@@ -41,7 +41,7 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // CUSTOMIZATION CONSTANTS
   private TARGET_SPEED = 7;
-  private STARS_COUNT = this.width;
+  private STARS_COUNT = this.width * 1.1;
   private readonly LINE_LENGTH = 2;
   private TEXT_COUNT = 17;
 
@@ -59,8 +59,6 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
       if(isMobile) {
         this.TARGET_SPEED = 3;
         this.TEXT_COUNT = 0;
-      }
-      else {  
       }
     })
   }
@@ -233,13 +231,13 @@ export class ContactComponent implements OnInit, AfterViewInit, OnDestroy {
       const ey = sy + uy * this.LINE_LENGTH;
 
       // Calculate color intensity based on depth
-      const factor = 1.1 - star.z / this.width;
+      const factor = 1.2 - star.z / this.width;
       const rgbMix = `rgb(${Math.floor(star.color[0] * factor)}, ${Math.floor(
         star.color[1] * factor * 1.2
       )}, ${Math.floor(star.color[2] * factor)})`;
 
       this.ctx.strokeStyle = rgbMix;
-      this.ctx.lineWidth = 1;
+      this.ctx.lineWidth = 1.5;
       this.ctx.beginPath();
       this.ctx.moveTo(px, py);
       this.ctx.lineTo(ex, ey);

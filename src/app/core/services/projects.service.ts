@@ -15,28 +15,28 @@ export class ProjectsService {
       tags: 'CONCEPT • DESIGN • POSTER',
       thumbnail: 'projects/techno-posters/1.webp',
       medias: [
-        { type: 'image', url: 'projects/techno-posters/2.webp', name: 'Products', color: "red" },
-        { type: 'image', url: 'projects/techno-posters/3.webp', name: 'Product Detail', color: "red" },
-        { type: 'image', url: 'projects/techno-posters/4.webp', name: 'Cart', color: "red" },
-        { type: 'image', url: 'projects/techno-posters/5.webp', name: 'Checkout', color: "red" },
-        { type: 'image', url: 'projects/techno-posters/6.webp', name: 'Checkout', color: "red" },
+        { type: 'image', url: 'projects/techno-posters/2.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/techno-posters/3.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/techno-posters/4.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/techno-posters/5.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/techno-posters/6.webp', name: '', color: "red" },
       ]
     },
     {
       id: 'superk',
       title: 'SUPER-K',
-      description: 'NA',
-      services: ['Web Design', 'UI/UX', 'Development', 'Branding', '3D', 'Motion Design'],
-      client: 'Aeris Dynamics',
+      description: 'SUPER-K is an original fictional narrative. All characters were generated with AI assistance and then refined by humans to achieve a more natural and realistic look, in line with the storyline.',
+      services: ['Web Design', 'UI/UX', 'Development', 'AI', '3D', 'Photoshop'],
+      client: 'SuperK',
       websiteUrl: 'https://superk.vercel.app/',
-      tags: '3D • WEB • DESIGN • MOTION DESIGN',
+      tags: 'AI • WEB • DESIGN • STORY TELLING',
       thumbnail: 'projects/superk/1.webp',
       medias: [
-        { type: 'video', url: 'projects/superk/6.mkv', name: 'Product Detail', color: "red" },
-        { type: 'image', url: 'projects/superk/2.webp', name: 'Products', color: "red" },
-        { type: 'image', url: 'projects/superk/3.webp', name: 'Cart', color: "red" },
-        { type: 'image', url: 'projects/superk/4.webp', name: 'Product Detail', color: "red" },
-        { type: 'image', url: 'projects/superk/5.webp', name: 'Product Detail', color: "red" },
+        { type: 'video', url: 'projects/superk/6.mkv', name: '', color: "red" },
+        { type: 'image', url: 'projects/superk/2.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/superk/3.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/superk/4.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/superk/5.webp', name: '', color: "red" },
       ]
     },
     {
@@ -48,11 +48,11 @@ export class ProjectsService {
       tags: 'DESIGN • BROCHURE • THEATRAL',
       thumbnail: 'projects/halte/cover.webp',
       medias: [
-        { type: 'image', url: 'projects/halte/1.webp', name: 'Products', color: "red" },
-        { type: 'image', url: 'projects/halte/2.webp', name: 'Products', color: "red" },
-        { type: 'image', url: 'projects/halte/3.webp', name: 'Products', color: "red" },
-        { type: 'image', url: 'projects/halte/4.webp', name: 'Products', color: "red" },
-        { type: 'image', url: 'projects/halte/5.webp', name: 'Products', color: "red" }
+        { type: 'image', url: 'projects/halte/1.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/halte/2.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/halte/3.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/halte/4.webp', name: '', color: "red" },
+        { type: 'image', url: 'projects/halte/5.webp', name: '', color: "red" }
       ]
     },
     {
@@ -65,11 +65,11 @@ export class ProjectsService {
       tags: '3D • WEB • DESIGN • MOTION DESIGN',
       thumbnail: 'projects/aeris/cover.webp',
       medias: [
-        { type: 'video', url: 'projects/aeris/2.mp4', name: 'Products', color: "red" },
-        { type: 'video', url: 'projects/aeris/3.mp4', name: 'Cart', color: "red" },
-        { type: 'video', url: 'projects/aeris/4.mp4', name: 'Product Detail', color: "red" },
-        { type: 'image', url: 'projects/aeris/4.jpg', name: 'Checkout', color: "red" },
-        { type: 'image', url: 'projects/aeris/5.jpg', name: 'Checkout', color: "red" },
+        { type: 'video', url: 'projects/aeris/2.mp4', name: '', color: "red" },
+        { type: 'video', url: 'projects/aeris/3.mp4', name: '', color: "red" },
+        { type: 'video', url: 'projects/aeris/4.mp4', name: '', color: "red" },
+        { type: 'image', url: 'projects/aeris/4.jpg', name: '', color: "red" },
+        { type: 'image', url: 'projects/aeris/5.jpg', name: '', color: "red" },
       ]
     },
   ];

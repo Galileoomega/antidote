@@ -37,8 +37,8 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   private ctx!: CanvasRenderingContext2D;
   private baseCtx!: CanvasRenderingContext2D;
   private stars: Star[] = [];
-  private width = 0;
-  private height = 0;
+  private width = window.innerWidth;
+  private height = window.innerHeight;
   private centerX = this.width / 2;
   private centerY = this.height / 2;
   private animationFrameId: number | null = null;
@@ -50,7 +50,7 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
   private readonly THRESHOLD = 2;
   
   // CONFIGURABLES
-  private STARS_COUNT = this.width;
+  private readonly STARS_COUNT = this.width * 1.1;
   private readonly STAR_SIZE_RANGE: [number, number] = [0.8, 1.5];
 
   // Debounce timer for resize events.
@@ -69,7 +69,6 @@ export class StarExposureComponent implements AfterViewInit, OnDestroy {
     this.height = window.innerHeight;
     this.centerX = this.width / 2;
     this.centerY = this.height / 2;
-    this.STARS_COUNT = this.width
     
     this.ctx = this.canvasRef.nativeElement.getContext('2d')!;
     this.baseCtx = this.baseCanvasRef.nativeElement.getContext('2d')!;
