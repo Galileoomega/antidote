@@ -181,7 +181,7 @@
 @else {
     <app-star-exposure [targetOffset]="getPositionForPage(0, 300, 3)"></app-star-exposure>
 
-    <div class="m-wrapper">
+    <div (scroll)="onWindowScroll($event)" class="m-wrapper">
         <div class="m-section m-landing">
             <div [ngStyle]="updatePlanet()" class="m-planets-1">
                 <app-planet-gen 

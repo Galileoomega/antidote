@@ -229,9 +229,18 @@ export class HomeComponent implements OnInit {
     return {};
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(): void {
-    this.scrollPosition = window.scrollY;
+  lala(event: any) {
+    console.log(event)
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(event: any = null): void {
+    if(event) {
+      this.scrollPosition = event.target.scrollTop;
+    }
+    else {
+      this.scrollPosition = window.scrollY;
+    }
 
     this.currentPageIndex = this.getPageIndexFromScroll();
   }
