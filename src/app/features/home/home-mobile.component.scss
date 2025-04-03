@@ -119,8 +119,6 @@ h2 {
         transform: translate(-50%, -50%);
         z-index: 0;
         filter: blur(50px);
-
-        animation: nebula-animation 30s ease-in-out infinite;
     }
 
     .m-connect-btn {
@@ -140,27 +138,5 @@ h2 {
         width: 100vw;
         height: 300vh;
         background-color: black;
-    }
-}
-
-@keyframes nebula-animation {
-    0% {
-        transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
-    }
-
-    25% {
-        transform: translate(-50%, -50%) perspective(500px) rotateX(-30deg) rotateY(30deg);
-    }
-
-    50% {
-        transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(-10deg);
-    }
-
-    75% {
-        transform: translate(-50%, -50%) perspective(500px) rotateX(0deg) rotateY(10deg);
-    }
-
-    100% {
-        transform: translate(-50%, -50%) perspective(500px) rotateX(30deg) rotateY(-30deg);
     }
 }
