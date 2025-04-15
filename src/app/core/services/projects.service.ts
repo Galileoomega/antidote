@@ -67,9 +67,7 @@ export class ProjectsService {
       medias: [
         { type: 'video', url: 'projects/aeris/2.mp4', name: '', color: "red" },
         { type: 'video', url: 'projects/aeris/3.mp4', name: '', color: "red" },
-        { type: 'video', url: 'projects/aeris/4.mp4', name: '', color: "red" },
-        { type: 'image', url: 'projects/aeris/4.jpg', name: '', color: "red" },
-        { type: 'image', url: 'projects/aeris/5.jpg', name: '', color: "red" },
+        { type: 'video', url: 'projects/aeris/4.mp4', name: '', color: "red" }
       ]
     },
   ];
